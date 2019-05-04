@@ -1,0 +1,46 @@
+@import '../../../../variables';
+
+.mat-toolbar {
+	position: fixed;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	background-color: $accent-background;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+
+	.btn-menu .mat-icon {
+		line-height: 22px;
+	}
+
+	.gt-logo {
+		margin-left: 5px;
+		align-self: center;
+		font-family: Comfortaa;
+		font-size: 1.7rem;
+		color: $primary;
+
+		&.title-menu {
+			padding-top: 5px;
+			font-size: 1.2rem;
+			line-height: 1;
+		}
+	}
+
+	.fill-remaining-space {
+		flex: 1 1 auto;
+	}
+
+	.profile-photo {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+	}
+
+	a {
+		text-decoration: none !important;
+	}
+}
+
+gt-search {
+	margin-right: 15px;
+}

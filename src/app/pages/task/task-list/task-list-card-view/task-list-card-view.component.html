@@ -1,0 +1,19 @@
+<div *ngIf="tasksDueToday.length">
+	<h2>Encerram hoje</h2>
+	<gt-tasks-carousel [tasks]="tasksDueToday"></gt-tasks-carousel>
+</div>
+
+<div *ngIf="tasksNotDueToday.length">
+	<h2>Proximas a encerrar</h2>
+	<gt-tasks-carousel [tasks]="tasksNotDueToday"></gt-tasks-carousel>
+</div>
+
+<div *ngIf="tasksDelayed.length">
+	<h2>Atrasadas</h2>
+	<gt-tasks-carousel [tasks]="tasksDelayed"></gt-tasks-carousel>
+</div>
+
+<div *ngIf="tasksFinished.length">
+	<h2>Últimas concluídas</h2>
+	<gt-tasks-carousel [tasks]="tasksFinished"></gt-tasks-carousel>
+</div>

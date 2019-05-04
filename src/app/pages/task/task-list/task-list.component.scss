@@ -1,0 +1,43 @@
+.container {
+
+	mat-button-toggle-group {
+		position: absolute;
+		top: 20px;
+		right: 10px;
+
+		/deep/ .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+			line-height: 34px;
+			font-size: 17px;
+		}
+	}
+
+	.card-view-container {
+		margin-bottom: 50px;
+	}
+
+	gt-datatable {
+		/deep/ {
+			mat-table {
+				max-height: calc(100vh - 190px);
+				overflow: auto;
+			}
+		}
+	}
+}
+
+.card-container {
+	max-height: 320px;
+	overflow: auto;
+
+	task-card {
+		margin-bottom: 10px;
+	}
+}
+
+@media (max-width: 959px) {
+
+	.card-container {
+		max-height: unset;
+		padding-bottom: 10px;
+	}
+}

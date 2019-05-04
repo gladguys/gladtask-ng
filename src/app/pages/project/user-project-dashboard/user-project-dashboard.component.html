@@ -1,0 +1,36 @@
+<div class="container scrollbar-thin">
+
+	<div *ngIf="(projects$ | async) as projects; else loadingProjects">
+		<span class="empty-msg" *ngIf="projects.length == 0; else projectsList">Não há projetos recentes.</span>
+
+		<ng-template #projectsList>
+			<h1>Projetos Recentes</h1>
+			<div
+				fxLayout="row"
+				fxLayoutGap="10px">
+
+				<div fxFlex="1 1 160px"  class="card-project" *ngFor="let p of projects">
+					<div
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						class="project-image"
+						[routerLink]="['projects', 'project-info', p.id]">
+
+						<span>{{p.name}}</span>
+					</div>
+					<div class="team-of-project">{{p.team.name}}</div>
+				</div>
+			</div>
+		</ng-template>
+	</div>
+
+	<ng-template #loadingProjects>
+		<div
+			fxLayout="row"
+			fxLayoutAlign="center center"
+			class="skeleton-loading">
+
+			<mat-spinner [diameter]="25"></mat-spinner>
+		</div>
+	</ng-template>
+</div>

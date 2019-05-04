@@ -1,0 +1,42 @@
+<div class="container">
+
+	<mat-button-toggle-group
+		[value]="cardView"
+		(change)="toggleView($event)"
+		name="fontStyle"
+		aria-label="Font Style">
+
+		<mat-button-toggle [value]="true">
+			<fa-icon icon="th-large"></fa-icon>
+		</mat-button-toggle>
+		<mat-button-toggle [value]="false">
+			<fa-icon icon="bars"></fa-icon>
+		</mat-button-toggle>
+	</mat-button-toggle-group>
+
+	<div *ngIf="cardView; else gridView"
+		fxLayout="column"
+		fxLayoutGap="10px"
+		class="card-view-container">
+
+		<task-list-card-view
+			[tasksDueToday]="tasksDueToday"
+			[tasksNotDueToday]="tasksNotDueToday"
+			[tasksDelayed]="tasksDelayed"
+			[tasksFinished]="tasksFinished">
+		</task-list-card-view>
+	</div>
+
+	<ng-template #gridView>
+		<task-list-grid-view *ngIf="!cardView"
+		                     [tasksDueToday]="tasksDueToday"
+		                     [tasksNotDueToday]="tasksNotDueToday"
+		                     [tasksDelayed]="tasksDelayed"
+		                     [tasksFinished]="tasksFinished">
+		</task-list-grid-view>
+	</ng-template>
+
+	<button mat-fab class="mat-fab--floating btn-green" (click)="addTask()">
+		<fa-icon icon="plus" size="lg" aria-label="Add task button"></fa-icon>
+	</button>
+</div>

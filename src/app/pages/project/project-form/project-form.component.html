@@ -1,0 +1,74 @@
+<div>
+
+	<form
+		fxLayout="row wrap"
+		fxLayoutGap="20px"
+		[formGroup]="projectForm"
+		role="form"
+		(submit)="onSubmit()">
+
+		<div>
+			<input #fileInput hidden type="file" accept='image/*' (change)="showPreviewImage(fileInput.files)">
+			<div
+				class="image-rounded image--with-hover-msg"
+				(click)="fileInput.click()"
+				[ngStyle]="{'background-image': 'url('+ previewImage +')'}"
+				*ngIf="previewImage">
+			
+				<fa-icon icon="camera"></fa-icon>
+			</div>
+		</div>
+
+		<mat-form-field
+			fxFlex="1 1 400px"
+			fxFlex.lt-sm="1 1 290px"
+			appearance="outline">
+
+			<mat-label>Nome do Projeto</mat-label>
+			<input
+				matInput
+				formControlName="name"
+				required>
+			<gt-form-error *ngIf="projectForm.controls['name'].errors?.required && !projectForm.controls['name'].pristine"></gt-form-error>
+		</mat-form-field>
+
+		<mat-form-field
+			fxFlex="1 1 600px"
+			fxFlex.lt-sm="1 1 290px"
+			appearance="outline">
+
+			<mat-label>Descrição</mat-label>
+			<textarea
+				matInput
+				formControlName="description"
+				required>
+			</textarea>
+		</mat-form-field>
+
+		<mat-form-field
+			fxFlex="1 1 300px"
+			fxFlex.lt-sm="1 1 290px"
+			appearance="outline">
+
+			<mat-label>Equipe</mat-label>
+			<mat-select
+				formControlName="team">
+
+				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
+					{{team.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+
+		<div fxFlex="1 1 100%">
+			<button
+				mat-flat-button
+				type="submit"
+				class="btn-green"
+				[disabled]="!projectForm.valid">
+				Salvar
+			</button>
+		</div>
+	</form>
+</div>

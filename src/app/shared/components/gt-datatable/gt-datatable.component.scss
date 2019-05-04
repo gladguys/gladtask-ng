@@ -1,0 +1,89 @@
+.form-field-search-table {
+
+	/deep/ .mat-form-field-wrapper {
+		margin: 0;
+		padding-bottom: 0;
+	}
+}
+
+.mat-paginator {
+
+	/deep/ {
+
+		.mat-paginator-container {
+			min-height: unset;
+			flex-wrap: wrap;
+		}
+
+		.mat-paginator-page-size-select {
+			margin-top: 0;
+
+			.mat-form-field-wrapper {
+				padding-bottom: 0;
+
+				.mat-form-field-infix {
+					padding: 10px;
+					border: 1px solid rgba(0, 0, 0, 0.12);
+					border-radius: 5px;
+
+					.mat-form-field-label-wrapper {
+						top: 0;
+						padding-top: 0;
+					}
+				}
+
+				.mat-form-field-underline {
+					display: none;
+				}
+			}
+		}
+
+		.mat-paginator-range-actions {
+			
+			.mat-paginator-range-label {
+				margin-right: 0;
+			}
+
+			.mat-icon-button {
+				width: 30px;
+				height: 30px;
+				line-height: 29px;
+			}
+		}
+	}
+
+	~ .mat-table {
+		margin-top: 10px;
+	}
+}
+
+.mat-table {
+
+	mat-header-row {
+		min-height: 40px;
+
+		/deep/ .mat-sort-header-button {
+			font-weight: bold;
+		}
+	}
+}
+
+.novo {
+	color:darkgoldenrod;
+}
+
+.aprovado {
+	color:green;
+}
+
+.desaprovado {
+	color:red;
+}
+
+.resolvido {
+	color:darkblue;
+}
+
+.atribuido {
+	color:darkmagenta;
+}

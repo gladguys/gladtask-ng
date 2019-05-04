@@ -1,0 +1,120 @@
+@import '../../../../variables';
+
+.card-task {
+	border: 1px solid rgb(200, 200, 200);
+	border-radius: 10px;
+	box-shadow: none;
+
+	&.card-task--yellow {
+		background-color: rgb(255, 255, 225);
+		border-color: rgb(255, 245, 215);
+
+		mat-card-actions {
+
+			button {
+				background-color: rgb(255, 245, 215);
+			}
+		}
+	}
+
+	&.card-task--red {
+		background-color: rgb(255, 230, 230);
+		border-color: rgb(255, 220, 220);
+
+		mat-card-actions {
+
+			button {
+				background-color: rgb(255, 220, 220);
+			}
+		}
+	}
+
+	mat-form-field.mat-form-field--appearence-label-smaller {
+
+		&.mat-form-field-disabled {
+
+			.mat-input-element {
+				color: currentColor;
+			}
+
+			/deep/ .mat-form-field-infix {
+				.mat-form-field-label {
+					color: rgba(0, 0, 0, 0.6);
+				}
+			}
+		}
+
+		&.input-task-title {
+			font-size: 16px;
+
+			/deep/ .mat-form-field-infix {
+				padding-top: 0;
+			}
+
+			input:not(:focus) {
+				font-weight: bold;
+			}
+		}
+
+		&.input-task-description textarea {
+			min-height: 44px;
+			max-height: 44px;
+		}
+
+		&.select-task-status {
+			/deep/ {
+				.mat-form-field-infix {
+					.mat-form-field-label-wrapper {
+						overflow: visible;
+
+						.mat-form-field-label {
+							transform: translateY(-7px) translateX(-18px) scale(0.75)
+						}
+					}
+				}
+			}
+		}
+
+		&.input-task-time-spent {
+			width: 62px;
+
+			/deep/ input {
+				font-size: 16px;
+			}
+		}
+	}
+
+	mat-card-actions {
+		button {
+			font-size: 18px;
+		}
+	}
+}
+
+.status-indicator {
+	margin-right: 5px;
+
+	&.status-indicator--red {
+		color: red;
+	}
+
+	&.status-indicator--green {
+		color: green;
+	}
+
+	&.status-indicator--blue {
+		color: blue;
+	}
+
+	&.status-indicator--grey {
+		color: grey;
+	}
+
+	&.status-indicator--yellow {
+		color: yellow;
+	}
+
+	&.status-indicator--orange {
+		color: orange;
+	}
+}

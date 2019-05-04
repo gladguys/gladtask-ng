@@ -1,0 +1,12 @@
+<div ng-sidebar-content *ngIf="(userTeams$ | async) as userTeams" class="sidebar-content">
+	<div *ngIf="userTeams.length != 0; else noTeams"></div>
+	<gt-invitation></gt-invitation>
+	<due-soon-tasks class="container-due-soon-tasks" [dueDays]="3"></due-soon-tasks>
+	<recent-tasks></recent-tasks>
+	<user-project-dashboard></user-project-dashboard>
+</div>
+
+<ng-template ng-sidebar-content #noTeams class="sidebar-content">
+	<h2>Você não possui Equipe ainda</h2>
+	<a routerLink="teams/team-form" routerLinkActive="active">Criar Equipe</a>
+</ng-template>

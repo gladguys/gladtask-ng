@@ -1,0 +1,10 @@
+<fa-icon
+	icon="check-doube"
+	*ngIf="temMensagem(); else mensagem"
+	style="color:green">
+</fa-icon>
+
+<ng-template #mensagem>
+    <label style="color:green">{{ successMessage }}</label>
+</ng-template>
+

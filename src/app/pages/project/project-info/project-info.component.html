@@ -1,0 +1,57 @@
+<div>
+
+	<mat-card class="card-project">
+		<mat-card-title>Informação Geral</mat-card-title>
+		<div class="basic-project-info">
+			<div class="project-image image-rounded image--with-hover-msg"
+				[ngStyle]="{'background-image': 'url('+ project.projectImage +')'}" *ngIf="project.projectImage">
+			</div>
+
+			<div class="generic-project-info">
+				<div class="project-info-wrapper">
+					<mat-label class="label--bold">Nome: </mat-label>
+					<mat-label class="label--value">{{ project.name }}</mat-label>
+				</div>
+
+				<div class="project-info-wrapper">
+					<mat-label class="label--bold">Descrição: </mat-label>
+					<mat-label class="label--value">{{ project.description }}</mat-label>
+				</div>
+
+				<div class="project-info-wrapper">
+					<mat-label class="label--bold">Gerente: </mat-label>
+					<mat-label class="label--value">{{ project.team.manager?.firstName}}</mat-label>
+				</div>
+
+				<div class="project-info-wrapper">
+					<mat-label class="label--bold">Data de Criação: </mat-label>
+					<mat-label class="label--value">{{ project.creationDate | date }}</mat-label>
+				</div>
+			</div>
+		</div>
+	</mat-card>
+
+	<mat-card class="card-project">
+		<mat-card-title>Equipe</mat-card-title>
+		<mat-card-content>
+			<div class="participantes-wrapper">
+				<div *ngFor="let participant of project.team.participants">
+					<div class="participant-image image-rounded"
+						[ngStyle]="{'background-image': 'url('+ participant.profilePhoto +')'}">
+					</div>
+					<label>{{ participant.firstName }}</label>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card class="card-project">
+		<mat-card-title>Atividades do Projeto</mat-card-title>
+		<mat-card-content>
+			<ag-grid-angular domLayout='autoHeight' class="ag-theme-material" pagination="true" rowSelection="single"
+				(rowSelected)="onRowSelected($event)" [localeText]="localeText" [rowData]="projectTasks"
+				[columnDefs]="columnTaskDefinitions">
+			</ag-grid-angular>
+		</mat-card-content>
+	</mat-card>
+</div>

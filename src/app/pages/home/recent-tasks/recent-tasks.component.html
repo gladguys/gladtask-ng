@@ -1,0 +1,20 @@
+<div class="container scrollbar-thin">
+
+	<div *ngIf="(tasks$ | async) as recentTasks; else loadingTasks">
+
+		<span class="empty-msg" *ngIf="recentTasks == 0; else taskslist">Nenhuma participação em Tasks recentemente.</span>
+
+		<ng-template #taskslist>
+			<h1>Últimas Tasks Editadas</h1>
+			<div fxLayout="row" fxLayoutGap="10px" class="card-container">
+				<task-card *ngFor="let task of recentTasks" [task]="task"></task-card>
+			</div>
+		</ng-template>
+	</div>
+
+	<ng-template #loadingTasks>
+		<div class="skeleton-loading">
+			<mat-spinner [diameter]="25"></mat-spinner>
+		</div>
+	</ng-template>
+</div>

@@ -1,0 +1,200 @@
+<div
+	fxLayout="row"
+	fxLayoutAlign="center center"
+	class="signup-container">
+
+	<form
+		fxLayout="row wrap"
+		fxLayoutAlign="center center"
+		fxFlex="0 0 560px"
+		fxFlex.lt-sm="0 0 300px"
+		[formGroup]="userForm"
+		role="form"
+		(submit)="onSubmit()"
+		autocomplete="off">
+
+		<h2 fxFlex="1 1 100%">Crie sua conta</h2>
+
+		<div
+			fxFlex="1 1 100%"
+			fxLayout="row"
+			fxLayoutAlign="center center"
+			class="image-container">
+
+			<input
+				#fileInput
+				hidden
+				type="file"
+				accept='image/*'
+				(change)="showPreviewImage(fileInput.files)">
+
+			<div
+				class="image-rounded image--with-hover-msg"
+				(click)="fileInput.click()"
+				[ngStyle]="{'background-image': 'url('+ previewImage +')'}"
+				*ngIf="previewImage">
+
+				<fa-icon icon="camera">photo_camera</fa-icon>
+			</div>
+		</div>
+
+		<div
+			fxFlex="100%"
+			fxLayout="row wrap"
+			fxLayoutGap.gt-xs="15px"
+			fxLayoutAlign="center center">
+
+			<mat-form-field
+				fxFlex="0 1 330px"
+				appearance="outline">
+
+				<mat-label>Gladname</mat-label>
+				<input
+					matInput
+					formControlName="username"
+					type="text"
+					required>
+
+				<fa-icon
+					icon="check"
+					matSuffix
+					class="icon-success"
+					*ngIf="userForm.controls['username'].valid">
+				</fa-icon>
+
+				<gt-form-error *ngIf="userForm.controls['username'].errors?.required && !userForm.controls['username'].pristine"></gt-form-error>
+				<gt-form-error *ngIf="userForm.controls['username'].errors?.minLength" errorMessage="Gladname muito curto"></gt-form-error>
+				<gt-form-error *ngIf="userForm.controls['username'].errors?.usernameTaken" errorMessage="Gladname já existe"></gt-form-error>
+			</mat-form-field>
+
+			<mat-form-field
+				fxFlex="0 0 150px"
+				appearance="outline">
+
+				<mat-label>Tipo de Usuário</mat-label>
+				<mat-select
+					formControlName="profileEnum"
+					[compareWith]="compareProfile">
+
+					<mat-option value="ROLE_ADMIN">ADMIN</mat-option>
+					<mat-option value="ROLE_CUSTOMER">USER</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div
+			fxFlex="100%"
+			fxLayout="row wrap"
+			fxLayoutGap.gt-xs="15px"
+			fxLayoutAlign="center center">
+
+			<mat-form-field
+				fxFlex="0 0 240px"
+				appearance="outline">
+
+				<mat-label>Primeiro Nome</mat-label>
+				<input
+					matInput
+					formControlName="firstName"
+					type="text">
+			</mat-form-field>
+
+			<mat-form-field
+				fxFlex="0 0 240px"
+				appearance="outline">
+
+				<mat-label>Sobrenome</mat-label>
+				<input
+					matInput
+					formControlName="lastName"
+					type="text">
+			</mat-form-field>
+		</div>
+
+		<mat-form-field
+			fxFlex="0 1 495px"
+			appearance="outline">
+
+			<mat-label>Email</mat-label>
+			<input
+				matInput
+				formControlName="email"
+				type="email"
+				required
+				autocomplete="off">
+			<fa-icon
+				icon="check"
+				matSuffix
+				class="icon-success"
+				*ngIf="userForm.controls['email'].valid">
+			</fa-icon>
+
+			<gt-form-error *ngIf="userForm.controls['email'].errors?.required && !userForm.controls['email'].pristine"></gt-form-error>
+			<gt-form-error *ngIf="userForm.controls['email'].errors?.emailTaken" errorMessage="Email já cadastrado"></gt-form-error>
+		</mat-form-field>
+
+		<div
+			fxFlex="100%"
+			fxLayout="row wrap"
+			fxLayoutGap.gt-xs="15px"
+			fxLayoutAlign="center center">
+
+			<mat-form-field
+				fxFlex="0 1 240px"
+				appearance="outline">
+
+				<mat-label>Senha</mat-label>
+				<input
+					matInput
+					formControlName="password"
+					required
+					[type]="hidePassword ? 'password' : 'text'"
+					autocomplete="off">
+
+				<fa-icon
+					icon="{{hidePassword ? 'eye-slash' : 'eye'}}"
+					matSuffix
+					(click)="hidePassword = !hidePassword">
+				</fa-icon>
+
+				<gt-form-error *ngIf="userForm.controls['password'].errors?.minLength" errorMessage="Senha deve ter pelo menos 6 caracteres."></gt-form-error>
+				<gt-form-error *ngIf="userForm.controls['password'].errors?.required && !userForm.controls['password'].pristine"></gt-form-error>
+			</mat-form-field>
+
+			<mat-form-field
+				fxFlex="0 1 240px"
+				appearance="outline">
+
+				<mat-label>Confirmar Senha</mat-label>
+				<input
+					matInput
+					formControlName="confirm_password"
+					required
+					[type]="hidePassword ? 'password' : 'text'">
+
+				<fa-icon
+					icon="{{hidePassword ? 'eye-slash' : 'eye'}}"
+					matSuffix
+					(click)="hidePassword = !hidePassword">
+				</fa-icon>
+
+				<gt-form-error *ngIf="password_confirm.hasError('invalid')" errorMessage="Senhas diferentes."></gt-form-error>
+				<gt-form-error *ngIf="userForm.controls['confirm_password'].errors?.required && !userForm.controls['confirm_password'].pristine"></gt-form-error>
+			</mat-form-field>
+		</div>
+
+		<div
+			fxFlex="100%"
+			fxLayoutAlign="center center"
+			class="button-container">
+
+			<button
+				mat-raised-button
+				type="submit"
+				[disabled]="userForm.invalid || userForm.pending"
+				class="btn-green btn-salvar-signup">
+				Salvar
+			</button>
+		</div>
+	</form>
+</div>

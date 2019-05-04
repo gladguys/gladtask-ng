@@ -1,0 +1,45 @@
+<mat-card class="login-card">
+	<mat-card-content>
+		<div class="logo">Gladtask</div>
+		<form class="login-form" (keyup.enter)="login()" method="post">
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input
+					matInput
+					name="email"
+					[(ngModel)]="email"
+					required>
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Senha</mat-label>
+				<input
+					matInput
+					type="password"
+					[(ngModel)]="senha"
+					name="password"
+					required>
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+
+	<mat-card-actions>
+		<button
+			mat-raised-button
+			color="primary"
+			class="btn-entrar"
+			(click)="login()">
+			Entrar
+
+		</button>
+
+		<button
+			mat-button
+			color="primary"
+			class="link-register"
+			(click)="signup()">
+			Registrar-se
+		</button>
+	</mat-card-actions>
+
+	<div id="login-loading"></div>
+</mat-card>

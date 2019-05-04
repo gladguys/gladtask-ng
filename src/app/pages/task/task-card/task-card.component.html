@@ -1,0 +1,63 @@
+<mat-card
+	fxFlex="0 0 280px"
+	class="card-task">
+
+	<mat-card-content>
+		<div fxLayout="column" [formGroup]="taskForm">
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-title">
+				<input matInput formControlName="title" required>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-description">
+				<mat-label>Descrição</mat-label>
+				<textarea
+					matInput
+					formControlName="description"
+					cdkTextareaAutosize
+					required
+					class="scrollbar-thin"></textarea>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
+				<mat-label>Enviado por</mat-label>
+				<input matInput value="{{task.senderUser?.username}}" disabled>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
+				<mat-label>Projeto</mat-label>
+				<input matInput formControlName="project" required>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller select-task-status">
+				<fa-icon icon="circle" size="sm" matPrefix class="status-indicator status-indicator--{{ task.status | statusColor }}"></fa-icon>
+				<mat-label>Status</mat-label>
+				<mat-select formControlName="status">
+					<mat-option *ngFor="let status of possibleStatus" [value]="status">
+						<fa-icon icon="circle" size="sm" class="status-indicator status-indicator--{{ status | statusColor }}"></fa-icon>
+						{{status}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-time-spent">
+				<mat-label>Tempo gasto</mat-label>
+				<input matInput formControlName="timeSpent">
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+	<mat-card-actions
+		fxLayout="row"
+		fxLayoutAlign="end center"
+		fxLayoutGap="5px">
+
+		<button mat-mini-fab class="mat-elevation-z0">
+			<fa-icon icon="play"></fa-icon>
+		</button>
+
+		<span class="fill-remaining-space"></span>
+
+		<button mat-mini-fab class="mat-elevation-z0" (click)="showTaskDetail(task)">
+			<fa-icon icon="expand"></fa-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>

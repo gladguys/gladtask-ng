@@ -1,0 +1,13 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Título: {{ task?.title }}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		Descrição: <p>{{ task.description }}</p>
+		Projeto: <p>{{ task.project.name }}</p>
+		Tipo: <p>{{ task.taskType }}</p>
+		Prioridade: <p>{{ task.priority }}</p>
+		Criador: <p>{{ task.creatorUser.firstName }}</p>
+		Data de Entrega: <p>{{ task.dueDate | date }}</p>
+	</mat-card-content>
+</mat-card>

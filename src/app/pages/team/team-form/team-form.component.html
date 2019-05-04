@@ -1,0 +1,41 @@
+<form
+	fxLayout="row wrap"
+	fxLayoutGap="20px"
+	[formGroup]="teamForm"
+	role="form"
+	(submit)="onSubmit()">
+
+	<h1 fxFlex="1 1 100%">Crie uma equipe</h1>
+
+	<mat-form-field
+		fxFlex="1 1 400px"
+		fxFlex.lt-sm="1 1 290px"
+		appearance="outline">
+
+		<mat-label>Nome da Equipe</mat-label>
+		<input matInput formControlName="name" required>
+		<gt-form-error *ngIf="teamForm.controls['name'].errors?.required && !teamForm.controls['name'].pristine"></gt-form-error>
+	</mat-form-field>
+
+	<div *ngIf="teamExists">
+		<span class="line-break"></span>
+		<mat-form-field fxFlex="1 1 400px" fxFlex.lt-sm="1 1 290px" appearance="outline">
+			<mat-label>Gestor</mat-label>
+			<mat-select formControlName="manager" [compareWith]="compareUser">
+				<mat-option *ngFor="let manager of possibleParticipants" [value]="manager">
+					{{manager.email}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<span class="line-break"></span>
+
+	<button
+		mat-flat-button
+		type="submit"
+		class="btn-green"
+		[disabled]="!teamForm.valid">
+		Salvar
+	</button>
+</form>

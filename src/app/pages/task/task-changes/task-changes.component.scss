@@ -1,0 +1,50 @@
+.mat-list-task-changes {
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(230, 230, 230);
+
+	h4 {
+		margin-bottom: 15px;
+	}
+
+	/deep/ {
+
+		.mat-list-task-changes__content {
+			max-height: 300px;
+			overflow: auto;
+
+			div:last-child {
+				.mat-list-item {
+					margin-bottom: 0;
+				}
+
+				.mat-divider {
+					display: none;
+				}
+			}
+
+			.mat-subheader {
+				margin-bottom: 5px;
+				padding: 0;
+				height: auto;
+
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+
+			.mat-list-item {
+				margin-bottom: 5px;
+				height: auto;
+				font-size: .8rem;
+
+				.mat-list-item-content {
+					padding-left: 0;
+				}
+			}
+
+			.mat-divider {
+				margin: 10px 0;
+			}
+		}
+	}
+}

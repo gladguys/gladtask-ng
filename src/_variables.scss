@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+$gt-primary	: mat-palette($mat-red, 900);
+$gt-accent	: mat-palette($mat-grey, 100);
+$gt-warn    : mat-palette($mat-red);
+
+$primary: mat-color($gt-primary);
+$accent : mat-color($gt-accent);
+$warn   : mat-color($gt-warn);
+
+$blue: mat-color(mat-palette($mat-blue, 500));
+$green: mat-color(mat-palette($mat-green, 500));
+
+$primary-alpha-1: mat-color($gt-primary, 0.1);
+$primary-alpha-2: mat-color($gt-primary, 0.2);
+
+$accent-dark: mat-color(mat-palette($mat-grey, 400));
+$accent-darker: mat-color(mat-palette($mat-grey, 500));
+$accent-darkest: mat-color(mat-palette($mat-grey, 700));
+
+$primary-background: white;
+$accent-background: rgb(250, 250, 250);
+
+$border: rgb(230, 230, 230);
+$border-light: rgb(240, 240, 240);

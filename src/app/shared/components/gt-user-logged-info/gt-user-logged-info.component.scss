@@ -1,0 +1,46 @@
+@import "../../../../variables";
+
+.dropdown {
+	position: relative;
+	z-index: 99998;
+	margin-top: 8px;
+	width: 290px;
+	text-align: center;
+	overflow: hidden;
+	background-color: white;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+
+	.dropdown__content {
+		padding: 10px;
+
+		.profile-photo {
+			margin-bottom: 10px;
+			width: 120px;
+			height: 120px;
+		}
+
+		.user-email {
+			font-size: .8rem;
+			color: $accent-darkest;
+		}
+	}
+
+	.dropdown__button-container {
+		padding: 10px 15px;
+		background-color: $primary-alpha-1;
+		border-top: 1px solid $primary-alpha-2;
+
+		button {
+			height: 32px;
+			line-height: 30px;
+			font-size: .8rem;
+			color: $accent-darkest;
+
+			&.button-logout {
+				color: $primary;
+				border-color: $primary-alpha-2;
+			}
+		}
+	}
+}

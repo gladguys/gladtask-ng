@@ -1,0 +1,142 @@
+@import "../../../../variables";
+
+form {
+	margin-bottom: 50px;
+}
+
+.button-container {
+	position: sticky;
+	z-index: 1;
+	top: -10px;
+	margin-top: -10px;
+	margin-right: 0 !important;
+	margin-bottom: 10px;
+	padding: 10px 0 10px 10px;
+	background-color: rgba(255, 255, 255, 0.9);
+	border: 1px solid rgb(240, 240, 240);
+	border-top: 0;
+	border-radius: 0 0 10px 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.look-alike {
+	position: absolute;
+	z-index: 1;
+	top: 48px;
+	left: -10px;
+	width: calc(100% - 10px);
+	padding: 15px;
+	background-color: white;
+	border: 1px solid $accent;
+	border-radius: 10px;
+	box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+	.look-alike__title {
+		margin: 0;
+
+		mat-icon {
+			float: right;
+			width: 18px;
+			height: 18px;
+			font-size: 18px;
+		}
+	}
+
+	ul {
+		margin-top: 10px;
+		margin-bottom: 0;
+		padding-left: 20px;
+
+		li {
+			margin-bottom: 5px;
+
+			h4 {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+h4 {
+	margin-bottom: 5px;
+}
+
+.fill-remaining-space {
+	margin-right: 0 !important;
+}
+
+.mat-form-field-comment {
+	textarea {
+		min-height: 45px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	}
+
+	.btn-add-comment, .btn-add-file {
+		margin-top: 10px;
+		line-height: 1.6rem;
+		font-size: .8rem;
+	}
+
+	.btn-add-comment {
+		float: left;
+	}
+
+	.btn-add-file {
+		float: right;
+	}
+}
+
+.block-side-right {
+	padding: 15px 0 15px 15px;
+	border-left: 1px solid rgb(230, 230, 230);
+
+	.activities-panel {
+		position: sticky;
+		z-index: 1;
+		top: -10px;
+		margin-top: -10px;
+		padding-top: 10px;
+		padding-bottom: 5px;
+		background-color: white;
+		border-bottom: 1px solid rgb(230, 230, 230);
+
+		.btn-play-task, .btn-pause-task {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			height: 34px;
+			width: 34px;
+
+			/deep/ .mat-button-wrapper {
+				padding: 0;
+			}
+		}
+	}
+}
+
+@media (max-width: 599px) {
+
+	.block-side-right {
+		margin-bottom: 50px;
+		padding: 0;
+		border-left: 0;
+
+		.activities-panel {
+			position: fixed;
+			top: unset;
+			bottom: 0;
+			left: 50%;
+			margin-top: 0;
+			margin-left: -138px;
+			padding: 10px;
+			width: 275px;
+			background-color: rgba(255, 255, 255, 0.9);
+			border: 1px solid rgb(240, 240, 240);
+			border-bottom: 0;
+			border-radius: 10px 10px 0 0;
+			box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.1);
+		}
+	}
+}

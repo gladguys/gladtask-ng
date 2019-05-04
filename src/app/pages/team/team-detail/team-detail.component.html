@@ -1,0 +1,64 @@
+<div fxLayout="row wrap">
+	<h1 fxFlex="1 1 100%">{{team.name}}</h1>
+
+	<div fxFlex="1 1 100%">
+		<h4>Gerente: </h4>
+		<label>{{team.manager?.email}}</label>
+	</div>
+
+	<div
+		fxLayout="row wrap"
+		fxFlex="1 1 100%"
+		class="participants-container">
+		
+		<h4 fxFlex="1 1 100%">Participantes</h4>
+
+		<mat-chip-list *ngIf="team.participants; else messageNoParticipantes">
+			<mat-chip *ngFor="let user of team.participants">
+				{{user.firstName}} {{user.lastName}}
+			</mat-chip>
+
+			<mat-chip
+				class="chip-add-participant"
+				(click)="showAddParticipant = !showAddParticipant">
+
+				<fa-icon icon="plus"></fa-icon>
+			</mat-chip>
+		</mat-chip-list>
+
+		<div
+			fxLayout="row wrap"
+			fxFlex="1 1 100%"
+			class="add-participant-container"
+			*ngIf="showAddParticipant">
+
+			<h4 fxFlex="1 1 100%">Adicione participantes</h4>
+
+			<mat-form-field
+				fxFlex="1 1 290px"
+				appearance="outline">
+		
+				<mat-label>Pesquise por usuário</mat-label>
+				<input matInput [formControl]="textSearchParticipant" (keyup)="search()">
+			</mat-form-field>
+
+			<div
+				fxFlex="1 1 100%"
+				class="search-result-container"
+				*ngIf="filteredParticipants.length > 0">
+
+				<mat-chip-list>
+					<mat-chip
+						*ngFor="let user of filteredParticipants"
+						(click)="addUserToTeam(user)">
+						{{user.firstName}} {{user.lastName}} ({{ user.email }})
+					</mat-chip>
+				</mat-chip-list>
+			</div>
+		</div>
+	</div>
+	
+	<ng-template #messageNoParticipantes>
+		<label>Não há nenhum usuário participante dessa equipe</label>
+	</ng-template>
+</div>

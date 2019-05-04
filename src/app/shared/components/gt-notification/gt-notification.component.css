@@ -1,0 +1,50 @@
+.notification {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    opacity: 0.6;
+    vertical-align: middle;
+    -webkit-margin-top-collapse: collapse;
+    font-size: 18px;
+}
+
+.success {
+    background: darkgreen;
+    color: white;
+}
+
+.info {
+    background: darkblue;
+    color: white;
+}
+
+.failure {
+    background: darkred;
+    color: white;
+}
+
+.warning {
+    background: darkgoldenrod;
+    color: white;
+}
+
+.undo-button {
+    display: inline;
+    text-decoration: underline;
+    position: relative;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Source Sans Pro';
+    color: darkorange;
+    outline: none;
+    cursor: pointer;
+}
+
+.animateOpen{
+    -webkit-animation:moveOpen 4s;
+    -webkit-animation-fill-mode: forwards;
+}
+/* Safari and Chrome */
+    
