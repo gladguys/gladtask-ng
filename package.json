@@ -5,7 +5,7 @@
     "heroku-postbuild": "ng build --prod",
     "ng": "ng",
     "start-dev": "ng serve --proxy-config proxy.conf.json",
-    "start": "Change start command",
+    "start": "node server.js",
     "compodoc": "npx compodoc -p src/tsconfig.app.json -d ../../gladtask-docs/frontend",
     "build": "ng build",
     "test": "ng test",
