@@ -103,8 +103,8 @@
 			appearance="outline">
 
 			<mat-label>Equipe</mat-label>
-			<mat-select formControlName="team" (change)="loadProjects(team.id)" [compareWith]="compareTeam">
-				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
+			<mat-select formControlName="team" [compareWith]="compareTeam">
+				<mat-option *ngFor="let team of (possibleTeams$ | async)" (change)="loadProjects(team.id)" [value]="team">
 					{{team.name}}
 				</mat-option>
 			</mat-select>
