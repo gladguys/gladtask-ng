@@ -30,8 +30,6 @@ export class SignupComponent {
 		private router: Router) { }
 
 	ngOnInit() {
-		this.teamId = this.route.snapshot.params['teamId'];
-		this.userForm.get('secondaryEmail').setValidators(Validators.email);
 
 		this.userForm = this.formBuilder.group({
 			'firstName': [''],
@@ -44,6 +42,9 @@ export class SignupComponent {
 			'confirm_password': ['', Validators.compose([Validators.required, this.passwordConfirming])],
 			'profileEnum': ['', [Validators.required]]
 		});
+
+		this.teamId = this.route.snapshot.params['teamId'];
+		this.userForm.get('secondaryEmail').setValidators(Validators.email);
 	}
 
 	onSubmit() {
