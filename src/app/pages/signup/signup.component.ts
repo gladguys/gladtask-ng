@@ -46,7 +46,7 @@ export class SignupComponent {
 		});
 	}
 
-	onSubmit(user: User) {
+	onSubmit() {
 		const submittedUser = this.userForm.getRawValue() as User;
 		if (this.previewImage) {
 			submittedUser.profilePhoto = this.previewImage;
