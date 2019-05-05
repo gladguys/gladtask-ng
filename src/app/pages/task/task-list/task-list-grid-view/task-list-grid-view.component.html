@@ -1,59 +1,19 @@
 <div *ngIf="tasksDueToday.length">
 	<h2>Encerram hoje</h2>
-	<ag-grid-angular
-		domLayout='autoHeight'
-		class="ag-theme-material"
-		pagination="true"
-		rowSelection="single"
-		(rowSelected)="onRowSelected($event)"
-		[localeText]="localeText"
-		[gridOptions]="gridOptions"
-		[rowData]="tasksDueToday"
-		[columnDefs]="columnTaskDefinitions">
-	</ag-grid-angular>
+	<task-grid [rowData]="tasksDueToday"></task-grid>
 </div>
 
 <div *ngIf="tasksNotDueToday.length">
 	<h2>Proximas a encerrar</h2>
-	<ag-grid-angular
-		domLayout='autoHeight'
-		class="ag-theme-material"
-		pagination="true"
-		rowSelection="single"
-		(rowSelected)="onRowSelected($event)"
-		[localeText]="localeText"
-		[gridOptions]="gridOptions"
-		[rowData]="tasksNotDueToday"
-		[columnDefs]="columnTaskDefinitions">
-	</ag-grid-angular>
+	<task-grid [rowData]="tasksNotDueToday"></task-grid>
 </div>
 
 <div *ngIf="tasksDelayed.length">
 	<h2>Atrasadas</h2>
-	<ag-grid-angular
-		domLayout='autoHeight'
-		class="ag-theme-material"
-		pagination="true"
-		rowSelection="single"
-		(rowSelected)="onRowSelected($event)"
-		[localeText]="localeText"
-		[gridOptions]="gridOptions"
-		[rowData]="tasksDelayed"
-		[columnDefs]="columnTaskDefinitions">
-	</ag-grid-angular>
+	<task-grid [rowData]="tasksDelayed"></task-grid>
 </div>
 
 <div *ngIf="tasksFinished.length">
 	<h2>Últimas Concluídas</h2>
-	<ag-grid-angular
-		domLayout='autoHeight'
-		class="ag-theme-material"
-		pagination="true"
-		rowSelection="single"
-		(rowSelected)="onRowSelected($event)"
-		[localeText]="localeText"
-		[gridOptions]="gridOptions"
-		[rowData]="tasksFinished"
-		[columnDefs]="columnTaskDefinitions">
-	</ag-grid-angular>
+	<task-grid [rowData]="tasksFinished"></task-grid>
 </div>

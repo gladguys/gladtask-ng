@@ -12,6 +12,7 @@ import { ProjectRoutingModule } from "./project-routing.module";
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { ProjectInfoComponent } from "./project-info/project-info.component";
+import { TaskGridModule } from "../task/task-grid/task-grid.module";
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,7 @@ import { ProjectInfoComponent } from "./project-info/project-info.component";
 		FlexLayoutModule,
 		NgSelectModule,
 		FontAwesomeModule,
+		TaskGridModule,
 		CoreModule,
 		SharedModule
 	],

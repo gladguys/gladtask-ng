@@ -1,9 +1,19 @@
 <div fxLayout="row wrap">
 	<h1 fxFlex="1 1 100%">{{team.name}}</h1>
 
-	<div fxFlex="1 1 100%">
-		<h4>Gerente: </h4>
-		<label>{{team.manager?.email}}</label>
+	<div class="gerente-container">
+		<div>
+			<h4>Gerente: </h4>
+			<label>{{team.manager?.email}}</label>
+		</div>
+
+		<div>
+			<h4>Convidar pessoas para se tornarem Glad: </h4>
+			<mat-form-field>
+				<input matInput #email placeholder="Email do convidado">
+			</mat-form-field>
+			<button mat-button class="invite-btn" type="button" (click)="handleInviteEmail()">Convidar</button>
+		</div>
 	</div>
 
 	<div
