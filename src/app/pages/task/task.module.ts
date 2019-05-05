@@ -28,6 +28,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { GTTasksCarouselComponent } from "../../shared/components/gt-tasks-carousel/gt-tasks-carousel.component";
 import { TaskListCardViewComponent } from "./task-list/task-list-card-view/task-list-card-view.component";
 import { TaskListGridViewComponent } from "./task-list/task-list-grid-view/task-list-grid-view.component";
+import { TaskGridModule } from "./task-grid/task-grid.module";
 
 @NgModule({
 	declarations: [
@@ -54,6 +55,7 @@ import { TaskListGridViewComponent } from "./task-list/task-list-grid-view/task-
 		TextMaskModule,
 		CoreModule,
 		SharedModule,
+		TaskGridModule,
 		NguCarouselModule
     ],
 	exports: [

@@ -48,10 +48,7 @@
 	<mat-card class="card-project">
 		<mat-card-title>Atividades do Projeto</mat-card-title>
 		<mat-card-content>
-			<ag-grid-angular domLayout='autoHeight' class="ag-theme-material" pagination="true" rowSelection="single"
-				(rowSelected)="onRowSelected($event)" [localeText]="localeText" [rowData]="projectTasks"
-				[columnDefs]="columnTaskDefinitions">
-			</ag-grid-angular>
+			<task-grid [rowData]="projectTasks"></task-grid>
 		</mat-card-content>
 	</mat-card>
 </div>

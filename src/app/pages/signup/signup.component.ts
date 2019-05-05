@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Profile } from 'selenium-webdriver/firefox';
 
 import { User } from "../../shared/models/user.model";
@@ -15,20 +15,24 @@ import { UserService } from "../../core/services/user.service";
 	styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-	selectedFiles: FileList;
 	previewImage: any = GTConstants.GLADIATOR_DEFAULT_PROFILE;
 	hidePassword = true;
 	userForm: FormGroup;
 	showLogoPhoto: boolean = true;
+	teamId: string;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private userService: UserService,
 		private notificationService: GTNotificationService,
 		private uploadFileService: UploadFileService,
+		private route: ActivatedRoute,
 		private router: Router) { }
 
 	ngOnInit() {
+		this.teamId = this.route.snapshot.params['teamId'];
+		this.userForm.get('secondaryEmail').setValidators(Validators.email);
+
 		this.userForm = this.formBuilder.group({
 			'firstName': [''],
 			'lastName': [''],
@@ -42,12 +46,12 @@ export class SignupComponent {
 		});
 	}
 
-	onSubmit() {
+	onSubmit(user: User) {
 		const submittedUser = this.userForm.getRawValue() as User;
 		if (this.previewImage) {
 			submittedUser.profilePhoto = this.previewImage;
 		}
-		this.userService.createOrUpdate(submittedUser)
+		this.userService.createOrUpdate(submittedUser, this.teamId)
 			.subscribe((user) => {
 				this.notificationService.notificateSuccess("Usuário criado");
 				this.router.navigate(['/login']);
