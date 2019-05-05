@@ -1,27 +1,19 @@
+
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-
 import { Project } from "../../../shared/models/project.model";
 import { Task } from "../../../shared/models/task.model";
-import { columnTaskDefinitions, localeText } from "../../../shared/components/gt-grid/gt-grid-definitions";
 import { ProjectService } from 'src/app/core/services/project.service';
-
 @Component({
 	templateUrl: './project-info.component.html',
 	styleUrls: ['./project-info.component.scss']
 })
 export class ProjectInfoComponent implements OnInit {
-
 	project: Project;
 	projectTasks: Task[] = [];
-
-	localeText = localeText;
-	columnTaskDefinitions = columnTaskDefinitions;
-
 	constructor(private activatedRoute: ActivatedRoute,
 				private router: Router,
 				private projectService: ProjectService) {}
-
 	ngOnInit(): void {
 		let projectId = this.activatedRoute.snapshot.params['projectId'];
 		if(projectId) {
@@ -30,10 +22,5 @@ export class ProjectInfoComponent implements OnInit {
 				console.log(this.project);
 			})
 		}
-	}
-
-	onRowSelected(row):void {
-		let task = row.data;
-		this.router.navigate(['tasks', 'task-form', task.number]);
 	}
 }
