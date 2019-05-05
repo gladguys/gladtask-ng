@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { Project } from "../../../shared/models/project.model";
 import { Task } from "../../../shared/models/task.model";
-import { columnTaskDefinitions, localeText } from "../../../shared/components/gt-grid/gt-grid-definitions";
 import { ProjectService } from 'src/app/core/services/project.service';
 
 @Component({
