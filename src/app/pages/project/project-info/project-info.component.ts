@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Project } from "../../../shared/models/project.model";
 import { Task } from "../../../shared/models/task.model";
 import { ProjectService } from 'src/app/core/services/project.service';
-
 @Component({
 	templateUrl: './project-info.component.html',
 	styleUrls: ['./project-info.component.scss']
