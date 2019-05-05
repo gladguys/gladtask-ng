@@ -1,6 +1,5 @@
 # GLADTASK - FRONT-END (ANGULAR)
 
-
 ## Running gladtask-ng
 
 ### Development server
