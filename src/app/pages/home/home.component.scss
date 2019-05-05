@@ -1,3 +1,28 @@
+@import '../../../variables';
+
 .sidebar-content {
-	margin-bottom: 50px;
+	margin-bottom: 48px;
+
+	.no-teams-container {
+		margin-top: 96px;
+
+		.no-teams {
+			padding: 24px;
+			border: 1px solid $border;
+			border-radius: 10px;
+
+			h3 {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+@media (max-height: 375px) {
+
+	.sidebar-content {
+		.no-teams-container {
+			margin-top: 40px;
+		}
+	}
 }

@@ -56,6 +56,15 @@ export const ROUTES: Routes = [
 				title:'Registrar'
 			}
 	},
+	{
+		path: 'signup/:teamId',
+		component: SignupComponent,
+		canActivate: [LoginAuthGuard],
+		data:
+			{
+				title:'Registrar'
+			}
+	},
 
 	{ path: "tasks", loadChildren: "./pages/task/task.module#TaskModule" },
 	{ path: "users", loadChildren: "./pages/user/user.module#UserModule" },
