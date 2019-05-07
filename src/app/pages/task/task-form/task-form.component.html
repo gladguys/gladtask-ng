@@ -35,7 +35,7 @@
 			<input matInput formControlName="title" (keyup)="debounceTitle.next($event.target.value)" required>
 			<gt-form-error *ngIf="taskForm.controls['title'].errors?.required && !taskForm.controls['title'].pristine"></gt-form-error>
 			<gt-form-error *ngIf="taskForm.controls['title'].errors?.minlength && !taskForm.controls['title'].pristine"
-			errorMessage="Título muito curto, explique melhor..."></gt-form-error>
+				errorMessage="Título muito curto, explique melhor..."></gt-form-error>
 
 			<div *ngIf="hasLookAlike && !taskForm.controls['title'].errors?.required" class="look-alike">
 				<h4 class="look-alike__title">
@@ -93,6 +93,21 @@
 				<mat-option value="0"> Alta </mat-option>
 			</mat-select>
 			<gt-form-error *ngIf="taskForm.controls['priority'].errors?.required && !taskForm.controls['priority'].pristine"></gt-form-error>
+		</mat-form-field>
+
+		<mat-form-field
+			fxFlex="200px"
+			fxFlex.lt-md="1 1 100%"
+			fxFlex.lt-sm="100px"
+			appearance="outline">
+
+			<mat-label>Status</mat-label>
+			<mat-select formControlName="status" required>
+				<mat-option *ngFor="let status of possibleStatus" value="{{ status }}">
+					{{ status }}
+				</mat-option>
+			</mat-select>
+			<gt-form-error *ngIf="taskForm.controls['status'].errors?.required && !taskForm.controls['status'].pristine"></gt-form-error>
 		</mat-form-field>
 
 		<span class="line-break"></span>
@@ -221,24 +236,7 @@
 			class="activities-panel">
 
 			<mat-form-field
-				fxFlex="100px"
-				fxFlex.lt-md="1 1 100%"
-				fxFlex.lt-sm="100px"
-				appearance="outline"
-				class="mat-form-field--appearence-label-smaller">
-
-				<mat-label>Status</mat-label>
-				<mat-select formControlName="status" required>
-					<mat-option *ngFor="let status of possibleStatus" value="{{ status }}">
-						{{ status }}
-					</mat-option>
-				</mat-select>
-				<gt-form-error *ngIf="taskForm.controls['status'].errors?.required && !taskForm.controls['status'].pristine"></gt-form-error>
-			</mat-form-field>
-
-			<mat-form-field
 				*ngIf="!taskForm.disabled"
-				fxFlex="70px"
 				appearance="outline"
 				class="mat-form-field--appearence-label-smaller">
 
