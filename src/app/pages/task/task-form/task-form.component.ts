@@ -113,7 +113,7 @@ export class TaskFormComponent implements OnInit, AfterViewInit {
 				'status': ['', Validators.required],
 				'taskType': ['', Validators.required],
 				'dueDate': [''],
-				'team': [''],
+				'team': [null],
 				'estimatedTime': [''],
 				'project': ['']
 			},
