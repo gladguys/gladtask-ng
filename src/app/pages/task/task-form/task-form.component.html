@@ -139,8 +139,20 @@
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
+		
+		<div *ngIf="taskForm.controls['team'].value">
+			<a 
+					mat-flat-button 
+					class="btn-first-project"
+					*ngIf="possibleProjects.length == 0; else btnNovoProj" 
+					routerLink="/projects/project-form">
+					Crie Primeiro Projeto da Equipe
+			</a>
 
-		<button class="btn-new-project" mat-button routerLink="/projects/project-form">Novo Projeto</button>
+			<ng-template #btnNovoProj>
+				<button class="btn-new-project" mat-button routerLink="/projects/project-form">Novo Projeto</button>
+			</ng-template>
+		</div>
 
 		<span class="line-break"></span>
 
