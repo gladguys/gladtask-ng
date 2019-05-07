@@ -6,7 +6,11 @@ h1 {
 
 .container {
 	padding-bottom: 10px;
-	overflow: auto;
+	
+	.scrollable {
+		overflow: auto;
+	}
+
 
 	.card-project {
 		position: relative;

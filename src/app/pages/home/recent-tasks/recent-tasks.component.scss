@@ -2,13 +2,15 @@
 
 .container {
 	padding-bottom: 10px;
-	overflow: auto;
 
 	.empty-msg {
 		display: block;
 		padding: 10px;
 	}
 
+	.flowable {
+		overflow: auto;
+	}
 	.skeleton-loading {
 		display: flex;
 		justify-content: center;
