@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -11,6 +11,9 @@ import { getPossibleStatus, Status } from "../../../shared/enums/status.enum";
 import { Task } from "../../../shared/models/task.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
+import {TimeSpent} from "../../../shared/models/time-spent.model";
+import {MatBottomSheet} from "@angular/material";
+import {TaskTimeSpentComponent} from "../task-time-spent/task-time-spent.component";
 
 @Component({
 	selector: 'task-card',
@@ -19,6 +22,7 @@ import { GladService } from 'src/app/core/services/glad.service';
 })
 export class TaskCardComponent implements OnInit {
 
+	@ViewChild('timeSpent') timeSpentEl: ElementRef;
 	@Input('task') task: Task;
 
 	possibleStatus: Array<Status>;
@@ -29,6 +33,7 @@ export class TaskCardComponent implements OnInit {
 		private sharedService: SharedService,
 		private notificationService: GTNotificationService,
 		private gladService: GladService,
+		private bottomSheet: MatBottomSheet,
 		private formBuilder: FormBuilder,
 		private router: Router) {
 	}
@@ -44,8 +49,7 @@ export class TaskCardComponent implements OnInit {
 			'status': [this.task.status],
 			'taskType': ['', Validators.required],
 			'dueDate': [''],
-			'project': [this.task.project.name],
-			'timeSpent': ['00:00']
+			'project': [this.task.project.name]
 		});
 
 		this.setupFormValueChanges();
@@ -89,5 +93,14 @@ export class TaskCardComponent implements OnInit {
 
 	showTaskDetail(task: Task): void {
 		this.router.navigate(['tasks', 'task-form', task.id]);
+	}
+
+	openBottomSheetTimeSpent() {
+		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
+			data: { task: this.task }
+		});
+		bottomSheetRef.afterDismissed().subscribe(() => {
+			//TODO: reatualizar componente de soma de horas card
+		});
 	}
 }

@@ -38,11 +38,6 @@
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
-
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-time-spent">
-				<mat-label>Tempo gasto</mat-label>
-				<input matInput formControlName="timeSpent">
-			</mat-form-field>
 		</div>
 	</mat-card-content>
 	<mat-card-actions
@@ -50,8 +45,8 @@
 		fxLayoutAlign="end center"
 		fxLayoutGap="5px">
 
-		<button mat-mini-fab class="mat-elevation-z0">
-			<fa-icon icon="play"></fa-icon>
+		<button mat-mini-fab class="mat-elevation-z0" (click)="openBottomSheetTimeSpent()">
+			<fa-icon icon="clock"></fa-icon>
 		</button>
 
 		<span class="fill-remaining-space"></span>

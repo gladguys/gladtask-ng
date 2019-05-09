@@ -195,6 +195,10 @@
 			<input formControlName="estimatedTime" matInput [textMask]="{mask: hourMinuteMask}" type="text">
 		</mat-form-field>
 
+		<button *ngIf="taskForm.enabled" type="button" mat-mini-fab class="mat-elevation-z0" (click)="openBottomSheetTimeSpent()">
+			<fa-icon icon="clock"></fa-icon>
+		</button>
+
 		<h4 fxFlex="100%">Comentários</h4>
 
 		<mat-form-field
@@ -224,6 +228,7 @@
 
 			<button
 				mat-stroked-button
+				type="button"
 				(click)="fileInput.click()"
 				class="btn--icon-and-text btn-add-file">
 
@@ -246,30 +251,7 @@
 		fxFlex.lt-sm="100%"
 		class="block-side-right">
 
-		<div
-			fxLayout="row wrap"
-			fxLayoutGap="5px"
-			class="activities-panel">
-
-			<mat-form-field
-				*ngIf="!taskForm.disabled"
-				appearance="outline"
-				class="mat-form-field--appearence-label-smaller">
-
-				<mat-label>Tempo gasto</mat-label>
-				<input #timeSpent matInput [textMask]="{mask: hourMinuteMask}" type="text">
-			</mat-form-field>
-
-			<div *ngIf="!taskForm.disabled" fxLayoutGap="5px">
-				<button mat-mini-fab class="btn-green btn-play-task mat-elevation-z0">
-					<fa-icon icon="play"></fa-icon>
-				</button>
-				<button mat-mini-fab class="btn-blue btn-pause-task mat-elevation-z0">
-					<fa-icon icon="pause"></fa-icon>
-				</button>
-			</div>
-		</div>
-
+		<gt-task-times #taskTimes fxFlex="1 1 100%"></gt-task-times>
 		<gt-task-changes #taskChanges fxFlex="1 1 100%"></gt-task-changes>
 	</div>
 </form>
