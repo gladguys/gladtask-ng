@@ -1,13 +1,33 @@
 import { NgModule } from '@angular/core';
 import {
-	MatButtonModule, MatCardModule, MatCheckboxModule,
-	MatDatepickerModule, MatDialogModule,
-	MatDividerModule, MatError, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
-	MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule,
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatDatepickerModule,
+	MatDialogModule,
+	MatDividerModule,
+	MatError,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatNativeDateModule,
+	MatPaginatorModule,
+	MatProgressSpinnerModule,
 	MatRadioModule,
-	MatSelectModule, MatSidenavModule,
-	MatSliderModule, MatSnackBarModule, MatSortModule, MatTableModule,
-	MatTabsModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatChipsModule, MatButtonToggleModule
+	MatSelectModule,
+	MatSidenavModule,
+	MatSliderModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatTableModule,
+	MatTabsModule,
+	MatToolbarModule,
+	MatExpansionModule,
+	MatMenuModule,
+	MatChipsModule,
+	MatButtonToggleModule,
+	MatBottomSheetModule
 } from "@angular/material";
 
 @NgModule({
@@ -43,6 +63,7 @@ import {
 		MatFormFieldModule,
 		MatPaginatorModule,
 		MatSortModule,
+		MatBottomSheetModule,
 		MatExpansionModule,
 		MatMenuModule
 	],
@@ -79,6 +100,7 @@ import {
 		MatPaginatorModule,
 		MatButtonToggleModule,
 		MatSortModule,
+		MatBottomSheetModule,
 		MatMenuModule,
 		MatExpansionModule
 	]
