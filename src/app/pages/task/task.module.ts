@@ -10,6 +10,8 @@ import {
 faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
 faPause, faPlay, faPlus, faThLarge, faEdit
 } from '@fortawesome/free-solid-svg-icons';
+import { TextMaskModule } from 'angular2-text-mask';
+import { MarkdownModule } from "ngx-markdown";
 
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -20,15 +22,15 @@ import { TaskNotFoundComponent } from './task/task-not-found/task-not-found.comp
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TaskChangesComponent } from './task-changes/task-changes.component';
 import { TaskCommentsComponent } from './task-comments/task-comments.component';
-
-import { TaskRoutingModule } from './task-routing.module';
-import { TextMaskModule } from 'angular2-text-mask';
-import { CoreModule } from '../../core/core.module';
-import { SharedModule } from '../../shared/shared.module';
 import { GTTasksCarouselComponent } from "../../shared/components/gt-tasks-carousel/gt-tasks-carousel.component";
 import { TaskListCardViewComponent } from "./task-list/task-list-card-view/task-list-card-view.component";
 import { TaskListGridViewComponent } from "./task-list/task-list-grid-view/task-list-grid-view.component";
+
+import { TaskRoutingModule } from './task-routing.module';
+import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
 import { TaskGridModule } from "./task-grid/task-grid.module";
+
 
 @NgModule({
 	declarations: [
@@ -56,6 +58,7 @@ import { TaskGridModule } from "./task-grid/task-grid.module";
 		CoreModule,
 		SharedModule,
 		TaskGridModule,
+		MarkdownModule.forRoot(),
 		NguCarouselModule
     ],
 	exports: [
