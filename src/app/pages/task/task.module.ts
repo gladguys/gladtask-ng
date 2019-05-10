@@ -7,8 +7,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { NguCarouselModule } from "@ngu/carousel";
 import {
-faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
-faPause, faPlay, faPlus, faThLarge, faEdit
+	faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
+	faPause, faPlay, faPlus, faThLarge, faEdit, faClock
 } from '@fortawesome/free-solid-svg-icons';
 
 import { TaskFormComponent } from './task-form/task-form.component';
@@ -29,6 +29,8 @@ import { GTTasksCarouselComponent } from "../../shared/components/gt-tasks-carou
 import { TaskListCardViewComponent } from "./task-list/task-list-card-view/task-list-card-view.component";
 import { TaskListGridViewComponent } from "./task-list/task-list-grid-view/task-list-grid-view.component";
 import { TaskGridModule } from "./task-grid/task-grid.module";
+import { TaskTimeSpentComponent } from "./task-time-spent/task-time-spent.component";
+import { TaskTimesComponent } from "./task-times/task-times.component";
 
 @NgModule({
 	declarations: [
@@ -43,6 +45,8 @@ import { TaskGridModule } from "./task-grid/task-grid.module";
 		TaskCardComponent,
 		TaskListCardViewComponent,
 		TaskListGridViewComponent,
+		TaskTimeSpentComponent,
+		TaskTimesComponent,
 		GTTasksCarouselComponent
     ],
 	imports: [
@@ -58,6 +62,7 @@ import { TaskGridModule } from "./task-grid/task-grid.module";
 		TaskGridModule,
 		NguCarouselModule
     ],
+	entryComponents: [TaskTimeSpentComponent],
 	exports: [
 		TaskComponent,
 		TaskFormComponent,
@@ -69,6 +74,6 @@ import { TaskGridModule } from "./task-grid/task-grid.module";
 export class TaskModule {
 
 	constructor() {
-		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit);
+		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit, faClock);
 	}
 }

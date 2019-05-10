@@ -6,7 +6,7 @@ import { environment } from "../../../environments/environment";
 import { Task } from "../../shared/models/task.model";
 import { GladService } from "./glad.service";
 import { TaskComment } from "../../shared/models/task-comment.model";
-import { Status } from "../../shared/enums/status.enum";
+import { TimeSpent } from "../../shared/models/time-spent.model";
 
 @Injectable({
 	providedIn: 'root'
@@ -81,6 +81,11 @@ export class TaskService {
 
 	saveTaskComment(id: string, taskComment: TaskComment, ignoreLoader: boolean = false): Observable<Task> {
 		return this.http.post<Task>(`${environment.API}/tasks/save-comment/${id}`, taskComment,
+			this.gladService.getIgnoreLoaderParam(ignoreLoader));
+	}
+
+	saveTimeSpent(id: string, timeSpent: TimeSpent, ignoreLoader: boolean = false): Observable<Task> {
+		return this.http.post<Task>(`${environment.API}/tasks/${id}/save-time-spent`, timeSpent,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 }

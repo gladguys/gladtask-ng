@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutGap="10px" [formGroup]="timeSpentForm">
+	<div fxLayout  fxLayoutAlign="center center" fxLayoutGap="10px">
+		<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-time-spent">
+			<mat-label>Tempo gasto</mat-label>
+			<input formControlName="timeSpent" matInput [textMask]="{mask: hourMinuteMask}" type="text">
+		</mat-form-field>
+	
+		<mat-form-field appearance="outline">
+			<mat-label>Data</mat-label>
+			<input
+				matInput
+				formControlName="date"
+				[min]="minDate"
+				(click)="picker.open()"
+				[matDatepicker]="picker">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker color="#a91919"></mat-datepicker>
+		</mat-form-field>
+	</div>
+	
+	<button
+		*ngIf="timeSpentForm.valid"
+		mat-raised-button
+		type="button"
+		class="btn-save-time"
+		(click)="computeTimeSpent()">Salvar</button>
+</div>
