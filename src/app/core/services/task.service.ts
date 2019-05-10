@@ -83,9 +83,9 @@ export class TaskService {
 		return this.http.post<Task>(`${environment.API}/tasks/save-comment/${id}`, taskComment,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
-	
+
 	saveTimeSpent(id: string, timeSpent: TimeSpent, ignoreLoader: boolean = false): Observable<Task> {
-		return this.http.post<Task>(`${environment.API}/tasks/${id}/time-spent`, timeSpent,
+		return this.http.post<Task>(`${environment.API}/tasks/${id}/save-time-spent`, timeSpent,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 }
