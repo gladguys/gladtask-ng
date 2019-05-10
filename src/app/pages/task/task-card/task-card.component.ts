@@ -96,12 +96,8 @@ export class TaskCardComponent implements OnInit {
 	}
 
 	openBottomSheetTimeSpent() {
-		console.log(this.task);
-		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
+		this.bottomSheet.open(TaskTimeSpentComponent, {
 			data: { taskId: this.task.id }
-		});
-		bottomSheetRef.afterDismissed().subscribe(() => {
-			//TODO: reatualizar componente de soma de horas card
 		});
 	}
 }

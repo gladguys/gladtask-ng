@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import  {BehaviorSubject, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
@@ -16,21 +16,23 @@ import { GladService } from "../../../core/services/glad.service";
 import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskCommentsService } from "../../../core/services/task-comments.service";
+import { TimeSpentService } from "./time-spent.service";
 
 import { TaskChangesComponent } from "../task-changes/task-changes.component";
 import { TaskCommentsComponent } from "../task-comments/task-comments.component";
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
+import { TaskTimesComponent } from "../task-times/task-times.component";
 
 import { Task } from "../../../shared/models/task.model";
+import { TimeSpent } from "../../../shared/models/time-spent.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { TaskComment } from "../../../shared/models/task-comment.model";
+import { Project } from "../../../shared/models/project.model";
 import { getPossibleStatus, Status } from "../../../shared/enums/status.enum";
 import { possibleTaskTypes, TaskType } from "../../../shared/enums/task-type.enum";
-import { Project } from "../../../shared/models/project.model";
 
 import { ValidateTitleEqualDesc } from "../../../shared/validators/title-equal-description.validator";
-import { TimeSpent } from "../../../shared/models/time-spent.model";
-import {TaskTimesComponent} from "../task-times/task-times.component";
+
 
 @Component({
 	selector: 'task-form',
@@ -54,7 +56,9 @@ export class TaskFormComponent implements OnInit {
 	possibleStatus: Array<Status> = [];
 	possibleTaskTypes: Array<TaskType> = [];
 	possibleProjects: Array<Project> = [];
-	
+
+	timeSpent$: BehaviorSubject<TimeSpent>;
+
 	taskForm: FormGroup;
 
 	debounceTitle: Subject<string> = new Subject<string>();
@@ -67,6 +71,7 @@ export class TaskFormComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private taskService: TaskService,
+		private timeSpentService: TimeSpentService,
 		private gladService: GladService,
 		private taskCommentsService: TaskCommentsService,
 		private activatedRoute: ActivatedRoute,
@@ -79,6 +84,7 @@ export class TaskFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
+		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 		this.initializeForm();
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
@@ -274,30 +280,13 @@ export class TaskFormComponent implements OnInit {
 	}
 	
 	openBottomSheetTimeSpent() {
-		const submittedTask = this.taskForm.getRawValue() as Task;
-		submittedTask.taskComments = this.taskComments;
-		submittedTask.id = this.task.id;
-		submittedTask.creatorUser = this.task.creatorUser;
-		submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
-		
-		if (submittedTask.title !== this.task.title) {
-			let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
-			submittedTask.taskChanges.push(taskChangeTitulo);
-		}
-		if (submittedTask.description !== this.task.description) {
-			let taskChangeDescription = this.buildTaskChange('Descrição', this.task.description, submittedTask.description);
-			submittedTask.taskChanges.push(taskChangeDescription);
-		}
-		if (submittedTask.status !== this.task.status) {
-			let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
-			submittedTask.taskChanges.push(taskChangeStatus);
-		}
-
 		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
-			data: { taskId: submittedTask.id }
+			data: { taskId: this.task.id }
 		});
+
 		bottomSheetRef.afterDismissed().subscribe(() => {
-			this.taskService.findById(this.task.id).subscribe(task => this.taskTimesComponent.setTaskTimes(task.timeSpentValues));
-		});
+			this.task.timeSpentValues.push(this.timeSpent$.getValue());
+			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+		})
 	}
 }

@@ -3,9 +3,10 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { TimeSpent } from "../../../shared/models/time-spent.model";
+
 import { TaskService } from "../../../core/services/task.service";
-import {SharedService} from "../../../core/services/shared.service";
-import {Task} from "../../../shared/models/task.model";
+import { SharedService } from "../../../core/services/shared.service";
+import { TimeSpentService } from "../task-form/time-spent.service";
 
 @Component({
 	selector: 'task-time-spent',
@@ -27,6 +28,7 @@ export class TaskTimeSpentComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private taskService: TaskService,
+		private timeSpentService: TimeSpentService,
 		private sharedService: SharedService,
 		private bottomSheetRef: MatBottomSheetRef<TaskTimeSpentComponent>,
 		@Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
@@ -39,8 +41,11 @@ export class TaskTimeSpentComponent implements OnInit {
 		timeSpent.gladname = this.sharedService.getUserLogged().username;
 		timeSpent.minutesSpent = this.calculateMinutes(formValues.timeSpent);
 		timeSpent.date = formValues.date;
-
-		this.taskService.saveTimeSpent(taskId, timeSpent, true).subscribe(() => this.bottomSheetRef.dismiss());
+		
+		this.taskService.saveTimeSpent(taskId, timeSpent, true).subscribe(() => {
+			this.timeSpentService.emitTimeSpent(timeSpent);
+			this.bottomSheetRef.dismiss();
+		});
 	}
 
 	calculateMinutes(timeSpent: string) {

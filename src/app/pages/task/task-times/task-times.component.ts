@@ -1,7 +1,6 @@
-import {Component} from "@angular/core";
-import {TaskChange} from "../../../shared/models/task-change.model";
-import {GroupByPipe} from "../../../shared/pipes/group-by.pipe";
-import {TimeSpent} from "../../../shared/models/time-spent.model";
+import { Component } from "@angular/core";
+
+import { TimeSpent } from "../../../shared/models/time-spent.model";
 
 @Component({
 	selector: 'gt-task-times',
@@ -9,12 +8,12 @@ import {TimeSpent} from "../../../shared/models/time-spent.model";
 	styleUrls: ['./task-times.component.scss']
 })
 export class TaskTimesComponent {
-	
+
 	taskTimes: TimeSpent[] = [];
 
 	constructor() { }
 
 	setTaskTimes(taskTimes: TimeSpent[]) {
-		this.taskTimes = taskTimes;
+		this.taskTimes = taskTimes.sort((d1, d2) => new Date(d2.date).getTime() - new Date(d1.date).getTime());
 	}
 }
