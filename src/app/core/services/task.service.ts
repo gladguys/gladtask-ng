@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { environment } from "../../../environments/environment";
 import { Task } from "../../shared/models/task.model";
 import { GladService } from "./glad.service";
 import { TaskComment } from "../../shared/models/task-comment.model";
 import { TimeSpent } from "../../shared/models/time-spent.model";
+import { Cacheable, CacheBuster } from "ngx-cacheable";
+
+const cacheBuster$ = new Subject<void>();
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +19,10 @@ export class TaskService {
 	constructor(
 		private http: HttpClient,
 		private gladService: GladService) {}
-
+	
+	@CacheBuster({
+		cacheBusterNotifier: cacheBuster$
+	})
 	createOrUpdate(task: Task): Observable<Task> {
 		if (task.id != null && task.id != '') {
 			return this.http.put<Task>(`${environment.API}/tasks`, task);
@@ -24,7 +30,10 @@ export class TaskService {
 			return this.http.post<Task>(`${environment.API}/tasks`, task);
 		}
 	}
-
+	
+	@Cacheable({
+		cacheBusterObserver: cacheBuster$
+	})
 	findById(id: string): Observable<Task> {
 		return this.http.get<Task>(`${environment.API}/tasks/${id}`);
 	}
@@ -32,7 +41,10 @@ export class TaskService {
 	findByTitleOrDescriptionLikeAllIgnoreCase(term: string): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks/term/${term}`);
 	}
-
+	
+	@Cacheable({
+		cacheBusterObserver: cacheBuster$
+	})
 	findTasksByTargetUser(userId: String): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks/user-target/${userId}`);
 	}
@@ -44,7 +56,10 @@ export class TaskService {
 	findTasksByTargetUserAndStatus(userId: String, status: string): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks/user-target/${userId}/${status}`);
 	}
-
+	
+	@Cacheable({
+		cacheBusterObserver: cacheBuster$
+	})
 	findFirst4ByTargetUserIdOrderByLastEdited(userId: String): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks/last-edited/${userId}`);
 	}
@@ -60,7 +75,10 @@ export class TaskService {
 	findAll(): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks`);
 	}
-
+	
+	@Cacheable({
+		cacheBusterObserver: cacheBuster$
+	})
 	findBetweenDates(days: number, userId: string): Observable<Task[]> {
 		return this.http.get<Task[]>(`${environment.API}/tasks/between/${days}?userId=${userId}`);
 	}
