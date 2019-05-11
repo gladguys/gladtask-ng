@@ -14,6 +14,8 @@ export class TaskTimesComponent {
 	constructor() { }
 
 	setTaskTimes(taskTimes: TimeSpent[]) {
-		this.taskTimes = taskTimes.sort((d1, d2) => new Date(d2.date).getTime() - new Date(d1.date).getTime());
+		if (taskTimes) {
+			this.taskTimes = taskTimes.sort((d1, d2) => new Date(d2.date).getTime() - new Date(d1.date).getTime());
+		}
 	}
 }
