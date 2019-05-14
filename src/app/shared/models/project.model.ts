@@ -1,8 +1,8 @@
 import { User } from "./user.model";
 import { Team } from './team.model';
+import { BaseModel } from './base.model';
 
-export class Project {
-	public id: string;
+export class Project extends BaseModel {
 	public name: string;
 	public description: string;
 	public manager: User;
