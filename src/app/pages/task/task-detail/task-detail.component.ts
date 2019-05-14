@@ -6,7 +6,7 @@ import { Task } from 'src/app/shared/models/task.model';
 import { TaskService } from "../../../core/services/task.service";
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskChange } from "../../../shared/models/task-change.model";
-import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../../core/services/gt-notification.service";
 
 @Component({
 	selector: 'task-detail',

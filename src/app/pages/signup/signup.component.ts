@@ -4,7 +4,7 @@ import { Profile } from 'selenium-webdriver/firefox';
 
 import { User } from "../../shared/models/user.model";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { GTNotificationService } from "../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../core/services/gt-notification.service";
 import { UploadFileService } from "../../core/services/upload-file.service";
 import { GTConstants } from "../../GT-constants";
 import { debounceTime, first, map, switchMap } from "rxjs/operators";

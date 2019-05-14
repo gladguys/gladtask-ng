@@ -7,7 +7,7 @@ import { Team } from 'src/app/shared/models/team.model';
 
 import { GladService } from 'src/app/core/services/glad.service';
 import { TeamService } from '../../../core/services/team.service';
-import { GTNotificationService } from 'src/app/shared/components/gt-notification/gt-notification.service';
+import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { UserService } from '../../../core/services/user.service';
 import { SharedService } from "../../../core/services/shared.service";
 

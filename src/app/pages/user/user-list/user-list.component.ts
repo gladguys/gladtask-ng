@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from "../../../core/services/user.service";
 import { User } from "../../../shared/models/user.model";
-import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../../core/services/gt-notification.service";
 
 @Component({
   selector: 'app-user-list',

@@ -1,19 +1,18 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { MatBottomSheet } from "@angular/material";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 import { TaskService } from "../../../core/services/task.service";
 import { SharedService } from "../../../core/services/shared.service";
-import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../../core/services/gt-notification.service";
 
 import { getPossibleStatus, Status } from "../../../shared/enums/status.enum";
 import { Task } from "../../../shared/models/task.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
-import {TimeSpent} from "../../../shared/models/time-spent.model";
-import {MatBottomSheet} from "@angular/material";
-import {TaskTimeSpentComponent} from "../task-time-spent/task-time-spent.component";
+import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
 
 @Component({
 	selector: 'task-card',
