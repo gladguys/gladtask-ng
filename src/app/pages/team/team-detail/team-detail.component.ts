@@ -70,7 +70,7 @@ export class TeamDetailComponent implements OnInit {
 			invitation.receiverUserId = user.id;
 			invitation.teamId = this.team.id;
 
-			this.invitationService.createOrUpdate(invitation).subscribe( invitation => {
+			this.invitationService.createOrUpdateByDTO(invitation).subscribe( invitation => {
 				this.notificationService.notificateSuccess(`Convite enviado para usuario ${invitation.receiver.username}`);
 			});
         }

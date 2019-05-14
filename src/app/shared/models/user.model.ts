@@ -1,5 +1,6 @@
-export class User {
-	public id: string;
+import { BaseModel } from './base.model';
+
+export class User extends BaseModel {
 	public username: string;
 	public firstName: string;
 	public lastName: string;
@@ -8,5 +9,4 @@ export class User {
 	public profileEnum: string;
 	public profilePhoto: string;
 
-	constructor() {}
 }
