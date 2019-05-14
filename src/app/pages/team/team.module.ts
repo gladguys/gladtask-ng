@@ -12,7 +12,6 @@ import { GTDatatableModule } from 'src/app/shared/components/gt-datatable/gt-dat
 import { GTFormsModule } from 'src/app/shared/components/gt-forms/gt-forms.module';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
-import { GTNotificationModule } from '../../shared/components/gt-notification/gt-notification.module';
 import { TeamRoutingModule } from './team-routing.module';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
@@ -32,8 +31,7 @@ import { TeamListSidenavComponent } from './team-list-sidenav/team-list-sidenav.
 		FontAwesomeModule,
 		NgSelectModule,
 		CoreModule,
-		SharedModule,
-		GTNotificationModule
+		SharedModule
 	],
 	exports: [TeamListSidenavComponent]
 })

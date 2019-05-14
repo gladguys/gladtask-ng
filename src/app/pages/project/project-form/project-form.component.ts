@@ -7,7 +7,7 @@ import { UserService } from "../../../core/services/user.service";
 import { ProjectService } from "../../../core/services/project.service";
 import { TeamService } from '../../../core/services/team.service';
 import { GladService } from "../../../core/services/glad.service";
-import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../../core/services/gt-notification.service";
 import { SharedService } from "../../../core/services/shared.service";
 
 import { Project } from "../../../shared/models/project.model";

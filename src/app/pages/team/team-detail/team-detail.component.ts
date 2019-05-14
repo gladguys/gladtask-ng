@@ -8,7 +8,7 @@ import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from '../../../core/services/user.service';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { GTNotificationService } from 'src/app/shared/components/gt-notification/gt-notification.service';
+import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationService } from 'src/app/core/services/invitation.service';
 import { Invitation } from 'src/app/shared/models/invitation.model';
 import { SharedService } from 'src/app/core/services/shared.service';
