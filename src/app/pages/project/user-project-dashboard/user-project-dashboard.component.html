@@ -15,6 +15,7 @@
 						fxLayout="column"
 						fxLayoutAlign="center center"
 						class="project-image"
+						[style.background]="'url(' + p.projectImage + ')'"
 						[routerLink]="['projects', 'project-info', p.id]">
 
 						<span>{{p.name}}</span>
