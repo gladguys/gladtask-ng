@@ -15,9 +15,10 @@
 						fxLayout="column"
 						fxLayoutAlign="center center"
 						class="project-image"
+						[style.background-image]="'url(' + p.projectImage + ')'"
 						[routerLink]="['projects', 'project-info', p.id]">
 
-						<span>{{p.name}}</span>
+						<span *ngIf="!p.projectImage">{{p.name}}</span>
 					</div>
 					<div class="team-of-project">{{p.team.name}}</div>
 				</div>
