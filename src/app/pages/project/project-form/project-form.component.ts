@@ -55,7 +55,6 @@ export class ProjectFormComponent implements OnInit {
 				this.populateForm(this.project);
 			}, e => this.router.navigate(['/task-not-found']));
 		} else {
-			this.previewImage = GTConstants.GLADIATOR_DEFAULT_PROFILE;
 			this.projectExists = true;
 		}
 	}
