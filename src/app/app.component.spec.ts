@@ -1,7 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { GTNotificationModule } from './shared/components/gt-notification/gt-notification.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import {AppRoutingModule} from './app-routing.module';
@@ -17,7 +16,6 @@ describe('AppComponent', () => {
 				AppRoutingModule,
 				SharedModule,
 				CoreModule,
-				GTNotificationModule
 			]
 		})
 		.compileComponents();
