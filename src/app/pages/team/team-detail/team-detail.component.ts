@@ -52,11 +52,8 @@ export class TeamDetailComponent implements OnInit {
 				this.userService.findByAnyTerm(term).subscribe(users =>
 					this.filteredParticipants = this.getPossibleUsers(users));
 			});
-		
-		let teamId: string = this.route.snapshot.params['id'];
-		if (teamId != undefined) {
-			this.teamService.findById(teamId).subscribe(team => this.team = team);
-		}
+
+		this.route.params.subscribe(params => this.teamService.findById(params.id).subscribe(team => this.team = team));
 	}
 
 	getPossibleUsers(users: User[]) {
@@ -76,19 +73,11 @@ export class TeamDetailComponent implements OnInit {
         }
 	}
 
-	buildInvitationToUser(user: User): Invitation {
-		let invitation = new Invitation();
-			invitation.author = this.sharedService.getUserLogged();
-			invitation.receiver = user;
-			invitation.team = this.team;
-			return invitation;
-	}
-	
 	emailValidator(email:string): boolean {
 		let EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return EMAIL_REGEXP.test(email);
 	}
-	
+
 	handleInviteEmail() {
 		let email = this.email.nativeElement.value;
 		if (this.emailValidator(email)) {
