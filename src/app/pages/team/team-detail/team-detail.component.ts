@@ -10,7 +10,6 @@ import { UserService } from '../../../core/services/user.service';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationService } from 'src/app/core/services/invitation.service';
-import { Invitation } from 'src/app/shared/models/invitation.model';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { EmailService } from "../../../core/services/email.service";
 import { environment } from "../../../../environments/environment";
