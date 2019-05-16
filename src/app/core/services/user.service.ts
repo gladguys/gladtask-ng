@@ -16,7 +16,15 @@ export class UserService extends BaseService<User> {
 				protected injector: Injector) {
 		super(injector, "/users");
 	 }
-
+	
+	createOrUpdate(user: User, teamId: string): Observable<User> {
+		if (user.id != null && user.id != '') {
+			return this.http.put<User>(`${environment.API}/users`, user);
+		} else {
+			user.id = null;
+			return this.http.post<User>(`${environment.API}/users`, { user, teamId });
+		}
+	}
 
 	findByUsername(username: string): Observable<User> {
 		return this.http.get<User>(`${environment.API}/users/username/${username}`);
