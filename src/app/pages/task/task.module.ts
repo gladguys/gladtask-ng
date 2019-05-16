@@ -32,6 +32,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { TaskGridModule } from "./task-grid/task-grid.module";
 import { TaskTimeSpentComponent } from "./task-time-spent/task-time-spent.component";
 import { TaskTimesComponent } from "./task-times/task-times.component";
+import { RecentTasksComponent } from "../home/recent-tasks/recent-tasks.component";
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { TaskTimesComponent } from "./task-times/task-times.component";
 		TaskListGridViewComponent,
 		TaskTimeSpentComponent,
 		TaskTimesComponent,
+		RecentTasksComponent,
 		GTTasksCarouselComponent
     ],
 	imports: [
@@ -65,14 +67,15 @@ import { TaskTimesComponent } from "./task-times/task-times.component";
 		MarkdownModule.forRoot(),
 		NguCarouselModule
     ],
-	entryComponents: [TaskTimeSpentComponent],
 	exports: [
 		TaskComponent,
 		TaskFormComponent,
 		TaskListComponent,
 		TaskPreviewComponent,
-		TaskCardComponent
-	]
+		TaskCardComponent,
+		RecentTasksComponent,
+	],
+	entryComponents: [TaskTimeSpentComponent]
 })
 export class TaskModule {
 
