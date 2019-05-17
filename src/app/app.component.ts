@@ -32,8 +32,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 		private titleService: Title,
 		private sideNavService: SideNavService,
 		private changeDetectorRef: ChangeDetectorRef,
-		private media: MediaMatcher,
-		public dialog: MatDialog) { }
+		private media: MediaMatcher) { }
 
 	ngOnInit(): void {
 		this.userIsLoggedIn$ = this.sharedService.userIsLoggedIn$;
