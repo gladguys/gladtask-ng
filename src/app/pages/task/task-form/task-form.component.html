@@ -142,15 +142,16 @@
 		
 		<div *ngIf="taskForm.controls['team'].value">
 			<a 
-					mat-flat-button 
+					mat-flat-button
+					type="button"
 					class="btn-first-project"
 					*ngIf="possibleProjects.length == 0; else btnNovoProj" 
-					routerLink="/projects/project-form">
+					(click)="openNewProjectDialog()">
 					Crie Primeiro Projeto da Equipe
 			</a>
 
 			<ng-template #btnNovoProj>
-				<button class="btn-new-project" mat-button routerLink="/projects/project-form">Novo Projeto</button>
+				<button class="btn-new-project" type="button" mat-button (click)="openNewProjectDialog()">Novo Projeto</button>
 			</ng-template>
 		</div>
 
