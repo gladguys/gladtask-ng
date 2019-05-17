@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MatDialogRef } from "@angular/material";
 import { Observable } from "rxjs";
 
 import { UserService } from "../../../core/services/user.service";
@@ -12,7 +13,6 @@ import { SharedService } from "../../../core/services/shared.service";
 
 import { Project } from "../../../shared/models/project.model";
 import { Team } from "../../../shared/models/team.model";
-import { GTConstants } from "../../../GT-constants";
 
 @Component({
   selector: 'project-form',
@@ -36,7 +36,8 @@ export class ProjectFormComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private teamService: TeamService,
-		private sharedService: SharedService) { }
+		private sharedService: SharedService,
+		public dialogRef: MatDialogRef<ProjectFormComponent>) { }
 
 	ngOnInit() {
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
@@ -71,8 +72,8 @@ export class ProjectFormComponent implements OnInit {
 					this.gladService.openSnack("Projeto editado");
 				} else {
 					this.gladService.openSnack("Projeto criado");
+					this.dialogRef.close(project);
 				}
-				this.router.navigate(['/']);
 			}, e => this.notificationService.notificateFailure("Falha ao criar projeto"));
 	}
 
