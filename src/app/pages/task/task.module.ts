@@ -32,7 +32,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { TaskGridModule } from "./task-grid/task-grid.module";
 import { TaskTimeSpentComponent } from "./task-time-spent/task-time-spent.component";
 import { TaskTimesComponent } from "./task-times/task-times.component";
-
+import { ProjectFormComponen } from "../project/project-form/project-form.component";
 
 @NgModule({
 	declarations: [
@@ -65,7 +65,10 @@ import { TaskTimesComponent } from "./task-times/task-times.component";
 		MarkdownModule.forRoot(),
 		NguCarouselModule
     ],
-	entryComponents: [TaskTimeSpentComponent],
+	entryComponents: [
+		TaskTimeSpentComponent,
+		ProjectFormComponent
+	],
 	exports: [
 		TaskComponent,
 		TaskFormComponent,
