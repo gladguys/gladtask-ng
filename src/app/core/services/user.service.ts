@@ -17,7 +17,7 @@ export class UserService extends BaseService<User> {
 		super(injector, "/users");
 	 }
 	
-	createOrUpdate(user: User, teamId: string): Observable<User> {
+	createOrUpdateWithTeam(user: User, teamId: string): Observable<User> {
 		if (user.id != null && user.id != '') {
 			return this.http.put<User>(`${environment.API}/users`, user);
 		} else {
