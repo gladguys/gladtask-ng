@@ -29,7 +29,7 @@ import { TimeSpent } from "../../../shared/models/time-spent.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { TaskComment } from "../../../shared/models/task-comment.model";
 import { Project } from "../../../shared/models/project.model";
-import { getPossibleStatus, Status } from "../../../shared/enums/status.enum";
+import { getPossibleStatus, Status, getStatusFromEnum } from "../../../shared/enums/status.enum";
 import { possibleTaskTypes, TaskType } from "../../../shared/enums/task-type.enum";
 
 import { ValidateTitleEqualDesc } from "../../../shared/validators/title-equal-description.validator";
@@ -302,5 +302,9 @@ export class TaskFormComponent implements OnInit {
 				this.loadProjects(newProject.team.id);
 			}
 		});
+	}
+
+	getEnum(status: string) {
+		return getStatusFromEnum(status);
 	}
 }
