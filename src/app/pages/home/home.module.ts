@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,7 +15,6 @@ import { HomeComponent } from './home.component';
 import { TasksPerStatusChartComponent } from './tasks-per-status-chart/tasks-per-status-chart.component';
 import { ProjectsHomeComponent } from './projects-home/projects-home.component';
 import { DueSoonTasksComponent } from './due-soon-tasks/due-soon-tasks.component';
-import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
 import { InvitationComponent } from './invitation/invitation.component';
 
 @NgModule({
@@ -24,7 +22,6 @@ import { InvitationComponent } from './invitation/invitation.component';
 		HomeComponent,
 		ProjectsHomeComponent,
 		TasksPerStatusChartComponent,
-		RecentTasksComponent,
 		DueSoonTasksComponent,
 		InvitationComponent
 	],

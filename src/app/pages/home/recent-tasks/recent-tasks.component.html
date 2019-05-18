@@ -6,9 +6,7 @@
 
 		<ng-template #taskslist>
 			<h1>Últimas Tasks Editadas</h1>
-			<div fxLayout="row" fxLayoutGap="10px" class="card-container flowable">
-				<task-card *ngFor="let task of recentTasks" [task]="task"></task-card>
-			</div>
+			<gt-tasks-carousel [tasks]="recentTasks"></gt-tasks-carousel>
 		</ng-template>
 	</div>
 

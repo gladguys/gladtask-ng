@@ -6,7 +6,6 @@ import { User } from "../../shared/models/user.model";
 import { environment } from "../../../environments/environment";
 import { BaseService } from './base.service';
 
-
 @Injectable({
 	providedIn: 'root'
 })
