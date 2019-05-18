@@ -91,8 +91,6 @@ export class TaskFormComponent implements OnInit {
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
 
-		this.taskForm.controls['team'].valueChanges.subscribe(team => this.loadProjects(team.id));
-
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
 			this.task = new Task();
@@ -153,6 +151,7 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	populateForm(task: Task): void {
+		this.taskForm.controls['team'].valueChanges.subscribe(team => this.loadProjects(team.id));
 		this.taskForm.patchValue({
 			title: task.title,
 			priority: this.getPriorityFromTask(task.priority),
@@ -164,6 +163,8 @@ export class TaskFormComponent implements OnInit {
 			project: task.project,
 			estimatedTime: task.estimatedTime
 		});
+	
+		
 
 		if (task.dueDate != undefined) {
 			this.dueDate = new Date(task.dueDate);
@@ -287,8 +288,10 @@ export class TaskFormComponent implements OnInit {
 		});
 
 		bottomSheetRef.afterDismissed().subscribe(() => {
-			this.task.timeSpentValues.push(this.timeSpent$.getValue());
-			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+			if(this.timeSpent$.getValue()) {
+				this.task.timeSpentValues.push(this.timeSpent$.getValue());
+				this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+			}
 		})
 	}
 	
@@ -306,5 +309,6 @@ export class TaskFormComponent implements OnInit {
 
 	getEnum(status: string) {
 		return getStatusFromEnum(status);
+
 	}
 }
