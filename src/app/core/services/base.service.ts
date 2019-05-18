@@ -8,7 +8,7 @@ export abstract class BaseService<T extends BaseModel> {
 
     protected http: HttpClient;
 
-    constructor(protected injector: Injector, protected pathToApi: string) {
+    protected constructor(protected injector: Injector, protected pathToApi: string) {
         this.http = this.injector.get(HttpClient);
     }
 

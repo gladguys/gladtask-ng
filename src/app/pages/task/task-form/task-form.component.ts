@@ -22,6 +22,7 @@ import { TaskChangesComponent } from "../task-changes/task-changes.component";
 import { TaskCommentsComponent } from "../task-comments/task-comments.component";
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
 import { TaskTimesComponent } from "../task-times/task-times.component";
+import { ProjectFormComponent } from "../../project/project-form/project-form.component";
 
 import { Task } from "../../../shared/models/task.model";
 import { TimeSpent } from "../../../shared/models/time-spent.model";
@@ -81,7 +82,8 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private sharedService: SharedService) { }
+		private sharedService: SharedService,
+		public dialog: MatDialog) { }
 
 	ngOnInit() {
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
@@ -288,5 +290,17 @@ export class TaskFormComponent implements OnInit {
 			this.task.timeSpentValues.push(this.timeSpent$.getValue());
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
 		})
+	}
+	
+	openNewProjectDialog() {
+		let dialogRef = this.matDialog.open(ProjectFormComponent, {
+			width: '400px'
+		});
+
+		dialogRef.afterClosed().subscribe((newProject: Project) => {
+			if (this.taskForm.value.team.id == newProject.team.id) {
+				this.loadProjects(newProject.team.id);
+			}
+		});
 	}
 }

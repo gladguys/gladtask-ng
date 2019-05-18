@@ -52,7 +52,7 @@ export class SignupComponent {
 		if (this.previewImage) {
 			submittedUser.profilePhoto = this.previewImage;
 		}
-		this.userService.createOrUpdate(submittedUser)
+		this.userService.createOrUpdateWithTeam(submittedUser, this.teamId)
 			.subscribe((user) => {
 				this.notificationService.notificateSuccess("Usuário criado");
 				this.router.navigate(['/login']);
