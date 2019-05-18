@@ -78,8 +78,7 @@ import { RecentTasksComponent } from "../home/recent-tasks/recent-tasks.componen
 		TaskPreviewComponent,
 		TaskCardComponent,
 		RecentTasksComponent,
-	],
-	entryComponents: [TaskTimeSpentComponent]
+	]
 })
 export class TaskModule {
 
