@@ -28,10 +28,13 @@ export class GTToolbarComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.version = environment.VERSION;
-		this.subSink.add(this.sharedService.getTitleNameMenu().subscribe( title => this.titleMenu = title));
+		this.subSink.add(
+			this.sharedService.getTitleNameMenu()
+					  .subscribe( title => this.titleMenu = title));
 		let userLogged = this.sharedService.getUserLogged();
 		if (userLogged != null) {
-			this.profileImg = userLogged.profilePhoto ? userLogged.profilePhoto : GTConstants.GLADIATOR_DEFAULT_PROFILE;
+			this.profileImg = 
+				userLogged.profilePhoto ? userLogged.profilePhoto : GTConstants.GLADIATOR_DEFAULT_PROFILE;
 		}
 	}
 
