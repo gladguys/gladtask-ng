@@ -103,7 +103,7 @@
 
 			<mat-label>Status</mat-label>
 			<mat-select formControlName="status" required>
-				<mat-option *ngFor="let status of possibleStatus" value="{{ status }}">
+				<mat-option *ngFor="let status of possibleStatus" [value]="getEnum(status)">
 					{{ status }}
 				</mat-option>
 			</mat-select>
