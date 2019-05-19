@@ -66,10 +66,10 @@ export const ROUTES: Routes = [
 			}
 	},
 
-	{ path: "tasks", loadChildren: "./pages/task/task.module#TaskModule" },
-	{ path: "users", loadChildren: "./pages/user/user.module#UserModule" },
-	{ path: "teams", loadChildren: "./pages/team/team.module#TeamModule" },
-	{ path: "projects", loadChildren: "./pages/project/project.module#ProjectModule" },
+	{ path: "tasks", loadChildren: "./pages/task/task.module#TaskModule", canLoad: [AuthGuard] },
+	{ path: "users", loadChildren: "./pages/user/user.module#UserModule", canLoad: [AuthGuard] },
+	{ path: "teams", loadChildren: "./pages/team/team.module#TeamModule", canLoad: [AuthGuard] },
+	{ path: "projects", loadChildren: "./pages/project/project.module#ProjectModule", canLoad: [AuthGuard] },
 
 	{
 		path: '**',
