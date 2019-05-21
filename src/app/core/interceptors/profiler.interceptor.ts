@@ -13,8 +13,8 @@ export class ProfilerInterceptor implements HttpInterceptor {
 		return next.handle(req).pipe(
 			finalize(() => {
 				const elapsed = Date.now() - this.started;
-				const msg = `${req.method} "${req.urlWithParams}" took ${elapsed} ms.`;
-				console.log(msg);
+				const msg = `%c${req.method} %c to %c${req.urlWithParams} %c took %c${elapsed} ms.`;
+				console.log(msg, "color: green", "color: black", "color: darkblue", "color: black", "color: red");
 			})
 		);
 	}
