@@ -8,7 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { NguCarouselModule } from "@ngu/carousel";
 import {
 	faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
-	faPause, faPlay, faPlus, faThLarge, faEdit, faClock
+	faPause, faPlay, faPlus, faThLarge, faEdit, faClock, faPen, faPaperPlane
 } from '@fortawesome/free-solid-svg-icons';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MarkdownModule } from "ngx-markdown";
@@ -83,6 +83,6 @@ import { RecentTasksComponent } from "../home/recent-tasks/recent-tasks.componen
 export class TaskModule {
 
 	constructor() {
-		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit, faClock);
+		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit, faClock, faPaperPlane, faPen);
 	}
 }
