@@ -6,11 +6,25 @@ h1 {
 
 .container {
 	padding-bottom: 10px;
-	
+
+	.no-projects-container {
+		display: flex;
+	  	justify-content: center;
+	}
+
 	.scrollable {
 		overflow: auto;
 	}
 
+	.no-project-content {
+	  	margin-top: 10px;
+	  	max-height: 300px;
+	  	padding: 4px 8px;
+	  	overflow: auto;
+	  	width: 50%;
+	  	border: 1px solid $border;
+	  	border-radius: 8px;
+  	}
 
 	.card-project {
 		position: relative;
@@ -58,6 +72,7 @@ h1 {
 	.empty-msg {
 		display: block;
 		padding: 10px;
+	  	text-align: center;
 	}
 
 	.skeleton-loading {
