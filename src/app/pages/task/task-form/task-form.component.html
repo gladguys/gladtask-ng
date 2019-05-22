@@ -51,10 +51,6 @@
 			</div>
 		</mat-form-field>
 
-		<button *ngIf="taskForm.disabled" type="button" mat-fab (click)="taskForm.enable()">
-			<fa-icon icon="edit" size="lg"></fa-icon>
-		</button>
-
 		<span class="line-break"></span>
 
 		<mat-form-field
@@ -141,17 +137,28 @@
 		</mat-form-field>
 		
 		<div *ngIf="taskForm.controls['team'].value">
-			<a 
-					mat-flat-button
-					type="button"
-					class="btn-first-project"
-					*ngIf="possibleProjects.length == 0; else btnNovoProj" 
-					(click)="openNewProjectDialog()">
-					Crie Primeiro Projeto da Equipe
-			</a>
+			<button 
+				mat-stroked-button
+				type="button"
+				class="btn-blue btn--small btn-new-project"
+				*ngIf="taskForm.enabled && possibleProjects.length == 0; else btnNovoProj" 
+				(click)="openNewProjectDialog()">
+
+				<fa-icon icon="plus"></fa-icon>
+				Criar primeiro projeto
+			</button>
 
 			<ng-template #btnNovoProj>
-				<button class="btn-new-project" type="button" mat-button (click)="openNewProjectDialog()">Novo Projeto</button>
+				<button
+					mat-stroked-button
+					type="button"
+					class="btn-blue btn--small btn-new-project"
+					(click)="openNewProjectDialog()"
+					*ngIf="taskForm.enabled">
+
+					<fa-icon icon="plus"></fa-icon>
+					Novo Projeto
+				</button>
 			</ng-template>
 		</div>
 
@@ -191,14 +198,13 @@
 			<mat-datepicker #picker color="#a91919"></mat-datepicker>
 		</mat-form-field>
 
-		<mat-form-field	fxFlex="140px" appearance="outline">
+		<mat-form-field
+			fxFlex="140px"
+			appearance="outline">
+
 			<mat-label>Tempo estimado</mat-label>
 			<input formControlName="estimatedTime" matInput [textMask]="{mask: hourMinuteMask}" type="text">
 		</mat-form-field>
-
-		<button *ngIf="taskForm.enabled" type="button" mat-mini-fab class="mat-elevation-z0" (click)="openBottomSheetTimeSpent()">
-			<fa-icon icon="clock"></fa-icon>
-		</button>
 
 		<h4 fxFlex="100%">Comentários</h4>
 
@@ -218,13 +224,13 @@
 				required></textarea>
 
 			<button
-				mat-stroked-button
+				mat-flat-button
 				type="button"
-				class="btn--icon-and-text btn-blue btn-add-comment"
+				class="btn--icon-and-text btn-blue-dark btn-add-comment"
 				(click)="addComment()">
 
-				<fa-icon icon="plus"></fa-icon>
-				Adicionar
+				<fa-icon icon="paper-plane"></fa-icon>
+				Enviar
 			</button>
 
 			<button
@@ -252,7 +258,29 @@
 		fxFlex.lt-sm="100%"
 		class="block-side-right">
 
+		<div class="activities-panel">
+			<button
+				mat-raised-button
+				type="button"
+				class="btn-orange btn-open-time-spent"
+				(click)="openBottomSheetTimeSpent()">
+
+				<fa-icon icon="clock"></fa-icon>
+				Registrar horas
+			</button>
+		</div>
+
 		<gt-task-times #taskTimes fxFlex="1 1 100%"></gt-task-times>
 		<gt-task-changes #taskChanges fxFlex="1 1 100%"></gt-task-changes>
 	</div>
+
+	<button
+		mat-fab
+		type="button"
+		class="btn-blue-dark mat-fab--floating"
+		(click)="taskForm.enable()"
+		*ngIf="taskForm.disabled">
+
+		<fa-icon icon="pen" size="lg"></fa-icon>
+	</button>
 </form>

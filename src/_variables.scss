@@ -9,7 +9,9 @@ $accent : mat-color($gt-accent);
 $warn   : mat-color($gt-warn);
 
 $blue: mat-color(mat-palette($mat-blue, 500));
+$blue-dark: mat-color(mat-palette($mat-blue, 800));
 $green: mat-color(mat-palette($mat-green, 500));
+$orange: mat-color(mat-palette($mat-orange, 500));
 
 $primary-alpha-1: mat-color($gt-primary, 0.1);
 $primary-alpha-2: mat-color($gt-primary, 0.2);

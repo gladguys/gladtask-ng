@@ -283,7 +283,8 @@ export class TaskFormComponent implements OnInit {
 	
 	openBottomSheetTimeSpent() {
 		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
-			data: { taskId: this.task.id }
+			data: { taskId: this.task.id },
+			panelClass: 'mat-bottom-sheet-container-time-spent'
 		});
 
 		bottomSheetRef.afterDismissed().subscribe(() => {
