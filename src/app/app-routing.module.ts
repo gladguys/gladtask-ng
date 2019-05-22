@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 
+import { environment } from '../environments/environment';
 import { AuthGuard } from "./core/guards/auth.guard";
 import { LoginComponent } from "./pages/login/login.component";
 import { LoginAuthGuard } from "./core/guards/login.auth.guard";
 import { SignupComponent } from "./pages/signup/signup.component";
-import {HomeComponent} from "./pages/home/home.component";
-import {InboxComponent} from "./pages/inbox/inbox.component";
-import {KanbanComponent} from "./pages/kanban/kanban.component";
-import {PageNotFoundComponent} from "./pages/page-not-found/page-not-found.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { InboxComponent } from "./pages/inbox/inbox.component";
+import { KanbanComponent } from "./pages/kanban/kanban.component";
+import { PageNotFoundComponent } from "./pages/page-not-found/page-not-found.component";
 
 export const ROUTES: Routes = [
 	{
@@ -83,7 +84,7 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(ROUTES)],
+	imports: [RouterModule.forRoot(ROUTES, { enableTracing: !environment.production })],
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }
