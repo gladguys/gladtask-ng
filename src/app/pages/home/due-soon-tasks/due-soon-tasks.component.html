@@ -1,10 +1,16 @@
 <div class="container">
 
 	<div *ngIf="(dueSoonTasks$ | async) as dueSoonTasks; else loadingTasks">
-		<span class="empty-msg" *ngIf="dueSoonTasks.length == 0; else showTasks">Não há tasks para os próximos dias.</span>
+
+		<div class="no-tasks-container">
+			<div *ngIf="dueSoonTasks.length == 0; else showTasks" class="no-tasks-content scrollbar-thin">
+				<span class="empty-msg" >Não há tasks para os próximos dias.</span>
+			</div>
+		</div>
+
 		<ng-template #showTasks>
-			<h1>Tasks em Alerta</h1>
 			<div class="tasks-content scrollbar-thin">
+				<h1>Tasks em Alerta</h1>
 				<div
 					*ngFor="let task of dueSoonTasks"
 					fxLayout="row wrap"
