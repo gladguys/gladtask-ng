@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import localePt from '@angular/common/locales/pt';
 
 import { AppComponent } from './app.component';
+import { ProjectFormComponent } from "./pages/project/project-form/project-form.component";
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -19,9 +20,7 @@ import { GTModule } from './pages/gt.module';
 registerLocaleData(localePt);
 
 @NgModule({
-	declarations: [
-		AppComponent
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserAnimationsModule,
 		BrowserModule,
@@ -34,6 +33,7 @@ registerLocaleData(localePt);
 		AppRoutingModule,
 		TeamModule
 	],
+	entryComponents: [ProjectFormComponent],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

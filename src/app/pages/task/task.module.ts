@@ -67,10 +67,7 @@ import { RecentTasksComponent } from "../home/recent-tasks/recent-tasks.componen
 		MarkdownModule.forRoot(),
 		NguCarouselModule
     ],
-	entryComponents: [
-		TaskTimeSpentComponent,
-		ProjectFormComponent
-	],
+	entryComponents: [TaskTimeSpentComponent],
 	exports: [
 		TaskComponent,
 		TaskFormComponent,
