@@ -82,8 +82,7 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		public dialog: MatDialog) { }
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
@@ -303,6 +302,10 @@ export class TaskFormComponent implements OnInit {
 				this.loadProjects(newProject.team.id);
 			}
 		});
+	}
+
+	isDirty(): boolean {
+		return this.taskForm.dirty;
 	}
 
 	getEnum(status: string) {
