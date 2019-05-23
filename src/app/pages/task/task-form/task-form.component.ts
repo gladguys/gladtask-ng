@@ -17,13 +17,12 @@ import { GTNotificationService } from "../../../core/services/gt-notification.se
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskCommentsService } from "../../../core/services/task-comments.service";
 import { TimeSpentService } from "./time-spent.service";
-import { TeamProjectService } from "../../../core/services/team-project.service";
 
 import { TaskChangesComponent } from "../task-changes/task-changes.component";
 import { TaskCommentsComponent } from "../task-comments/task-comments.component";
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
 import { TaskTimesComponent } from "../task-times/task-times.component";
-import { ProjectFormComponent } from "../../project/project-form/project-form.component";
+import { QuickProjectFormComponent } from "../../project/quick-project-form/quick-project-form.component";
 
 import { Task } from "../../../shared/models/task.model";
 import { TimeSpent } from "../../../shared/models/time-spent.model";
@@ -83,7 +82,6 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private teamProjectService: TeamProjectService,
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
@@ -295,9 +293,9 @@ export class TaskFormComponent implements OnInit {
 	}
 	
 	openNewProjectDialog() {
-		this.teamProjectService.emitTeam(this.taskForm.controls['team'].value);
-		let dialogRef = this.matDialog.open(ProjectFormComponent, {
-			width: '400px'
+		let dialogRef = this.matDialog.open(QuickProjectFormComponent, {
+			width: '400px',
+			data: { team: this.taskForm.controls['team'].value }
 		});
 
 		dialogRef.afterClosed().subscribe((newProject: Project) => this.possibleProjects.push(newProject));

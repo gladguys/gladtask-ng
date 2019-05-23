@@ -14,11 +14,9 @@ import { GTNotificationService } from 'src/app/core/services/gt-notification.ser
 import { InvitationService } from 'src/app/core/services/invitation.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { EmailService } from "../../../core/services/email.service";
-import { TeamProjectService } from "../../../core/services/team-project.service";
 import { GladService } from "../../../core/services/glad.service";
 
 import { environment } from "../../../../environments/environment";
-import { ProjectFormComponent } from "../../project/project-form/project-form.component";
 
 @Component({
   selector: 'app-team-detail',
@@ -47,7 +45,6 @@ export class TeamDetailComponent implements OnInit {
 		private serializer: UrlSerializer,
 		private matDialog: MatDialog,
 		private emailService: EmailService,
-		private teamProjectService: TeamProjectService,
 		private router: Router) { }
 
 	ngOnInit() {
@@ -97,10 +94,5 @@ export class TeamDetailComponent implements OnInit {
 		} else {
 			this.gladService.openSnack('Email inválido');
 		}
-	}
-	
-	openNewProjectDialog() {
-		this.teamProjectService.emitTeam(this.team);
-		this.matDialog.open(ProjectFormComponent, { width: '400px' });
 	}
 }

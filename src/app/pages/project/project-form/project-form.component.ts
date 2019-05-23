@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MatDialogRef } from "@angular/material";
 import { Observable } from "rxjs";
 
 import { UserService } from "../../../core/services/user.service";
@@ -10,7 +9,6 @@ import { TeamService } from '../../../core/services/team.service';
 import { GladService } from "../../../core/services/glad.service";
 import { GTNotificationService } from "../../../core/services/gt-notification.service";
 import { SharedService } from "../../../core/services/shared.service";
-import { TeamProjectService } from "../../../core/services/team-project.service";
 
 import { Project } from "../../../shared/models/project.model";
 import { Team } from "../../../shared/models/team.model";
@@ -37,9 +35,7 @@ export class ProjectFormComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		private teamProjectService: TeamProjectService,
-		public dialogRef: MatDialogRef<ProjectFormComponent>) { }
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
@@ -48,11 +44,6 @@ export class ProjectFormComponent implements OnInit {
 			'name': ['', [Validators.required]],
 			'description': [''],
 			'team': [null, Validators.required]
-		});
-
-		this.teamProjectService.getTeam().subscribe(choosedTeam => {
-			this.projectForm.controls['team'].setValue(choosedTeam );
-			this.projectForm.controls['team'].disable();
 		});
 
 		let id: string = this.route.snapshot.params['id'];
@@ -83,7 +74,6 @@ export class ProjectFormComponent implements OnInit {
 					this.gladService.openSnack("Projeto editado");
 				} else {
 					this.gladService.openSnack("Projeto criado");
-					this.dialogRef.close(project);
 				}
 			}, e => this.notificationService.notificateFailure("Falha ao criar projeto"));
 	}
