@@ -51,7 +51,8 @@
 
 			<mat-label>Equipe</mat-label>
 			<mat-select
-				formControlName="team">
+				formControlName="team"
+				[compareWith]="compareFn">
 
 				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
 					{{team.name}}

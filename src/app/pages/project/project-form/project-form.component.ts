@@ -10,6 +10,7 @@ import { TeamService } from '../../../core/services/team.service';
 import { GladService } from "../../../core/services/glad.service";
 import { GTNotificationService } from "../../../core/services/gt-notification.service";
 import { SharedService } from "../../../core/services/shared.service";
+import { TeamProjectService } from "../../../core/services/team-project.service";
 
 import { Project } from "../../../shared/models/project.model";
 import { Team } from "../../../shared/models/team.model";
@@ -37,6 +38,7 @@ export class ProjectFormComponent implements OnInit {
 		private route: ActivatedRoute,
 		private teamService: TeamService,
 		private sharedService: SharedService,
+		private teamProjectService: TeamProjectService,
 		public dialogRef: MatDialogRef<ProjectFormComponent>) { }
 
 	ngOnInit() {
@@ -45,7 +47,12 @@ export class ProjectFormComponent implements OnInit {
 		this.projectForm = this.formBuilder.group({
 			'name': ['', [Validators.required]],
 			'description': [''],
-			'team': ['', Validators.required]
+			'team': [null, Validators.required]
+		});
+
+		this.teamProjectService.getTeam().subscribe(choosedTeam => {
+			this.projectForm.controls['team'].setValue(choosedTeam );
+			this.projectForm.controls['team'].disable();
 		});
 
 		let id: string = this.route.snapshot.params['id'];
@@ -58,6 +65,10 @@ export class ProjectFormComponent implements OnInit {
 		} else {
 			this.projectExists = true;
 		}
+	}
+
+	compareFn(x: Team, y: Team): boolean {
+		return x && y && x.id == y.id;
 	}
 
 	onSubmit(): void {
