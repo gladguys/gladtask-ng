@@ -1,19 +1,24 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, UrlSerializer } from '@angular/router';
+import { MatDialog } from "@angular/material";
 import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
-import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
-import { TeamService } from '../../../core/services/team.service';
 import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
+import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
+
+import { TeamService } from '../../../core/services/team.service';
 import { UserService } from '../../../core/services/user.service';
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationService } from 'src/app/core/services/invitation.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { EmailService } from "../../../core/services/email.service";
-import { environment } from "../../../../environments/environment";
+import { TeamProjectService } from "../../../core/services/team-project.service";
 import { GladService } from "../../../core/services/glad.service";
+
+import { environment } from "../../../../environments/environment";
+import { ProjectFormComponent } from "../../project/project-form/project-form.component";
 
 @Component({
   selector: 'app-team-detail',
@@ -40,7 +45,9 @@ export class TeamDetailComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private gladService: GladService,
 		private serializer: UrlSerializer,
+		private matDialog: MatDialog,
 		private emailService: EmailService,
+		private teamProjectService: TeamProjectService,
 		private router: Router) { }
 
 	ngOnInit() {
@@ -90,5 +97,10 @@ export class TeamDetailComponent implements OnInit {
 		} else {
 			this.gladService.openSnack('Email inválido');
 		}
+	}
+	
+	openNewProjectDialog() {
+		this.teamProjectService.emitTeam(this.team);
+		this.matDialog.open(ProjectFormComponent, { width: '400px' });
 	}
 }
