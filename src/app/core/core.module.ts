@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 
 import { AuthGuard } from "./guards/auth.guard";
 import { LoginAuthGuard } from "./guards/login.auth.guard";
+import { TaskFormGuard } from "./guards/task-form.guard";
 
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { ProfilerInterceptor } from "./interceptors/profiler.interceptor";
@@ -17,6 +18,7 @@ import { AuthErrorHandler } from "./errors-handlers/auth-error-handler";
 	providers: [
 		LoginAuthGuard,
 		AuthGuard,
+		TaskFormGuard,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,
