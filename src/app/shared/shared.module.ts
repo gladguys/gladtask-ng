@@ -13,6 +13,7 @@ import { GTFormsModule } from "./components/gt-forms/gt-forms.module";
 import { GTDatatableModule } from "./components/gt-datatable/gt-datatable.module";
 import { GTPipesModule } from "./pipes/gt-pipes.module";
 import { ToastrModule } from "ngx-toastr";
+import { GTConfirmationDialogModule } from "./components/gt-confirmation-dialog/gt-confirmation-dialog.module";
 
 @NgModule({
 	declarations: [
@@ -30,6 +31,7 @@ import { ToastrModule } from "ngx-toastr";
 		MaterialModule,
 		HttpClientModule,
 		NgxSpinnerModule,
+		GTConfirmationDialogModule,
 		ToastrModule.forRoot(),
 		ReactiveFormsModule
 	],
@@ -44,6 +46,7 @@ import { ToastrModule } from "ngx-toastr";
 		MaterialModule,
 		HttpClientModule,
 		NgxSpinnerModule,
+		GTConfirmationDialogModule,
 		ReactiveFormsModule,
 		AdminOnlyDirective,
 		LoggedOnlyDirective
