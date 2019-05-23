@@ -5,7 +5,9 @@ import { TaskListComponent } from "./task-list/task-list.component";
 import { TaskDetailComponent } from "./task-detail/task-detail.component";
 import { TaskNotFoundComponent } from "./task/task-not-found/task-not-found.component";
 import { TaskFormComponent } from "./task-form/task-form.component";
+
 import { AuthGuard } from "../../core/guards/auth.guard";
+import { TaskFormGuard } from "../../core/guards/task-form.guard";
 
 import { TaskListToMeResolver } from "../../shared/resolvers/task-list-to-me.resolver";
 import { TaskFormResolver } from "../../shared/resolvers/task-form.resolver";
@@ -38,6 +40,7 @@ const routes: Routes = [
 				path: 'task-form',
 				component: TaskFormComponent,
 				canActivate: [AuthGuard],
+				canDeactivate: [TaskFormGuard],
 				data: { title:'Nova Task' }
 			},
 			{
