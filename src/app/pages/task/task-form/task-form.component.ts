@@ -17,6 +17,7 @@ import { GTNotificationService } from "../../../core/services/gt-notification.se
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskCommentsService } from "../../../core/services/task-comments.service";
 import { TimeSpentService } from "./time-spent.service";
+import { TeamProjectService } from "../../../core/services/team-project.service";
 
 import { TaskChangesComponent } from "../task-changes/task-changes.component";
 import { TaskCommentsComponent } from "../task-comments/task-comments.component";
@@ -82,8 +83,8 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		public dialog: MatDialog) { }
+		private teamProjectService: TeamProjectService,
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
@@ -294,15 +295,12 @@ export class TaskFormComponent implements OnInit {
 	}
 	
 	openNewProjectDialog() {
+		this.teamProjectService.emitTeam(this.taskForm.controls['team'].value);
 		let dialogRef = this.matDialog.open(ProjectFormComponent, {
 			width: '400px'
 		});
 
-		dialogRef.afterClosed().subscribe((newProject: Project) => {
-			if (this.taskForm.value.team.id == newProject.team.id) {
-				this.loadProjects(newProject.team.id);
-			}
-		});
+		dialogRef.afterClosed().subscribe((newProject: Project) => this.possibleProjects.push(newProject));
 	}
 
 	getEnum(status: string) {
