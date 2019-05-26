@@ -1,15 +1,22 @@
-<div class="kanban">
-	<div class="example-container">
-		<h2 class="title-column">Criada</h2>
+<div
+	fxLayout="row"
+	fxLayoutGap="20px"
+	class="kanban">
 
+	<div
+		fxFlex="1 0 250px"
+		class="kanban__card">
+
+		<h3>Criada</h3>
 		<div
 			cdkDropList
 			#createdList="cdkDropList"
 			[cdkDropListData]="created"
 			[cdkDropListConnectedTo]="[todoList, doneList, doingList]"
-			class="example-list"
+			class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
-			<div class="example-box" *ngFor="let item of created" cdkDrag>
+
+			<div class="kanban__card__list__box" *ngFor="let item of created" cdkDrag>
 				{{item}}
 
 				<div *ngIf="findTaskByTitle(item) as task">
@@ -19,17 +26,19 @@
 		</div>
 	</div>
 
-	<div class="example-container">
-		<h2 class="title-column">Em espera</h2>
-	
+	<div
+		fxFlex="1 0 250px"
+		class="kanban__card kanban__card--waiting">
+
+		<h3>Em espera</h3>
 		<div
 			cdkDropList
 			#todoList="cdkDropList"
 			[cdkDropListData]="todo"
 			[cdkDropListConnectedTo]="[createdList, doneList, doingList]"
-			class="example-list"
+			class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
-			<div class="example-box" *ngFor="let item of todo" cdkDrag>
+			<div class="kanban__card__list__box" *ngFor="let item of todo" cdkDrag>
 				{{item}}
 
 				<div *ngIf="findTaskByTitle(item) as task">
@@ -39,17 +48,19 @@
 		</div>
 	</div>
 	
-	<div class="example-container">
-		<h2 class="title-column">Fazendo</h2>
-	
+	<div
+		fxFlex="1 0 250px"
+		class="kanban__card kanban__card--doing">
+
+		<h3>Fazendo</h3>
 		<div
 			cdkDropList
 			#doingList="cdkDropList"
 			[cdkDropListData]="doing"
 			[cdkDropListConnectedTo]="[createdList, todoList, doneList]"
-			class="example-list"
+			class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
-			<div class="example-box" *ngFor="let item of doing" cdkDrag>
+			<div class="kanban__card__list__box" *ngFor="let item of doing" cdkDrag>
 				{{item}}
 
 				<div *ngIf="findTaskByTitle(item) as task">
@@ -59,17 +70,20 @@
 		</div>
 	</div>
 	
-	<div class="example-container">
-		<h2 class="title-column">Finalizada</h2>
-	
+	<div
+		fxFlex="1 0 250px"
+		class="kanban__card kanban__card--done">
+
+		<h3>Finalizada</h3>
 		<div
 			cdkDropList
 			#doneList="cdkDropList"
 			[cdkDropListData]="done"
 			[cdkDropListConnectedTo]="[createdList, todoList, doingList]"
-			class="example-list"
+			class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
-			<div class="example-box" *ngFor="let item of done" cdkDrag>
+
+			<div class="kanban__card__list__box" *ngFor="let item of done" cdkDrag>
 				{{item}}
 
 				<div *ngIf="findTaskByTitle(item) as task">
@@ -78,5 +92,4 @@
 			</div>
 		</div>
 	</div>
-	
 </div>

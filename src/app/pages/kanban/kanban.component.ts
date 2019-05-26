@@ -8,7 +8,7 @@ import { Status } from "../../shared/enums/status.enum";
 
 @Component({
 	templateUrl: './kanban.component.html',
-	styleUrls: ['./kanban.component.css']
+	styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent {
 
