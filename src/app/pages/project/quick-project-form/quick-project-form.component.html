@@ -1,0 +1,32 @@
+<div>
+	<form
+		fxLayout="row wrap"
+		fxLayoutGap="20px"
+		[formGroup]="projectForm"
+		role="form"
+		(submit)="onSubmit()">
+
+		<mat-form-field
+			fxFlex="1 1 400px"
+			fxFlex.lt-sm="1 1 290px"
+			appearance="outline">
+
+			<mat-label>Nome do Projeto</mat-label>
+			<input
+				matInput
+				formControlName="name"
+				required>
+			<gt-form-error *ngIf="projectForm.controls['name'].errors?.required && !projectForm.controls['name'].pristine"></gt-form-error>
+		</mat-form-field>
+
+		<div fxFlex="1 1 100%">
+			<button
+				mat-flat-button
+				type="submit"
+				class="btn-green"
+				[disabled]="!projectForm.valid">
+				Salvar
+			</button>
+		</div>
+	</form>
+</div>

@@ -1,19 +1,22 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, UrlSerializer } from '@angular/router';
+import { MatDialog } from "@angular/material";
 import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
-import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
-import { TeamService } from '../../../core/services/team.service';
 import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
+import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
+
+import { TeamService } from '../../../core/services/team.service';
 import { UserService } from '../../../core/services/user.service';
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationService } from 'src/app/core/services/invitation.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { EmailService } from "../../../core/services/email.service";
-import { environment } from "../../../../environments/environment";
 import { GladService } from "../../../core/services/glad.service";
+
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-team-detail',
@@ -40,6 +43,7 @@ export class TeamDetailComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private gladService: GladService,
 		private serializer: UrlSerializer,
+		private matDialog: MatDialog,
 		private emailService: EmailService,
 		private router: Router) { }
 
