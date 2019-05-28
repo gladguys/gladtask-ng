@@ -14,9 +14,9 @@ export class TaskFormGuard implements CanDeactivate<TaskFormComponent> {
 	canDeactivate(component: TaskFormComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean>  | boolean {
 		if (component.isDirty()) {
 			let dialogRef = this.matDialog.open(GTConfirmationDialogComponent, {
-				width: '500px'
+				width: '400px'
 			});
-			dialogRef.componentInstance.confirmMessage = 'Sair da página fará você perder todas as informações. Deseja sair mesmo assim?'
+			dialogRef.componentInstance.confirmMessage = 'fomulário task';
 
 			return dialogRef.afterClosed();
 		} else {

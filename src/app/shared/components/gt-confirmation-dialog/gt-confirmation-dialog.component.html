@@ -1,7 +1,8 @@
-<label class="label-msg">{{ confirmMessage }}</label>
+<label>Ao sair da página, você perderá os dados não salvos em {{ confirmMessage }}.</label>
+<p class="label-msg">Deseja realmente sair?</p>
 <div mat-dialog-actions>
-	<div fxLayout fxLayoutGap="3px">
-		<button mat-button color="primary" (click)="dialogRef.close(false)">Não</button>
-	<button mat-stroked-button color="warn" (click)="dialogRef.close(true)">Sim</button>
+	<div fxLayout fxLayoutGap="5px">
+		<button mat-flat-button (click)="dialogRef.close(false)">Não</button>
+		<button mat-stroked-button color="warn" (click)="dialogRef.close(true)">Sim</button>
 	</div>
 </div>

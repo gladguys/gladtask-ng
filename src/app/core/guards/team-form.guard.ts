@@ -12,12 +12,11 @@ export class TeamFormGuard implements CanDeactivate<TeamFormComponent> {
 	constructor(private matDialog: MatDialog) {}
 
 	canDeactivate(component: TeamFormComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean>  | boolean {
-        console.log("dededededededede");
         if (component.isDirty()) {
 			let dialogRef = this.matDialog.open(GTConfirmationDialogComponent, {
-				width: '500px'
+				width: '400px'
 			});
-			dialogRef.componentInstance.confirmMessage = 'Sair da página fará você perder todas as informações. Deseja sair mesmo assim?'
+			dialogRef.componentInstance.confirmMessage = 'formulário equipe'
 
 			return dialogRef.afterClosed();
 		} else {
