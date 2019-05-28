@@ -301,6 +301,10 @@ export class TaskFormComponent implements OnInit {
 		dialogRef.afterClosed().subscribe((newProject: Project) => this.possibleProjects.push(newProject));
 	}
 
+	isDirty(): boolean {
+		return this.taskForm.dirty;
+	}
+
 	getEnum(status: string) {
 		return getStatusFromEnum(status);
 	}

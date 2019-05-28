@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import localePt from '@angular/common/locales/pt';
 
 import { AppComponent } from './app.component';
+import { GTConfirmationDialogComponent } from "./shared/components/gt-confirmation-dialog/gt-confirmation-dialog.component";
 import { ProjectFormComponent } from "./pages/project/project-form/project-form.component";
 
 import { CoreModule } from './core/core.module';
@@ -33,7 +34,7 @@ registerLocaleData(localePt);
 		AppRoutingModule,
 		TeamModule
 	],
-	entryComponents: [ProjectFormComponent],
+	entryComponents: [ProjectFormComponent, GTConfirmationDialogComponent],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
