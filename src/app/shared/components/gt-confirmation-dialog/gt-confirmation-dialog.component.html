@@ -1,5 +1,7 @@
-<h1>{{ confirmMessage }}</h1>
+<label class="label-msg">{{ confirmMessage }}</label>
 <div mat-dialog-actions>
-	<button mat-stroked-button (click)="dialogRef.close(false)">Não</button>
-	<button mat-stroked-button (click)="dialogRef.close(true)">Sim</button>
+	<div fxLayout fxLayoutGap="3px">
+		<button mat-button color="primary" (click)="dialogRef.close(false)">Não</button>
+	<button mat-stroked-button color="warn" (click)="dialogRef.close(true)">Sim</button>
+	</div>
 </div>

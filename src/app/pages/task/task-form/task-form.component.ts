@@ -216,10 +216,11 @@ export class TaskFormComponent implements OnInit {
 				if (!isEdit) {
 					this.gladService.openSnack("Task criada");
 					this.resetForm();
-					this.router.navigateByUrl(`/tasks/task-form/${task.id}`);
+					this.router.navigate(['teams','team-form', task.id]);
 				} else {
 					this.gladService.openSnack("Task editada");
 				}
+				
 				this.matDialog.closeAll();
 			}, 
 			e => this.notificationService.notificateFailure("Falha ao criar equpe"));
