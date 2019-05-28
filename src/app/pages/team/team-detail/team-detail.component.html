@@ -67,7 +67,11 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<div class="new-team-btn">
+		<button mat-stroked-button [routerLink]="['/', 'projects', 'project-form']">Criar Projeto</button>
+	</div>
+
 	<ng-template #messageNoParticipantes>
 		<label>Não há nenhum usuário participante dessa equipe</label>
 	</ng-template>

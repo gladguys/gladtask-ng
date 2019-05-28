@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MatDialogRef } from "@angular/material";
 import { Observable } from "rxjs";
 
 import { UserService } from "../../../core/services/user.service";
@@ -36,8 +35,7 @@ export class ProjectFormComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		public dialogRef: MatDialogRef<ProjectFormComponent>) { }
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
@@ -45,7 +43,7 @@ export class ProjectFormComponent implements OnInit {
 		this.projectForm = this.formBuilder.group({
 			'name': ['', [Validators.required]],
 			'description': [''],
-			'team': ['', Validators.required]
+			'team': [null, Validators.required]
 		});
 
 		let id: string = this.route.snapshot.params['id'];
@@ -60,6 +58,10 @@ export class ProjectFormComponent implements OnInit {
 		}
 	}
 
+	compareFn(x: Team, y: Team): boolean {
+		return x && y && x.id == y.id;
+	}
+
 	onSubmit(): void {
 		const submittedProject = this.projectForm.getRawValue() as Project;
 		submittedProject.id = this.project.id;
@@ -72,7 +74,6 @@ export class ProjectFormComponent implements OnInit {
 					this.gladService.openSnack("Projeto editado");
 				} else {
 					this.gladService.openSnack("Projeto criado");
-					this.dialogRef.close(project);
 				}
 			}, e => this.notificationService.notificateFailure("Falha ao criar projeto"));
 	}
