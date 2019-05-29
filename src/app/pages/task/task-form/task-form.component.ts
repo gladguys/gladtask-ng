@@ -192,7 +192,6 @@ export class TaskFormComponent implements OnInit {
 		submittedTask.taskComments = this.taskComments;
 
 		if (isEdit) {
-			console.log(this.taskForm);
 			submittedTask.id = this.task.id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
