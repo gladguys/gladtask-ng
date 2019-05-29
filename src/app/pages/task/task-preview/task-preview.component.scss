@@ -1,4 +1,7 @@
-mat-card {
-    background-color: rgba(255, 255, 255, .4);
-    border: none;
+.task-preview {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    max-width: 300px;
+    background-color: rgba(255, 255, 255, .6);
 }
