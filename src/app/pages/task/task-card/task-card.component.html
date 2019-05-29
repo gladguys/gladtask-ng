@@ -8,16 +8,6 @@
 				<input matInput formControlName="title" required>
 			</mat-form-field>
 
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-description">
-				<mat-label>Descrição</mat-label>
-				<textarea
-					matInput
-					formControlName="description"
-					cdkTextareaAutosize
-					required
-					class="scrollbar-thin"></textarea>
-			</mat-form-field>
-
 			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
 				<mat-label>Enviado por</mat-label>
 				<input matInput value="{{task.senderUser?.username}}" disabled>
@@ -25,7 +15,7 @@
 
 			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
 				<mat-label>Projeto</mat-label>
-				<input matInput formControlName="project" required>
+				<input matInput value="{{task.project?.name}}" disabled>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller select-task-status">
