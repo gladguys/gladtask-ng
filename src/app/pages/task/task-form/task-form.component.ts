@@ -152,6 +152,7 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	populateForm(task: Task): void {
+		this.loadProjects(task.project.team.id);
 		this.taskForm.patchValue({
 			title: task.title,
 			priority: this.getPriorityFromTask(task.priority),
@@ -163,6 +164,7 @@ export class TaskFormComponent implements OnInit {
 			project: task.project,
 			estimatedTime: task.estimatedTime
 		});
+		
 
 		if (task.dueDate != undefined) {
 			this.dueDate = new Date(task.dueDate);
@@ -263,7 +265,7 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe( projects => this.possibleProjects = projects);
+		this.projectService.findAllByTeam(teamId, true).subscribe( projects => {this.possibleProjects = projects; });
 	}
 
 	addComment() {
