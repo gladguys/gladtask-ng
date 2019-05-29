@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import  {BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -215,9 +215,8 @@ export class TaskFormComponent implements OnInit {
 				this.task = task;
 				if (!isEdit) {
 					this.gladService.openSnack("Task criada");
-					this.taskForm.markAsPristine();
 					this.taskForm.disable();
-					
+					this.taskForm.markAsPristine();
 				} else {
 					this.gladService.openSnack("Task editada");
 				}
