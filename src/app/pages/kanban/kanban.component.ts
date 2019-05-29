@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
-import { TaskService } from "../../core/services/task.service";
-import { SharedService } from "../../core/services/shared.service";
-import { Task } from "../../shared/models/task.model"
-import { Status } from "../../shared/enums/status.enum";
+import { TaskService } from '../../core/services/task.service';
+import { SharedService } from '../../core/services/shared.service';
+import { Task } from '../../shared/models/task.model'
+import { Status } from '../../shared/enums/status.enum';
 
 @Component({
 	templateUrl: './kanban.component.html',
@@ -25,7 +26,8 @@ export class KanbanComponent {
 	
 	constructor(
 		private taskService: TaskService,
-		private sharedService: SharedService) {}
+		private sharedService: SharedService,
+		private router: Router) {}
 	
 	ngOnInit() {
 		let id = this.sharedService.getUserLogged().id;
@@ -94,13 +96,13 @@ export class KanbanComponent {
 
 	decideTargetStatus(taskTitle: string): string {
 		if (this.foundTaskIn(taskTitle, this.created)) {
-			return "Criada";
+			return 'Criada';
 		} else if (this.foundTaskIn(taskTitle, this.todo)) {
-			return "Em espera";
+			return 'Em espera';
 		} else if (this.foundTaskIn(taskTitle, this.doing)) {
-			return "Em andamento";
+			return 'Em andamento';
 		} else if (this.foundTaskIn(taskTitle, this.done)) {
-			return "Concluída";
+			return 'Concluída';
 		}
 	}
 
@@ -110,5 +112,9 @@ export class KanbanComponent {
 
 	findTaskByTitle(taskTitle: string): Task {
 		return this.tasks.filter(t => t.title === taskTitle)[0];
+	}
+
+	showTaskDetail(task: Task): void {
+		this.router.navigate(['tasks', 'task-form', task.id]);
 	}
 }
