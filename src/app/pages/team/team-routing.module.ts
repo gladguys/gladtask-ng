@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { AuthGuard } from "../../core/guards/auth.guard";
+import { TeamFormGuard } from 'src/app/core/guards/team-form.guard';
 
 const routes: Routes = [
 	{
@@ -13,13 +14,14 @@ const routes: Routes = [
 				path: 'team-form',
 				component: TeamFormComponent,
 				canActivate: [AuthGuard],
+				canDeactivate: [TeamFormGuard],
 				data: { title:'Nova Equipe' }
 			},
 			{
 				path: 'team-form/:id',
 				component: TeamFormComponent,
 				canActivate: [AuthGuard],
-				data: { title:'Nova Equipe' }
+				data: { title:'Editar Equipe' }
 			},
 			{
 				path: ':id',

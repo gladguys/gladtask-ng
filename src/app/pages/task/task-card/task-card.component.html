@@ -32,7 +32,7 @@
 				<fa-icon icon="circle" size="sm" matPrefix class="status-indicator status-indicator--{{ task.status | statusColor }}"></fa-icon>
 				<mat-label>Status</mat-label>
 				<mat-select formControlName="status">
-					<mat-option *ngFor="let status of possibleStatus" [value]="status">
+					<mat-option *ngFor="let status of possibleStatus" [value]="getEnum(status)">
 						<fa-icon icon="circle" size="sm" class="status-indicator status-indicator--{{ status | statusColor }}"></fa-icon>
 						{{status}}
 					</mat-option>

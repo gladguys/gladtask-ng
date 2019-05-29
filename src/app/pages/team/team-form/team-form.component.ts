@@ -69,6 +69,7 @@ export class TeamFormComponent implements OnInit {
 		this.teamService.createOrUpdate(submittedTeam).subscribe(team => {
 			if (this.team.id != null) {
 				this.gladService.openSnack("Equipe editada");
+				this.teamForm.markAsPristine();
 			} else {
 				this.gladService.openSnack("Equipe criada");
 			}
@@ -81,5 +82,9 @@ export class TeamFormComponent implements OnInit {
 		this.teamForm.patchValue({
 			name: team.name
 		});
+	}
+
+	isDirty(): boolean {
+		return this.teamForm.dirty;
 	}
 }

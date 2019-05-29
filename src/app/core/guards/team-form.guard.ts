@@ -3,20 +3,20 @@ import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from "@ang
 import { MatDialog} from "@angular/material";
 import { Observable } from "rxjs";
 
-import { TaskFormComponent } from "../../pages/task/task-form/task-form.component";
 import { GTConfirmationDialogComponent } from "../../shared/components/gt-confirmation-dialog/gt-confirmation-dialog.component";
+import { TeamFormComponent } from 'src/app/pages/team/team-form/team-form.component';
 
 @Injectable()
-export class TaskFormGuard implements CanDeactivate<TaskFormComponent> {
+export class TeamFormGuard implements CanDeactivate<TeamFormComponent> {
 
 	constructor(private matDialog: MatDialog) {}
 
-	canDeactivate(component: TaskFormComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean>  | boolean {
-		if (component.isDirty()) {
+	canDeactivate(component: TeamFormComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean>  | boolean {
+        if (component.isDirty()) {
 			let dialogRef = this.matDialog.open(GTConfirmationDialogComponent, {
 				width: '400px'
 			});
-			dialogRef.componentInstance.confirmMessage = 'fomulário task';
+			dialogRef.componentInstance.confirmMessage = 'formulário equipe'
 
 			return dialogRef.afterClosed();
 		} else {

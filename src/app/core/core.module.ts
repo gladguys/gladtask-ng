@@ -11,6 +11,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { ProfilerInterceptor } from "./interceptors/profiler.interceptor";
 import { LoaderInterceptor } from "./interceptors/loader.interceptor";
 import { AuthErrorHandler } from "./errors-handlers/auth-error-handler";
+import { TeamFormGuard } from './guards/team-form.guard';
 
 @NgModule({
 	imports: [RouterModule],
@@ -19,6 +20,7 @@ import { AuthErrorHandler } from "./errors-handlers/auth-error-handler";
 		LoginAuthGuard,
 		AuthGuard,
 		TaskFormGuard,
+		TeamFormGuard,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,
