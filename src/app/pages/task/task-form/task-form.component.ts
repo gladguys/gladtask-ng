@@ -82,8 +82,7 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		private router: Router) { }
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
@@ -192,7 +191,6 @@ export class TaskFormComponent implements OnInit {
 		submittedTask.taskComments = this.taskComments;
 
 		if (isEdit) {
-			console.log(this.taskForm);
 			submittedTask.id = this.task.id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
@@ -217,8 +215,9 @@ export class TaskFormComponent implements OnInit {
 				this.task = task;
 				if (!isEdit) {
 					this.gladService.openSnack("Task criada");
-					this.resetForm();
-					this.router.navigate(['teams','team-form', task.id]);
+					this.taskForm.markAsPristine();
+					this.taskForm.disable();
+					
 				} else {
 					this.gladService.openSnack("Task editada");
 				}
