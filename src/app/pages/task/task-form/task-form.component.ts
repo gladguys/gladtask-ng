@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import  {BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -82,8 +82,7 @@ export class TaskFormComponent implements OnInit {
 		private matDialog: MatDialog,
 		private notificationService: GTNotificationService,
 		private teamService: TeamService,
-		private sharedService: SharedService,
-		private router: Router) { }
+		private sharedService: SharedService) { }
 
 	ngOnInit() {
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
@@ -216,8 +215,8 @@ export class TaskFormComponent implements OnInit {
 				this.task = task;
 				if (!isEdit) {
 					this.gladService.openSnack("Task criada");
-					this.resetForm();
-					this.router.navigate(['teams','team-form', task.id]);
+					this.taskForm.disable();
+					this.taskForm.markAsPristine();
 				} else {
 					this.gladService.openSnack("Task editada");
 				}

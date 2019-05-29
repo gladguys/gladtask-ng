@@ -69,8 +69,7 @@ export class TeamFormComponent implements OnInit {
 		this.teamService.createOrUpdate(submittedTeam).subscribe(team => {
 			if (this.team.id != null) {
 				this.gladService.openSnack("Equipe editada");
-				this.teamForm.reset();
-				this.router.navigate(['teams', team.id]);
+				this.teamForm.markAsPristine();
 			} else {
 				this.gladService.openSnack("Equipe criada");
 			}
