@@ -19,7 +19,7 @@ export function getStatusFromEnum(status: string): string {
 		case Status.CRIADA: return "CRIADA";
 		case Status.EM_ESPERA: return "EM_ESPERA";
 		case Status.EM_ANDAMENTO: return "EM_ANDAMENTO";
-		case Status.CONCLUIDA: return "CONCLUÍDA";
+		case Status.CONCLUIDA: return "CONCLUIDA";
 	}
 }
 
