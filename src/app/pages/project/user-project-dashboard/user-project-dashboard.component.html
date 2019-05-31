@@ -2,14 +2,13 @@
 
 	<div *ngIf="(projects$ | async) as projects; else loadingProjects">
 
-		<div class="no-projects-container">
-			<div *ngIf="projects.length == 0; else projectsList" class="no-project-content scrollbar-thin">
-				<span class="empty-msg" >Não há projetos recentes.</span>
-			</div>
+		<h1>Projetos Recentes</h1>
+		
+		<div *ngIf="projects.length == 0; else projectsList" class="no-project-content scrollbar-thin">
+			<span class="empty-msg" >Não há projetos recentes.</span>
 		</div>
 
 		<ng-template #projectsList>
-			<h1>Projetos Recentes</h1>
 			<div
 				fxLayout="row"
 				fxLayoutGap="10px"

@@ -1,28 +1,7 @@
 @import "../../../../variables";
 
 .container {
-	padding-bottom: 10px;
-
-	.no-tasks-container {
-	  	display: flex;
-	  	justify-content: center;
-	}
-
-	.empty-msg {
-		display: block;
-		padding: 10px;
-	  	text-align: center;
-	}
-
-	.no-tasks-content {
-	  	margin-top: 10px;
-	  	max-height: 300px;
-	  	padding: 4px 8px;
-	  	overflow: auto;
-	  	width: 50%;
-	  	border: 1px solid $border;
-		border-radius: 8px;
-	}
+	padding-top: 10px;
 
 	.flowable {
 		overflow: auto;

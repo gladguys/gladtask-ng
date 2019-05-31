@@ -2,14 +2,13 @@
 
 	<div *ngIf="(tasks$ | async) as recentTasks; else loadingTasks">
 
-		<div class="no-tasks-container">
-			<div *ngIf="recentTasks == 0; else taskslist" class="no-tasks-content scrollbar-thin">
-				<span class="empty-msg">Nenhuma participação em Tasks recentemente.</span>
-			</div>
+		<h1>Últimas Tasks Editadas</h1>
+
+		<div *ngIf="recentTasks == 0; else taskslist" class="no-tasks-content scrollbar-thin">
+			<span class="empty-msg">Nenhuma participação em Tasks recentemente.</span>
 		</div>
 
 		<ng-template #taskslist>
-			<h1>Últimas Tasks Editadas</h1>
 			<gt-tasks-carousel [tasks]="recentTasks"></gt-tasks-carousel>
 		</ng-template>
 	</div>
