@@ -1,26 +1,30 @@
-<div>
+<form
+	fxLayout="row wrap"
+	fxLayoutGap="20px"
+	[formGroup]="projectForm"
+	role="form"
+	(submit)="onSubmit()">
 
-	<form
-		fxLayout="row wrap"
-		fxLayoutGap="20px"
-		[formGroup]="projectForm"
-		role="form"
-		(submit)="onSubmit()">
+	<div fxFlex="0 0 150px" class="img-project-container">
+		<input #fileInput hidden type="file" accept='image/*' (change)="showPreviewImage(fileInput.files)">
+		<div
+			class="image-rounded image--with-hover-msg"
+			[ngClass]="{'image-empty': fileInput.files.length === 0}"
+			(click)="fileInput.click()"
+			[ngStyle]="{'background-image': 'url('+ previewImage +')'}">
 
-		<div>
-			<input #fileInput hidden type="file" accept='image/*' (change)="showPreviewImage(fileInput.files)">
-			<div
-				class="image-rounded image--with-hover-msg"
-				(click)="fileInput.click()"
-				[ngStyle]="{'background-image': 'url('+ previewImage +')'}">
-
-				<fa-icon icon="camera"></fa-icon>
-			</div>
+			<fa-icon icon="camera"></fa-icon>
 		</div>
+	</div>
+
+	<div
+		fxLayout="row wrap"
+		fxFlex="1 0 calc(100% - 170px)"
+		fxFlex.lt-sm="0 1 290px">
 
 		<mat-form-field
-			fxFlex="1 1 400px"
-			fxFlex.lt-sm="1 1 290px"
+			fxFlex="0 1 400px"
+			fxFlex.lt-sm="0 1 290px"
 			appearance="outline">
 
 			<mat-label>Nome do Projeto</mat-label>
@@ -31,8 +35,10 @@
 			<gt-form-error *ngIf="projectForm.controls['name'].errors?.required && !projectForm.controls['name'].pristine"></gt-form-error>
 		</mat-form-field>
 
+		<span class="line-break"></span>
+
 		<mat-form-field
-			fxFlex="1 1 600px"
+			fxFlex="0 1 500px"
 			fxFlex.lt-sm="1 1 290px"
 			appearance="outline">
 
@@ -44,9 +50,11 @@
 			</textarea>
 		</mat-form-field>
 
+		<span class="line-break"></span>
+
 		<mat-form-field
-			fxFlex="1 1 300px"
-			fxFlex.lt-sm="1 1 290px"
+			fxFlex="0 1 300px"
+			fxFlex.lt-sm="0 1 290px"
 			appearance="outline">
 
 			<mat-label>Equipe</mat-label>
@@ -60,7 +68,6 @@
 			</mat-select>
 		</mat-form-field>
 
-
 		<div fxFlex="1 1 100%">
 			<button
 				mat-flat-button
@@ -70,5 +77,5 @@
 				Salvar
 			</button>
 		</div>
-	</form>
-</div>
+	</div>
+</form>
