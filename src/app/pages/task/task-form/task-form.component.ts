@@ -217,11 +217,11 @@ export class TaskFormComponent implements OnInit {
 				this.task = task;
 				if (!isEdit) {
 					this.gladService.openSnack("Task criada");
-					this.taskForm.disable();
-					this.taskForm.markAsPristine();
 				} else {
 					this.gladService.openSnack("Task editada");
 				}
+        this.taskForm.disable();
+				this.taskForm.markAsPristine();
 				
 				this.matDialog.closeAll();
 			}, 
