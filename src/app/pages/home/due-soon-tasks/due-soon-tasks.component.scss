@@ -4,15 +4,20 @@
 
 	.tasks-content {
 	  	margin-top: 10px;
-		max-height: 300px;
+		max-height: 163px;
 		padding: 4px 8px;
 		overflow: auto;
 		border: 1px solid $border;
 		border-radius: 8px;
 
+		.due-task:hover {
+			cursor: pointer;
+		}
+
 		.due-task {
 			padding: 10px;
 			border-bottom: 1px solid $border-light;
+			
 
 			&:last-child {
 				border-bottom: 0;
