@@ -42,6 +42,9 @@ export class TeamService extends BaseService<Team> {
 		return this.http.get<Team[]>(`${environment.API}/teams/user/${userId}`);
 	}
 
+	@CacheBuster({
+    cacheBusterNotifier: cacheBuster$
+  })
 	addUserToTeam(invitationDTO: InvitationDTO) {
 		return this.http.post(`${environment.API}/teams/add-user`, invitationDTO);
 	}
