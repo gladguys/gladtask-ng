@@ -12,7 +12,7 @@ import { Task } from "../../models/task.model";
 export class GTTasksCarouselComponent implements OnInit, AfterViewInit {
 
 	@Input('tasks') tasks: Task[];
-	@Input('grid') grid: any = { xs: 1, sm: 1, md: 2, lg: 3, all: 0 };
+	@Input('grid') grid: any = { xs: 1, sm: 1, md: 2, lg: 4, all: 0 };
 	@Input('loop') loop: boolean = true;
 	@Input('touch') touch: boolean = true;
 	@Input('velocity') velocity: number = 0.2;
