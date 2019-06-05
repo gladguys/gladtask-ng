@@ -22,7 +22,7 @@
 
 					<fa-icon icon="thumbtack"></fa-icon>
 				</button>
-				<button class="btn-add-task" mat-raised-button color="primary" [routerLink]="['tasks', 'task-form']">
+				<button class="btn-add-task" mat-raised-button color="primary" routerLink="{{taskFormLink}}">
 					<fa-icon icon="plus" size="lg"></fa-icon>
 					Nova Task
 				</button>
@@ -32,7 +32,7 @@
 				</mat-list-item>
 				<mat-list-item routerLinkActive="active">
 					<fa-icon icon="tasks" size="lg"></fa-icon>
-					<a [routerLink]="['tasks']" (click)="setMenuTitle('Tasks')">Tasks</a>
+					<a routerLink="{{tasksLink}}" (click)="setMenuTitle('Tasks')">Tasks</a>
 				</mat-list-item>
 				<!--<mat-list-item routerLinkActive="active">
 					<fa-icon icon="envelope" size="lg"></fa-icon>
@@ -54,7 +54,7 @@
 						class="btn-add-task "
 						mat-mini-fab
 						color="primary"
-						[routerLink]="['tasks', 'task-form']">
+						routerLink="{{taskFormLink}}">
 						
 						<fa-icon icon="plus" size="lg"></fa-icon>
 					</button>
@@ -64,7 +64,7 @@
 					</mat-list-item>
 					<mat-list-item routerLinkActive="active">
 						<fa-icon icon="tasks" size="lg"></fa-icon>
-						<a [routerLink]="['tasks']" (click)="setMenuTitle('Tasks')"></a>
+						<a routerLink="{{tasksLink}}" (click)="setMenuTitle('Tasks')"></a>
 					</mat-list-item>
 					<!--<mat-list-item routerLinkActive="active">
 						<fa-icon icon="envelope" size="lg"></fa-icon>

@@ -13,6 +13,7 @@ import { Task } from "../../../shared/models/task.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
+import { TaskRoutingNames } from '../task-routing-names';
 
 @Component({
 	selector: 'task-card',
@@ -91,7 +92,7 @@ export class TaskCardComponent implements OnInit {
 	}
 
 	showTaskDetail(task: Task): void {
-		this.router.navigate(['tasks', 'task-form', task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
 	}
 
 	openBottomSheetTimeSpent() {

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { TeamService } from 'src/app/core/services/team.service';
+import { TeamRoutingNames } from '../../team/team-routing-names';
 
 @Component({
     selector: 'gt-invitation',
@@ -48,5 +49,9 @@ export class InvitationComponent implements OnInit {
         this.invitationService.delete(invitation.id).subscribe(() => {
             this.notificationService.notificateSuccess("Convite negado.");
         })
+    }
+
+    goToTeamDetail(id: string): string {
+        return  `/${TeamRoutingNames.TEAMS}/${id}`;
     }
 }

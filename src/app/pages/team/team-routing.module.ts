@@ -5,20 +5,21 @@ import { TeamFormComponent } from './team-form/team-form.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { AuthGuard } from "../../core/guards/auth.guard";
 import { TeamFormGuard } from 'src/app/core/guards/team-form.guard';
+import { TeamRoutingNames } from './team-routing-names';
 
 const routes: Routes = [
 	{
 		path: '',
 		children: [
             {
-				path: 'team-form',
+				path: TeamRoutingNames.TEAM_FORM,
 				component: TeamFormComponent,
 				canActivate: [AuthGuard],
 				canDeactivate: [TeamFormGuard],
 				data: { title:'Nova Equipe' }
 			},
 			{
-				path: 'team-form/:id',
+				path: `${TeamRoutingNames.TEAM_FORM}/:id`,
 				component: TeamFormComponent,
 				canActivate: [AuthGuard],
 				data: { title:'Editar Equipe' }

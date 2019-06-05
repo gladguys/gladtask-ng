@@ -10,6 +10,10 @@ import { HomeComponent } from "./pages/home/home.component";
 import { InboxComponent } from "./pages/inbox/inbox.component";
 import { KanbanComponent } from "./pages/kanban/kanban.component";
 import { PageNotFoundComponent } from "./pages/page-not-found/page-not-found.component";
+import { TaskRoutingNames } from './pages/task/task-routing-names';
+import { TeamRoutingNames } from './pages/team/team-routing-names';
+import { ProjectRoutingNames } from './pages/project/project-routing-names';
+import { UserRoutingNames } from './pages/user/user-routing-names';
 
 export const ROUTES: Routes = [
 	{
@@ -67,10 +71,10 @@ export const ROUTES: Routes = [
 			}
 	},
 
-	{ path: "tasks", loadChildren: "./pages/task/task.module#TaskModule", canLoad: [AuthGuard] },
-	{ path: "users", loadChildren: "./pages/user/user.module#UserModule", canLoad: [AuthGuard] },
-	{ path: "teams", loadChildren: "./pages/team/team.module#TeamModule", canLoad: [AuthGuard] },
-	{ path: "projects", loadChildren: "./pages/project/project.module#ProjectModule", canLoad: [AuthGuard] },
+	{ path: TaskRoutingNames.TASKS , loadChildren: "./pages/task/task.module#TaskModule", canLoad: [AuthGuard] },
+	{ path: UserRoutingNames.USERS, loadChildren: "./pages/user/user.module#UserModule", canLoad: [AuthGuard] },
+	{ path: TeamRoutingNames.TEAMS, loadChildren: "./pages/team/team.module#TeamModule", canLoad: [AuthGuard] },
+	{ path: ProjectRoutingNames.PROJECTS, loadChildren: "./pages/project/project.module#ProjectModule", canLoad: [AuthGuard] },
 
 	{
 		path: '**',

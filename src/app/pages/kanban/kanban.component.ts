@@ -6,6 +6,7 @@ import { TaskService } from '../../core/services/task.service';
 import { SharedService } from '../../core/services/shared.service';
 import { Task } from '../../shared/models/task.model'
 import { Status } from '../../shared/enums/status.enum';
+import { TaskRoutingNames } from '../task/task-routing-names';
 
 @Component({
 	templateUrl: './kanban.component.html',
@@ -115,6 +116,6 @@ export class KanbanComponent {
 	}
 
 	showTaskDetail(task: Task): void {
-		this.router.navigate(['tasks', 'task-form', task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
 	}
 }

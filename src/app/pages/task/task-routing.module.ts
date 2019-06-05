@@ -11,10 +11,11 @@ import { TaskFormGuard } from "../../core/guards/task-form.guard";
 
 import { TaskListToMeResolver } from "../../shared/resolvers/task-list-to-me.resolver";
 import { TaskFormResolver } from "../../shared/resolvers/task-form.resolver";
+import { TaskRoutingNames } from './task-routing-names';
 
 const routes: Routes = [
 	{
-		path: 'tasks',
+		path: TaskRoutingNames.TASKS,
 		children: [
 			{
 				path: '',
@@ -24,27 +25,27 @@ const routes: Routes = [
 				data: { title:'Tasks' }
 			},
 			{
-				path: 'task-detail/:id',
+				path: `${TaskRoutingNames.TASK_DETAIL}/:id`,
 				component: TaskDetailComponent,
 				resolve: { task: TaskFormResolver },
 				canActivate: [AuthGuard],
 				data: { title:'Detalhe Task' }
 			},
 			{
-				path: 'task-not-found',
+				path: TaskRoutingNames.TASK_NOT_FOUND,
 				component: TaskNotFoundComponent,
 				canActivate: [AuthGuard],
 				data: { title:'Task' }
 			},
 			{
-				path: 'task-form',
+				path: TaskRoutingNames.TASK_FORM,
 				component: TaskFormComponent,
 				canActivate: [AuthGuard],
 				canDeactivate: [TaskFormGuard],
 				data: { title:'Nova Task' }
 			},
 			{
-				path: 'task-form/:id',
+				path: `${TaskRoutingNames.TASK_FORM}/:id`,
 				component: TaskFormComponent,
 				resolve: { task: TaskFormResolver },
 				canActivate: [AuthGuard],
