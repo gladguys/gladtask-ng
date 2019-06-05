@@ -1,9 +1,15 @@
 @import "../../../../variables";
 
 .panel-invitation {
-    background: #9e9595;
-    color: white;
-    padding: 10px;
+    background: #eae8e8;
+    color: #504848;
+    padding: 6px 10px 6px 20px;
+    border-radius: 40px;
+}
+
+.label-team-name {
+    color:$primary;
+    font-weight: bold;
 }
 
 .btn-aceitar {
@@ -14,6 +20,6 @@
 
 .btn-aceitar {
     margin-left: 10px;
-    background: darkred;
+    background: $primary;
     color: white;
 }

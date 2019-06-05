@@ -1,6 +1,6 @@
 
 <div class="panel-invitation" *ngFor="let invitation of (invitations$ | async)">
-    <label>{{invitation.author.username}} convidou você para o time: {{invitation.team.name}}</label>
+    <label>{{invitation.author.username}} convidou você para o time: <a [routerLink]="['teams', invitation.team.id]" class="label-team-name">{{invitation.team.name}}</a></label>
     <button mat-button class="btn-aceitar" (click)="acceptInvitation(invitation)">Aceitar</button>
     <button mat-button class="btn-deny" (click)="denyInvitation(invitation)">Recusar</button>
 </div>  
