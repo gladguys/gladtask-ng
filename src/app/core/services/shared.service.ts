@@ -27,7 +27,7 @@ export class SharedService {
 	}
 
 	isUserInLocalStorage(): boolean {
-		return JSON.parse(window.localStorage.getItem('user'));
+		return JSON.parse(window.localStorage.getItem('gt-user'));
 	}
 
 	notifyUserIsLoggedIn(): void {
@@ -35,22 +35,22 @@ export class SharedService {
 	}
 
 	getUserLogged(): User {
-		let user: CurrentUser = JSON.parse(window.localStorage.getItem('user'));
+		let user: CurrentUser = JSON.parse(window.localStorage.getItem('gt-user'));
 		return user != null ? user.user : null;
 	}
 
 	static getToken() {
-		let user: CurrentUser = JSON.parse(window.localStorage.getItem('user'));
+		let user: CurrentUser = JSON.parse(window.localStorage.getItem('gt-user'));
 		return user.token;
 	}
 
 	saveUserOnLocalStorage(authUser: CurrentUser) {
 		this.notifyUserIsLoggedIn();
-		window.localStorage.setItem('user',JSON.stringify(authUser));
+		window.localStorage.setItem('gt-user',JSON.stringify(authUser));
 	}
 
 	logout() {
-		window.localStorage.removeItem('user');
+		window.localStorage.removeItem('gt-user');
 		this.userIsLoggedIn$.next(false);
 	}
 
