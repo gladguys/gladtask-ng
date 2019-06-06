@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import { Task } from "../../../shared/models/task.model";
 import {Router} from "@angular/router";
+import { TaskRoutingNames } from '../task-routing-names';
 
 @Component({
 	selector: 'task-grid',
@@ -57,6 +58,6 @@ export class TaskGridComponent implements OnInit {
 
 	onRowSelected(row):void {
 		let task = row.data;
-		this.router.navigate(['tasks', 'task-form', task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
 	}
 }

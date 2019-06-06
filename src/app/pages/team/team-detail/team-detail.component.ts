@@ -17,6 +17,7 @@ import { EmailService } from "../../../core/services/email.service";
 import { GladService } from "../../../core/services/glad.service";
 
 import { environment } from "../../../../environments/environment";
+import { ProjectRoutingNames } from '../../project/project-routing-names';
 
 @Component({
   selector: 'app-team-detail',
@@ -31,6 +32,8 @@ export class TeamDetailComponent implements OnInit {
 	textSearchParticipant: FormControl;
 	showAddParticipant: boolean = false;
 	filteredParticipants: Array<User> = [];
+
+	projectFormLink = `/${ProjectRoutingNames.PROJECTS}/${ProjectRoutingNames.PROJECT_FORM}`;
 
 	constructor(
 		private teamService: TeamService,

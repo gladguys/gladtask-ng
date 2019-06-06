@@ -20,7 +20,7 @@
 						fxLayoutAlign="center center"
 						class="project-image"
 						[style.background-image]="'url(' + p.projectImage + ')'"
-						[routerLink]="['projects', 'project-info', p.id]">
+						routerLink="{{goToInfoProject(p.id)}}">
 
 						<span *ngIf="!p.projectImage">{{p.name}}</span>
 					</div>

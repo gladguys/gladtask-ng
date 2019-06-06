@@ -4,6 +4,7 @@ import { Team } from 'src/app/shared/models/team.model';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TeamRoutingNames } from '../team-routing-names';
 
 @Component({
     selector: 'team-list-sidenav',
@@ -25,6 +26,6 @@ export class TeamListSidenavComponent implements OnInit {
     }
 
     goToTeamInfo(team) {
-        this.router.navigate(['teams', team.id]);
+        this.router.navigate([TeamRoutingNames.TEAMS, team.id]);
     }
 }

@@ -7,29 +7,30 @@ import { AuthGuard } from "../../core/guards/auth.guard";
 import { ProjectInfoComponent } from "./project-info/project-info.component";
 import { ProjectInfoResolver } from "../../shared/resolvers/project-info.resolver";
 import { ProjectTasksInfoResolver } from "../../shared/resolvers/project-tasks-info.resolver";
+import { ProjectRoutingNames } from './project-routing-names';
 
 const routes: Routes = [
 	{
-		path: 'project-form',
+		path: ProjectRoutingNames.PROJECT_FORM,
 		component: ProjectFormComponent,
 		canActivate: [AuthGuard],
 		data: { title:'Novo Projeto' }
 	},
 	{
-		path: 'project-form/:id',
+		path: `${ProjectRoutingNames.PROJECT_FORM}/:id`,
 		component: ProjectFormComponent,
 		canActivate: [AuthGuard],
 		data: { title:'Editar Projeto' }
 	},
 	{
-		path: 'project-info/:projectId',
+		path: `${ProjectRoutingNames.PROJECT_INFO}/:projectId`,
 		component: ProjectInfoComponent,
 		canActivate: [AuthGuard],
 		resolve: { project:  ProjectInfoResolver, tasks: ProjectTasksInfoResolver },
 		data: { title:'Informações do Projeto' }
 	},
 	{
-		path: 'project-dashboard/:projectId/:userId',
+		path: `${ProjectRoutingNames.PROJECT_INFO}/:projectId/:userId`,
 		component: UserProjectDashboardComponent,
 		canActivate: [AuthGuard],
 		data: { title:'Projeto' }

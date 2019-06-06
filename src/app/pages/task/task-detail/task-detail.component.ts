@@ -7,6 +7,7 @@ import { TaskService } from "../../../core/services/task.service";
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GTNotificationService } from "../../../core/services/gt-notification.service";
+import { TaskRoutingNames } from '../task-routing-names';
 
 @Component({
 	selector: 'task-detail',
@@ -30,7 +31,7 @@ export class TaskDetailComponent implements OnInit {
 	}
 
 	edit(id: string) {
-		this.router.navigate(['tasks', '/task-form', id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, id]);
 	}
 
 	remover(id: string): void {

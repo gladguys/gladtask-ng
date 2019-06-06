@@ -4,6 +4,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 
 import { SharedService } from "../../../core/services/shared.service";
 import { User } from "../../models/user.model";
+import { UserRoutingNames } from 'src/app/pages/user/user-routing-names';
 
 @Component({
 	selector: 'gt-user-logged-info',
@@ -26,5 +27,9 @@ export class GTUserLoggedInfoComponent implements OnInit {
 	logout(): void {
 		this.sharedService.logout();
 		this.router.navigate(['/login']);
+	}
+
+	goToUserInfo(id: string): string {
+		return `/${UserRoutingNames.USERS}/${UserRoutingNames.INFO}/${id}`;
 	}
 }
