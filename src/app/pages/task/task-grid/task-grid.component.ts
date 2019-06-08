@@ -60,4 +60,17 @@ export class TaskGridComponent implements OnInit {
 		let task = row.data;
 		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
 	}
+
+	onFirstDataRendered(params) {
+		this.autoSizeAll();
+		params.api.sizeColumnsToFit();
+	}
+
+	autoSizeAll() {
+		var allColumnIds = [];
+		this.gridOptions.columnApi.getAllColumns().forEach(function(column) {
+			allColumnIds.push(column.colId);
+		});
+		this.gridOptions.columnApi.autoSizeColumns(allColumnIds);
+	}
 }
