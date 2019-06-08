@@ -8,6 +8,7 @@ import { UploadFileService } from "../../core/services/upload-file.service";
 import { GTConstants } from "../../GT-constants";
 import { debounceTime, first, map, switchMap } from "rxjs/operators";
 import { UserService } from "../../core/services/user.service";
+import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
 
 @Component({
 	templateUrl: './signup.component.html',
@@ -39,7 +40,7 @@ export class SignupComponent {
 				this.validateEmailNotTaken.bind(this)],
 			'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
 			'confirm_password': ['', Validators.compose([Validators.required, this.passwordConfirming])],
-			'profileEnum': ['ROLE_CUSTOMER']
+			'profileEnum': [ProfileEnum.ROLE_CUSTOMER]
 		});
 
 		this.teamId = this.route.snapshot.params['teamId'];
