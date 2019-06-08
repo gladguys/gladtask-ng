@@ -4,21 +4,24 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AgGridModule } from 'ag-grid-angular';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from "ngx-toastr";
 
-import { GTToolbarModule } from "./components/gt-toolbar/gt-toolbar.module";
 import { LoggedOnlyDirective } from "./directives/logged-only.directive";
 import { AdminOnlyDirective } from "./directives/admin-only.directive";
+
+import { GTToolbarModule } from "./components/gt-toolbar/gt-toolbar.module";
 import { MaterialModule } from "./components/material/material.module";
 import { GTFormsModule } from "./components/gt-forms/gt-forms.module";
 import { GTDatatableModule } from "./components/gt-datatable/gt-datatable.module";
 import { GTPipesModule } from "./pipes/gt-pipes.module";
-import { ToastrModule } from "ngx-toastr";
 import { GTConfirmationDialogModule } from "./components/gt-confirmation-dialog/gt-confirmation-dialog.module";
+import {IfCreatorOrTargetOrManagerDirective} from "./directives/if-creator-or-target-or-manager.directive";
 
 @NgModule({
 	declarations: [
 		AdminOnlyDirective,
-		LoggedOnlyDirective
+		LoggedOnlyDirective,
+		IfCreatorOrTargetOrManagerDirective
 	],
 	imports: [
 		CommonModule,
@@ -49,7 +52,8 @@ import { GTConfirmationDialogModule } from "./components/gt-confirmation-dialog/
 		GTConfirmationDialogModule,
 		ReactiveFormsModule,
 		AdminOnlyDirective,
-		LoggedOnlyDirective
+		LoggedOnlyDirective,
+		IfCreatorOrTargetOrManagerDirective
 	]
 })
 export class SharedModule { }

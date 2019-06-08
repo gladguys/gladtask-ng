@@ -88,7 +88,8 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(ROUTES, { enableTracing: !environment.production })],
+	imports: [RouterModule.forRoot(ROUTES)],
+	//imports: [RouterModule.forRoot(ROUTES, { enableTracing: !environment.production })],
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }

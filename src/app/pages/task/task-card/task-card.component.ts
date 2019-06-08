@@ -25,6 +25,8 @@ export class TaskCardComponent implements OnInit {
 	@ViewChild('timeSpent') timeSpentEl: ElementRef;
 	@Input('task') task: Task;
 
+	canEdit: boolean = false;
+
 	possibleStatus: Array<Status>;
 	taskForm: FormGroup;
 
@@ -52,6 +54,7 @@ export class TaskCardComponent implements OnInit {
 			'project': [this.task.project.name]
 		});
 
+		this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
 		this.setupFormValueChanges();
 	}
 
@@ -65,30 +68,32 @@ export class TaskCardComponent implements OnInit {
 	}
 
 	setupFormValueChanges(): void {
-		this.taskForm.controls['title'].valueChanges
+		if (this.canEdit) {
+			this.taskForm.controls['title'].valueChanges
 				.pipe(debounceTime(500), distinctUntilChanged())
 				.subscribe(value => {
-			this.task.taskChanges.push(this.buildTaskChange("Título", this.task.title, value));
-			this.task.title = value;
-			this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-																		 e => this.notificationService.notificateFailure("Falha ao criar equpe"));
-		});
-
-		this.taskForm.controls['description'].valueChanges
+					this.task.taskChanges.push(this.buildTaskChange("Título", this.task.title, value));
+					this.task.title = value;
+					this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
+						e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+				});
+			
+			this.taskForm.controls['description'].valueChanges
 				.pipe(debounceTime(500), distinctUntilChanged())
 				.subscribe(value => {
-			this.task.taskChanges.push(this.buildTaskChange("Descrição", this.task.description, value));
-			this.task.description = value;
-			this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-																		e => this.notificationService.notificateFailure("Falha ao criar equpe"));
-		});
-
-		this.taskForm.controls['status'].valueChanges.subscribe(value => {
-			this.task.taskChanges.push(this.buildTaskChange("Situação", this.task.status, value));
-			this.task.status= value;
-			this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-																		e => this.notificationService.notificateFailure("Falha ao criar equpe"));
-		});
+					this.task.taskChanges.push(this.buildTaskChange("Descrição", this.task.description, value));
+					this.task.description = value;
+					this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
+						e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+				});
+			
+			this.taskForm.controls['status'].valueChanges.subscribe(value => {
+				this.task.taskChanges.push(this.buildTaskChange("Situação", this.task.status, value));
+				this.task.status= value;
+				this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
+					e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+			});
+		}
 	}
 
 	showTaskDetail(task: Task): void {
