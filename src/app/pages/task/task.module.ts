@@ -8,7 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { NguCarouselModule } from "@ngu/carousel";
 import {
 	faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
-	faPause, faPlay, faPlus, faThLarge, faEdit, faClock, faPen, faPaperPlane
+	faPause, faPlay, faPlus, faThLarge, faEdit, faClock, faPen, faPaperPlane, faChevronCircleLeft, faChevronCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MarkdownModule } from "ngx-markdown";
@@ -84,6 +84,8 @@ import { QuickProjectFormComponent } from "../project/quick-project-form/quick-p
 export class TaskModule {
 
 	constructor() {
-		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit, faClock, faPaperPlane, faPen);
+		library.add(faBars, faCircle, faCheck, faChevronCircleLeft, faChevronCircleRight,
+			faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge, faEdit, faClock,
+			faPaperPlane, faPen);
 	}
 }
