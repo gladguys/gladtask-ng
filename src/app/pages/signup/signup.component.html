@@ -30,6 +30,7 @@
 
 			<div
 				class="image-rounded image--with-hover-msg"
+				[ngClass]="{'image-empty': fileInput.files.length === 0}"
 				(click)="fileInput.click()"
 				[ngStyle]="{'background-image': 'url('+ previewImage +')'}"
 				*ngIf="previewImage">
