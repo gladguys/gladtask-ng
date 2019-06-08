@@ -49,9 +49,9 @@ export class TaskGridComponent implements OnInit {
 			if (params.data.priority === 'Baixo') {
 				return null;
 			} else if (params.data.priority === 'Normal') {
-				return { background: 'yellow' };
+				return { background: 'rgb(255, 255, 225)' };
 			} else {
-				return { background: 'red' };
+				return { background: 'rgb(255, 230, 230)' };
 			}
 		};
 	}
