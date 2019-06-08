@@ -1,9 +1,10 @@
 .container {
+	position: relative;
 
 	mat-button-toggle-group {
 		position: absolute;
-		top: 20px;
-		right: 10px;
+		top: 10px;
+		right: 0;
 
 		/deep/ .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
 			line-height: 34px;
