@@ -132,7 +132,7 @@ mat-sidenav-container {
 	}
 
 	mat-sidenav-content {
-		padding: 10px 20px;
+		padding: 16px;
 
 		&.content-expanded {
 			margin-left: 55px !important;
@@ -145,10 +145,6 @@ mat-sidenav-container {
 	mat-sidenav-container {
 		mat-sidenav {
 			transition: none;
-		}
-
-		mat-sidenav-content {
-			padding: 0 15px;
 		}
 	}
 }

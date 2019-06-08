@@ -1,61 +1,54 @@
-.project-image {
-	display: block;
-}
-
-.time-wrapper {
-	padding: 15px;
-	border: 1px solid #0a0a0a;
-}
-
-.time-label {
-	display: flex;
-	font-size: 20px;
-	justify-content: flex-start;
-}
-
-.participantes-wrapper {
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-}
-
-.participant-image {
-	height: 50px;
-	width: 50px;
-	margin-right: 12px;
-}
-
-.basic-project-info {
-	display: flex;
-	justify-content: flex-start;
-}
-
-.label--bold {
-	font-weight: bold;
-}
-
-.label--value {
-	margin-left: 5px;
-}
-
-.generic-project-info {
-	margin-left: 30px;
-	display: flex;
-	flex-direction: column;
-}
-
-.project-info-wrapper {
-	display: flex;
-	padding: 8px;
-}
-
-.tasks-grid-wrapper {
-	margin-top: 15px;
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #0a0a0a;
-}
+@import '../../../../variables';
 
 .card-project {
-	margin:10px;
+	border: 1px solid $border;
+    border-radius: 10px;
+	box-shadow: none;
+	
+	mat-card-title {
+		font-size: 16px;
+	}
+
+	&.card-project-info {
+		margin-bottom: 16px;
+
+		.project-image {
+			margin-top: 8px;
+			margin-bottom: 8px;
+			width: 120px;
+			height: 120px;
+		}
+
+		.generic-project-info .project-info-wrapper {
+			padding: 4px 0;
+		}
+	}
+
+	&.card-project-participants {
+		margin-right: 0 !important;
+		margin-bottom: 16px;
+
+		.participants-container {
+			margin-top: 16px;
+			overflow: auto;
+			
+			.participant {
+				margin-bottom: 8px;
+				padding: 8px 4px;
+				border: 1px solid $border;
+				border-radius: 8px;
+
+				.participant__image {
+					margin-bottom: 8px;
+					height: 72px;
+					width: 72px;
+					box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
+				}
+
+				> label {
+					font-size: 12px;
+				}
+			}
+		}
+	}
 }
