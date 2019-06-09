@@ -12,7 +12,6 @@ export class LoggedOnlyDirective implements OnChanges {
 		private renderer: Renderer2,
 		private sharedService: SharedService
 	) {
-		console.log('aaaaaaaaaaa');
 		if(!this.sharedService.isUserLoggedIn()) {
 			this.renderer.setStyle(this.el.nativeElement, 'display', 'none');
 		}

@@ -274,8 +274,8 @@
 		<gt-task-changes #taskChanges fxFlex="1 1 100%"></gt-task-changes>
 	</div>
 
-	<ng-template [ifCreatorOrTargetOrManager]="task">
-		<div *ngIf="taskForm.disabled">
+	<ng-container *ngIf="taskForm.disabled">
+		<div *ifCreatorOrTargetOrManager="task">
 			<button
 				mat-fab
 				type="button"
@@ -285,5 +285,5 @@
 				<fa-icon icon="pen" size="lg"></fa-icon>
 			</button>
 		</div>
-	</ng-template>
+	</ng-container>
 </form>
