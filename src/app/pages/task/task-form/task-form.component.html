@@ -274,17 +274,16 @@
 		<gt-task-changes #taskChanges fxFlex="1 1 100%"></gt-task-changes>
 	</div>
 
-	<div>
-		<h1 ifCreatorOrTargetOrManager [task]="task" >aaaaaaaaaaaaaaaaa</h1>
-	</div>
-	<div  *ngIf="taskForm.disabled">
-		<button
-			mat-fab
-			type="button"
-			class="btn-blue-dark mat-fab--floating"
-			(click)="taskForm.enable()">
+	<ng-template [ifCreatorOrTargetOrManager]="task">
+		<div *ngIf="taskForm.disabled">
+			<button
+				mat-fab
+				type="button"
+				class="btn-blue-dark mat-fab--floating"
+				(click)="taskForm.enable()">
 
-			<fa-icon icon="pen" size="lg"></fa-icon>
-		</button>
-	</div>
+				<fa-icon icon="pen" size="lg"></fa-icon>
+			</button>
+		</div>
+	</ng-template>
 </form>
