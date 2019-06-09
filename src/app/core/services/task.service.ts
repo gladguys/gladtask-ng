@@ -72,4 +72,12 @@ export class TaskService extends BaseService<Task> {
 		return this.http.post<Task>(`${environment.API}/tasks/${id}/save-time-spent`, timeSpent,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
+
+	isTaskOwnerOrTargetOrTeamManager(task: Task, userId: string): boolean {
+		let isTaskOwner = task.creatorUser.id === userId;
+		let isTaskTarget = task.targetUser.id === userId;
+		let isUserTeamManager = task.project.team.manager.id === userId;
+
+		return isTaskOwner || isTaskTarget || isUserTeamManager;
+	}
 }

@@ -49,6 +49,8 @@ export class TaskFormComponent implements OnInit {
 	
 	task: Task;
 
+	canEdit: boolean = true;
+
 	possibleTargetUsers$: Observable<User[]>;
 	possibleTeams$: Observable<Team[]>;
 	
@@ -103,6 +105,7 @@ export class TaskFormComponent implements OnInit {
 			this.taskComments = this.task.taskComments;
 			this.taskCommentsService.setUpdatedComments(this.task.taskComments);
 			this.populateForm(this.task);
+			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
 		}
 	}
 
