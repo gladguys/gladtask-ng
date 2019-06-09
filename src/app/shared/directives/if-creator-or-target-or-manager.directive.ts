@@ -9,22 +9,15 @@ import {TaskService} from "../../core/services/task.service";
 })
 export class IfCreatorOrTargetOrManagerDirective implements AfterViewInit {
 
-	@Input('ifCreatorOrTargetOrManager') task: Task;
+	@Input() task: Task;
 
 	constructor(
-		private el: ElementRef,
-		private renderer: Renderer2,
 		private sharedService: SharedService,
-		private taskService: TaskService,
-		private templateRef : TemplateRef<any>,
-		private viewContainer : ViewContainerRef
+		private taskService: TaskService
 	) {
-		console.log('rrrrrr');
 	}
 	
 	ngAfterViewInit(): void {
-		console.log('aaaaaaaaa');
 		const canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
-		console.log(canEdit);
 	}
 }
