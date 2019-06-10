@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import  {BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 import { Team } from 'src/app/shared/models/team.model';
@@ -46,14 +46,14 @@ export class TaskFormComponent implements OnInit {
 	@ViewChild('taskChanges') taskChangesComponent: TaskChangesComponent;
 	@ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
 	@ViewChild('textComment') textCommentEl: ElementRef;
-	
+
 	task: Task;
 
 	canEdit: boolean = true;
 
 	possibleTargetUsers$: Observable<User[]>;
 	possibleTeams$: Observable<Team[]>;
-	
+
 	taskChanges: Array<TaskChange> = [];
 	taskComments: Array<TaskComment> = [];
 	possibleStatus: Array<Status> = [];
@@ -111,17 +111,17 @@ export class TaskFormComponent implements OnInit {
 
 	private initializeForm() {
 		this.taskForm = this.formBuilder.group({
-				'title': ['', [Validators.required, Validators.minLength(6)]],
-				'priority': ['', Validators.required],
-				'description': ['', [Validators.required]],
-				'targetUser': ['', Validators.required],
-				'status': ['', Validators.required],
-				'taskType': ['', Validators.required],
-				'dueDate': [''],
-				'team': [null],
-				'estimatedTime': [''],
-				'project': ['']
-			},
+			'title': ['', [Validators.required, Validators.minLength(6)]],
+			'priority': ['', Validators.required],
+			'description': ['', [Validators.required]],
+			'targetUser': ['', Validators.required],
+			'status': ['', Validators.required],
+			'taskType': ['', Validators.required],
+			'dueDate': [''],
+			'team': [null],
+			'estimatedTime': [''],
+			'project': ['']
+		},
 			{ validator: ValidateTitleEqualDesc });
 	}
 
@@ -158,7 +158,7 @@ export class TaskFormComponent implements OnInit {
 		this.loadProjects(task.project.team.id);
 		this.taskForm.patchValue({
 			title: task.title,
-			priority: this.getPriorityFromTask(task.priority),
+			priority: task.priority,
 			description: task.description,
 			targetUser: task.targetUser,
 			status: task.status,
@@ -167,7 +167,7 @@ export class TaskFormComponent implements OnInit {
 			project: task.project,
 			estimatedTime: task.estimatedTime
 		});
-		
+
 
 		if (task.dueDate != undefined) {
 			this.dueDate = new Date(task.dueDate);
@@ -178,20 +178,9 @@ export class TaskFormComponent implements OnInit {
 		}
 	}
 
-	getPriorityFromTask(priorityText) {
-		switch (priorityText) {
-			case ("Alto"):
-				return "0";
-			case ("Normal"):
-				return "1";
-			case ("Baixo"):
-				return "2";
-		}
-	}
-
 	onSubmit() {
 		let isEdit = this.task.id != undefined;
-		
+
 		const submittedTask = this.taskForm.getRawValue() as Task;
 		submittedTask.taskComments = this.taskComments;
 
@@ -223,12 +212,12 @@ export class TaskFormComponent implements OnInit {
 				} else {
 					this.gladService.openSnack("Task editada");
 				}
-        this.taskForm.disable();
+				this.taskForm.disable();
 				this.taskForm.markAsPristine();
-				
+
 				this.matDialog.closeAll();
-			}, 
-			e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+			},
+				e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 	}
 
 	buildTaskChange(whatHasChanged: string, oldValue: any, newValue: any): TaskChange {
@@ -268,7 +257,7 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe( projects => {this.possibleProjects = projects; });
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
 	}
 
 	addComment() {
@@ -281,15 +270,15 @@ export class TaskFormComponent implements OnInit {
 		taskComment.date = dateNow.getTime().toString();
 		this.taskComments.push(taskComment);
 		this.taskCommentsService.setUpdatedComments(this.taskComments);
-		
+
 		if (this.task.id !== undefined) {
 			taskComment.date = dateNow.toISOString();
-			this.taskService.saveTaskComment(this.task.id, taskComment, true).subscribe(t => {});
+			this.taskService.saveTaskComment(this.task.id, taskComment, true).subscribe(t => { });
 		}
-		
+
 		this.textCommentEl.nativeElement.value = '';
 	}
-	
+
 	openBottomSheetTimeSpent() {
 		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
 			data: { taskId: this.task.id },
@@ -301,7 +290,7 @@ export class TaskFormComponent implements OnInit {
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
 		})
 	}
-	
+
 	openNewProjectDialog() {
 		let dialogRef = this.matDialog.open(QuickProjectFormComponent, {
 			width: '400px',

@@ -40,6 +40,17 @@ export class TaskCardComponent implements OnInit {
 		private router: Router) {
 	}
 
+	getColorCard() {
+		switch (this.task.priority) {
+			case (1):
+				return "card-task--white";
+			case (2):
+				return "card-task--yellow";
+			case (3):
+				return "card-task--red";
+		}
+	}
+
 	ngOnInit() {
 		this.possibleStatus = getPossibleStatus();
 
