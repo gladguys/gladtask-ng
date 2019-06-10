@@ -2,8 +2,8 @@
 	fxFlex="0 0 280px"
 	class="card-task"
 	[ngClass]="{
-		'card-task--yellow': task.priority === 'Normal',
-		'card-task--red': task.priority === 'Alto'
+		'card-task--yellow': task.priority == 'Normal',
+		'card-task--red': task.priority == 'Alto'
 	}">
 
 	<mat-card-content>
