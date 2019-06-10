@@ -40,17 +40,6 @@ export class TaskCardComponent implements OnInit {
 		private router: Router) {
 	}
 
-	getColorCard() {
-		switch (this.task.priority) {
-			case (1):
-				return "card-task--white";
-			case (2):
-				return "card-task--yellow";
-			case (3):
-				return "card-task--red";
-		}
-	}
-
 	ngOnInit() {
 		this.possibleStatus = getPossibleStatus();
 
@@ -76,6 +65,14 @@ export class TaskCardComponent implements OnInit {
 		taskChange.oldValue = oldValue;
 		taskChange.newValue = newValue;
 		return taskChange;
+	}
+
+	getColorCard() {
+		if(this.task.priority == 'Normal') {
+			return 'card-task--yellow'; 
+		} else if (this.task.priority == 'Alto') {
+			return 'card-task--red';
+		}
 	}
 
 	setupFormValueChanges(): void {
