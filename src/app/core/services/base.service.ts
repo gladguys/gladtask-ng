@@ -3,6 +3,7 @@ import { Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BaseModel } from 'src/app/shared/models/base.model';
+import { User } from 'src/app/shared/models/user.model';
 
 export abstract class BaseService<T extends BaseModel> {
 
@@ -26,6 +27,10 @@ export abstract class BaseService<T extends BaseModel> {
     
     findAll() {
 		return this.http.get<T[]>(environment.API + this.pathToApi);
+    }
+
+    findByTeam(teamId: string): Observable<User[]> {
+      return this.http.get<User[]>(environment.API + this.pathToApi + `/team/${teamId}`);
     }
     
     delete(id: string) {
