@@ -51,7 +51,7 @@ export class TaskFormComponent implements OnInit {
 
 	canEdit: boolean = true;
 
-	possibleTargetUsers$: Observable<User[]>;
+	possibleTargetUsers: User[];
 	possibleTeams$: Observable<Team[]>;
 	
 	taskChanges: Array<TaskChange> = [];
@@ -92,7 +92,17 @@ export class TaskFormComponent implements OnInit {
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
 
-		this.taskForm.controls['team'].valueChanges.subscribe(team => this.loadProjects(team.id));
+		this.taskForm.controls['team'].valueChanges.subscribe(team => {
+				if(team) {
+					this.taskForm.get('project').enable();
+					this.taskForm.get('targetUser').enable();
+					this.loadProjects(team.id);
+					this.loadUsers(team.id);			
+				} else {
+					this.taskForm.get('project').disable();
+					this.taskForm.get('targetUser').disable();
+				}
+			});
 
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
@@ -114,13 +124,13 @@ export class TaskFormComponent implements OnInit {
 				'title': ['', [Validators.required, Validators.minLength(6)]],
 				'priority': ['', Validators.required],
 				'description': ['', [Validators.required]],
-				'targetUser': ['', Validators.required],
+				'targetUser': [{value: '', disabled: true}, Validators.required],
 				'status': ['', Validators.required],
 				'taskType': ['', Validators.required],
 				'dueDate': [''],
 				'team': [null],
 				'estimatedTime': [''],
-				'project': ['']
+				'project': [{value: '', disabled: true}]
 			},
 			{ validator: ValidateTitleEqualDesc });
 	}
@@ -128,7 +138,6 @@ export class TaskFormComponent implements OnInit {
 	private getPossibleOptions() {
 		this.possibleStatus = getPossibleStatus();
 		this.possibleTaskTypes = possibleTaskTypes();
-		this.possibleTargetUsers$ = this.userService.findAll();
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
 	}
 
@@ -267,6 +276,11 @@ export class TaskFormComponent implements OnInit {
 		});
 	}
 
+	loadUsers(teamId: string) {
+		this.userService.findByTeam(teamId).subscribe( users => { this.possibleTargetUsers = users; console.log(users)});
+
+	}
+
 	loadProjects(teamId: string) {
 		this.projectService.findAllByTeam(teamId, true).subscribe( projects => {this.possibleProjects = projects; });
 	}
@@ -288,6 +302,12 @@ export class TaskFormComponent implements OnInit {
 		}
 		
 		this.textCommentEl.nativeElement.value = '';
+	}
+
+	atribuirParaMim() {
+		this.taskForm.patchValue({
+			'targetUser': this.sharedService.getUserLogged()
+		});
 	}
 	
 	openBottomSheetTimeSpent() {
@@ -318,4 +338,5 @@ export class TaskFormComponent implements OnInit {
 	getEnum(status: string) {
 		return getStatusFromEnum(status);
 	}
+
 }
