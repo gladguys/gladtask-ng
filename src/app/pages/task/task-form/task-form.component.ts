@@ -333,7 +333,11 @@ export class TaskFormComponent implements OnInit {
 			data: { team: this.taskForm.controls['team'].value }
 		});
 
-		dialogRef.afterClosed().subscribe((newProject: Project) => this.possibleProjects.push(newProject));
+		dialogRef.afterClosed().subscribe((newProject: Project) => {
+			if (newProject !== undefined) {
+				this.possibleProjects.push(newProject);
+			}
+		});
 	}
 
 	isDirty(): boolean {
