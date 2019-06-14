@@ -12,7 +12,7 @@ export class TaskFormGuard implements CanDeactivate<TaskFormComponent> {
 	constructor(private matDialog: MatDialog) {}
 
 	canDeactivate(component: TaskFormComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean>  | boolean {
-		if (component.isDirty()) {
+		if (component.isDirty() && !component.saved) {
 			let dialogRef = this.matDialog.open(GTConfirmationDialogComponent, {
 				width: '400px'
 			});
