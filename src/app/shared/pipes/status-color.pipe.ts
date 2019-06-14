@@ -12,10 +12,10 @@ export class StatusColorPipe implements PipeTransform {
 
 	getStatusColor(status: string): string {
 		switch (status) {
-			case getStatusFromEnum(Status.CRIADA) : return "grey";
-			case getStatusFromEnum(Status.CONCLUIDA) : return "blue";
-			case getStatusFromEnum(Status.EM_ESPERA): return "yellow";
-			case getStatusFromEnum(Status.EM_ANDAMENTO): return "green";
+			case "CRIADA" : return "grey";
+			case "CONCLUIDA" : return "blue";
+			case "EM ESPERA": return "yellow";
+			case "EM ANDAMENTO": return "green";
 		}
 	}
 }
