@@ -9,6 +9,4 @@ export class GTConstants {
 	static readonly AWS_PROJECT_PIC_FOLDER: string = "project-pic";
 	static readonly AWS_DOCS_TASK_FOLDER: string = "docs-task";
 	static readonly BASE_FILE_PATH: string = "https://s3.amazonaws.com" + "/" + GTConstants.AWS_BUCKET;
-
-	static readonly GLADIATOR_DEFAULT_PROFILE: string = "https://s3.amazonaws.com/gladtask/profile-pic/gladiator.jpg";
 }

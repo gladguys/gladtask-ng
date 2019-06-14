@@ -5,7 +5,6 @@ import { User } from "../../shared/models/user.model";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { GTNotificationService } from "../../core/services/gt-notification.service";
 import { UploadFileService } from "../../core/services/upload-file.service";
-import { GTConstants } from "../../GT-constants";
 import { debounceTime, first, map, switchMap } from "rxjs/operators";
 import { UserService } from "../../core/services/user.service";
 import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
@@ -15,7 +14,7 @@ import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
 	styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-	previewImage: any = GTConstants.GLADIATOR_DEFAULT_PROFILE;
+	previewImage: any = '../../../assets/images/default-user.png'
 	hidePassword = true;
 	userForm: FormGroup;
 	showLogoPhoto: boolean = true;
