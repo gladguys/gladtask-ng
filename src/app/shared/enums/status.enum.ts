@@ -16,7 +16,7 @@ export function getStatus(status: string): Status {
 
 export function getStatusFromEnum(status: string): string {
 	switch (status) {
-		case Status.CRIADA: return "CRIADA";[]
+		case Status.CRIADA: return "CRIADA";
 		case Status.EM_ESPERA: return "EM_ESPERA";
 		case Status.EM_ANDAMENTO: return "EM_ANDAMENTO";
 		case Status.CONCLUIDA: return "CONCLUIDA";
