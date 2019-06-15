@@ -91,14 +91,14 @@ export class TaskFormComponent implements OnInit {
 		private teamService: TeamService,
 		private sharedService: SharedService) { }
 
-	ngOnInit() {
-		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
-		this.initializeForm();
-		this.getPossibleOptions();
-		this.configureTitleLookAlikeSearch();
-
+		ngOnInit() {
+			this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
+			this.initializeForm();
+			this.getPossibleOptions();
+			this.configureTitleLookAlikeSearch();
+		
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
-			if (team) {
+			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
 				this.taskForm.get('targetUser').enable();
 				this.loadProjects(team.id);
@@ -109,11 +109,11 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 
+
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
 			this.task = new Task();
 		} else {
-			this.taskForm.disable();
 			this.taskChanges = this.task.taskChanges;
 			this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
@@ -138,6 +138,8 @@ export class TaskFormComponent implements OnInit {
 			'project': [{ value: '', disabled: true }]
 		},
 			{ validator: ValidateTitleEqualDesc });
+
+			this.taskForm.disable();
 	}
 
 	private getPossibleOptions() {
