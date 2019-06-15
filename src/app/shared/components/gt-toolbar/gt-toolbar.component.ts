@@ -34,7 +34,7 @@ export class GTToolbarComponent implements OnInit, OnDestroy {
 		let userLogged = this.sharedService.getUserLogged();
 		if (userLogged != null) {
 			this.profileImg = 
-				userLogged.profilePhoto ? userLogged.profilePhoto : GTConstants.GLADIATOR_DEFAULT_PROFILE;
+				userLogged.profilePhoto;
 		}
 	}
 
