@@ -91,12 +91,20 @@ export class TaskFormComponent implements OnInit {
 		private teamService: TeamService,
 		private sharedService: SharedService) { }
 
-		ngOnInit() {
-			this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
-			this.initializeForm();
-			this.getPossibleOptions();
-			this.configureTitleLookAlikeSearch();
-		
+	ngOnInit() {
+
+		let id: string = this.activatedRoute.snapshot.params['id'];
+
+
+		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
+		this.initializeForm();
+		if (id != undefined) {
+			this.taskForm.disable();
+		}
+		this.getPossibleOptions();
+		this.configureTitleLookAlikeSearch();
+
+
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
 			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
@@ -210,7 +218,6 @@ export class TaskFormComponent implements OnInit {
 		submittedTask.taskComments = this.taskComments;
 
 		if (isEdit) {
-			this.taskForm.disable();
 			submittedTask.id = this.task.id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
