@@ -138,8 +138,6 @@ export class TaskFormComponent implements OnInit {
 			'project': [{ value: '', disabled: true }]
 		},
 			{ validator: ValidateTitleEqualDesc });
-
-			this.taskForm.disable();
 	}
 
 	private getPossibleOptions() {
@@ -212,6 +210,7 @@ export class TaskFormComponent implements OnInit {
 		submittedTask.taskComments = this.taskComments;
 
 		if (isEdit) {
+			this.taskForm.disable();
 			submittedTask.id = this.task.id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
