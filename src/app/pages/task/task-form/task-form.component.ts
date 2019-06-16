@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -71,7 +71,6 @@ export class TaskFormComponent implements OnInit {
 	hasLookAlike: boolean;
 
 	dueDate: Date;
-	minDate = new Date();
 
 	saved: boolean = false;
 
