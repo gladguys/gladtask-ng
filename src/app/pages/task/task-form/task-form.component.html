@@ -261,6 +261,7 @@
 
 		<div class="activities-panel">
 			<button
+				*ngIf="task.id !== undefined"
 				mat-raised-button
 				type="button"
 				class="btn-orange btn-open-time-spent"
