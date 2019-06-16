@@ -24,7 +24,8 @@ export class TaskTimeSpentComponent implements OnInit {
 	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
 
 	timeSpentForm: FormGroup;
-
+	minDate = Date.now();
+	
 	constructor(
 		private formBuilder: FormBuilder,
 		private taskService: TaskService,

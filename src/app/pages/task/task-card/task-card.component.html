@@ -1,10 +1,7 @@
 <mat-card
 	fxFlex="0 0 280px"
 	class="card-task"
-	[ngClass]="{
-		'card-task--yellow': task.priority === 'Normal',
-		'card-task--red': task.priority === 'Alto'
-	}">
+	[ngClass]="getColorCard()">
 
 	<mat-card-content>
 		<div fxLayout="column" [formGroup]="taskForm">

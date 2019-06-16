@@ -23,6 +23,15 @@ export function getStatusFromEnum(status: string): string {
 	}
 }
 
+export function getStatusAsText(status: string): string {
+	switch (status) {
+		case Status.CRIADA: return "CRIADA";
+		case 'EM_ESPERA': return "EM ESPERA";
+		case 'EM_ANDAMENTO': return "EM ANDAMENTO";
+		case Status.CONCLUIDA: return "CONCLUÍDA";
+	}
+}
+
 export function getPossibleStatus(): Array<Status> {
 	return [Status.CRIADA,
 			Status.EM_ESPERA,

@@ -115,7 +115,7 @@
 
 			<mat-label>Equipe</mat-label>
 			<mat-select formControlName="team" [compareWith]="compareTeam">
-				<mat-option *ngFor="let team of (possibleTeams$ | async)" (change)="loadProjects(team.id)" [value]="team">
+				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
 					{{team.name}}
 				</mat-option>
 			</mat-select>
@@ -175,10 +175,11 @@
 				[compareWith]="compareUser"
 				required>
 
-				<mat-option *ngFor="let user of (possibleTargetUsers$ | async)" [value]="user">
+				<mat-option *ngFor="let user of possibleTargetUsers" [value]="user">
 					{{ user.username }}
 				</mat-option>
 			</mat-select>
+			<mat-hint class="label-atribuir-para-mim" (click)="atribuirParaMim()">Atribuir para mim</mat-hint>
 			<gt-form-error *ngIf="taskForm.controls['targetUser'].errors?.required && !taskForm.controls['targetUser'].pristine"></gt-form-error>
 		</mat-form-field>
 
@@ -203,7 +204,7 @@
 			appearance="outline">
 
 			<mat-label>Tempo estimado</mat-label>
-			<input formControlName="estimatedTime" matInput [textMask]="{mask: hourMinuteMask}" type="text">
+			<input formControlName="estimatedTime" matInput type="text">
 		</mat-form-field>
 
 		<h4 fxFlex="100%">Comentários</h4>

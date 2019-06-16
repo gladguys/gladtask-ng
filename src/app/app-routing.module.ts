@@ -88,7 +88,7 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(ROUTES)],
+	imports: [RouterModule.forRoot(ROUTES, { onSameUrlNavigation: 'reload' })],
 	//imports: [RouterModule.forRoot(ROUTES, { enableTracing: !environment.production })],
 	exports: [RouterModule]
 })

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TaskService } from '../../core/services/task.service';
 import { SharedService } from '../../core/services/shared.service';
 import { Task } from '../../shared/models/task.model'
-import { Status } from '../../shared/enums/status.enum';
+import { Status, getStatusFromEnum } from '../../shared/enums/status.enum';
 import { TaskRoutingNames } from '../task/task-routing-names';
 
 @Component({
@@ -34,16 +34,16 @@ export class KanbanComponent {
 		let id = this.sharedService.getUserLogged().id;
 		this.taskService.findTasksByTargetUser(id).subscribe(tasks => {
 			this.tasks = tasks;
-			this.createdTasks = tasks.filter(task => task.status === Status.CRIADA);
+			this.createdTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CRIADA));
 			this.created = this.createdTasks.map(task => task.title);
 
-			this.todoTasks = tasks.filter(task => task.status === Status.EM_ESPERA);
+			this.todoTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ESPERA));
 			this.todo = this.todoTasks.map(task => task.title);
-			
-			this.doingTasks = tasks.filter(task => task.status === Status.EM_ANDAMENTO);
+
+			this.doingTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ANDAMENTO));
 			this.doing = this.doingTasks.map(task => task.title);
 			
-			this.doneTasks = tasks.filter(task => task.status === Status.CONCLUIDA);
+			this.doneTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CONCLUIDA));
 			this.done = this.doneTasks.map(task => task.title);
 		});
 	}
@@ -97,13 +97,13 @@ export class KanbanComponent {
 
 	decideTargetStatus(taskTitle: string): string {
 		if (this.foundTaskIn(taskTitle, this.created)) {
-			return 'Criada';
+			return Status.CRIADA;
 		} else if (this.foundTaskIn(taskTitle, this.todo)) {
-			return 'Em espera';
+			return Status.EM_ESPERA;
 		} else if (this.foundTaskIn(taskTitle, this.doing)) {
-			return 'Em andamento';
+			return Status.EM_ANDAMENTO;
 		} else if (this.foundTaskIn(taskTitle, this.done)) {
-			return 'Concluída';
+			return Status.CONCLUIDA;
 		}
 	}
 
