@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 import { TaskRoutingNames } from '../../task/task-routing-names';
 
 export enum ProximityDate {
+	ATRASADA = "Atrasada",
 	HOJE = "Hoje",
 	AMANHA = "Amanhã"
 }
