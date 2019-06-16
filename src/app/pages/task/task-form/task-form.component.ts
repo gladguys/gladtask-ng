@@ -73,6 +73,7 @@ export class TaskFormComponent implements OnInit {
 	dueDate: Date;
 	minDate = new Date();
 
+	loadingProjects: boolean = false;
 	saved: boolean = false;
 
 	constructor(
@@ -295,7 +296,8 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
+		this.loadingProjects = true;
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false; });
 	}
 
 	addComment() {
