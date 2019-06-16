@@ -19,7 +19,7 @@ export class DateProximityPipe extends DatePipe implements PipeTransform {
 		let diffDaysMilli = dueDateMilli - todayDateMilli;
 
 		if (diffDaysMilli < 0) {
-			return "ATRASADA";
+			return "Atrasada";
 		}
 
 		let diffDays = diffDaysMilli / dayInMilli;
