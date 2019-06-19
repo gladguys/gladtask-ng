@@ -1,4 +1,4 @@
-import {ErrorHandler, Inject, Injectable, InjectionToken, Injector} from "@angular/core";
+import { ErrorHandler, Inject, Injectable, InjectionToken, Injector } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
 
@@ -15,24 +15,22 @@ const rollbarConfig = {
 export const RollbarService = new InjectionToken<Rollbar>('rollbar');
 
 @Injectable()
-export class AuthErrorHandler implements ErrorHandler {
+export class GTErrorHandler implements ErrorHandler {
 	
-	constructor(private injector: Injector, @Inject(RollbarService) private rollbar: Rollbar) {}
+	constructor(private injector: Injector, @Inject(RollbarService) private rollbar: Rollbar) {
+	}
 	
 	handleError(err: any): void {
 		console.log(err);
-		if (err instanceof HttpErrorResponse) {
-			if (err.status === 401) {
-				const router = this.injector.get(Router);
-				const sharedService = this.injector.get(SharedService);
-				const gladService = this.injector.get(GladService);
-				
-				sharedService.logout();
-				router.navigate(['/login']).then(() => gladService.openSnack('Sua sessão expirou!'));
-			} else {
-				this.rollbar.error(err.originalError || err);
-			}
+		if (err instanceof HttpErrorResponse && err.status === 401) {
+			const router = this.injector.get(Router);
+			const sharedService = this.injector.get(SharedService);
+			const gladService = this.injector.get(GladService);
+			
+			sharedService.logout();
+			router.navigate(['/login']).then(() => gladService.openSnack('Sua sessão expirou!'));
 		}
+		this.rollbar.error(err.originalError || err);
 	}
 }
 
