@@ -1,6 +1,6 @@
 <div class="container">
 
-	<div *ngIf="(dueSoonTasks$ | async) as dueSoonTasks; else loadingTasks">
+	<div *ngIf="dueSoonTasks.length > 0; else loadingTasks">
 
 		<h1>Tasks em Alerta</h1>
 
