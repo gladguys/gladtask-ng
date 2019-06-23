@@ -1,8 +1,8 @@
+<h3 class="label-msg">Deseja realmente sair?</h3>
 <label>Ao sair da página, você perderá os dados não salvos em {{ confirmMessage }}.</label>
-<p class="label-msg">Deseja realmente sair?</p>
 <div mat-dialog-actions>
 	<div fxLayout fxLayoutGap="5px">
-		<button mat-flat-button (click)="dialogRef.close(false)">Não</button>
-		<button mat-stroked-button color="warn" (click)="dialogRef.close(true)">Sim</button>
+		<button mat-stroked-button color="primary" (click)="dialogRef.close(true)">Sim</button>
+		<button mat-flat-button color="primary" (click)="dialogRef.close(false)">Não</button>
 	</div>
 </div>
