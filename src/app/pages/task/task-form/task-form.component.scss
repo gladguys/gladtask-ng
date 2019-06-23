@@ -19,11 +19,6 @@ form {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.label-atribuir-para-mim {
-	cursor: pointer;
-	color: $green;
-}
-
 .look-alike {
 	position: absolute;
 	z-index: 1;
@@ -71,8 +66,17 @@ h4 {
 	margin-right: 0 !important;
 }
 
-.btn-new-project {
-	margin-top: 17px;
+.create-project-container,
+.assign-to-me-container {
+	padding-bottom: 18px;
+
+	.btn-new-project,
+	.btn-assign-to-me {
+		padding-top: 4px;
+		padding-bottom: 4px;
+		line-height: 1em;
+		white-space: normal;
+	}
 }
 
 .mat-form-field-comment {
@@ -125,6 +129,16 @@ h4 {
 }
 
 @media (max-width: 599px) {
+
+	.mat-form-field-project-container,
+	.mat-form-field-assign-to {
+		margin-right: 10px !important;
+	}
+
+	.create-project-container,
+	.assign-to-me-container {
+		margin-right: 0 !important;
+	}
 
 	.block-side-right {
 		margin-bottom: 50px;
