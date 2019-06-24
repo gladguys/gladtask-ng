@@ -22,7 +22,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 		return next.handle(req).pipe(
 			catchError((err: any) => {
 				if (err instanceof HttpErrorResponse) {
-					console.log(err);
 					if (err.status === 400) {
 						notificationService.notificateFailure('Ocorreu um erro na requisição.')
 					} else if (err.status === 400) {

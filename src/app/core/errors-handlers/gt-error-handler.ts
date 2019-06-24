@@ -21,7 +21,6 @@ export class GTErrorHandler implements ErrorHandler {
 	}
 	
 	handleError(err: any): void {
-		console.log(err);
 		if (err instanceof HttpErrorResponse && err.status === 401) {
 			const router = this.injector.get(Router);
 			const sharedService = this.injector.get(SharedService);
