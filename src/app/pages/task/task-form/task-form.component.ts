@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -48,8 +48,6 @@ export class TaskFormComponent implements OnInit {
 	@ViewChild('taskChanges') taskChangesComponent: TaskChangesComponent;
 	@ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
 	@ViewChild('textComment') textCommentEl: ElementRef;
-	
-	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
 
 	task: Task;
 
@@ -73,7 +71,9 @@ export class TaskFormComponent implements OnInit {
 	hasLookAlike: boolean;
 
 	dueDate: Date;
+	minDate = new Date();
 
+	loadingProjects: boolean = false;
 	saved: boolean = false;
 
 	constructor(
@@ -93,13 +93,21 @@ export class TaskFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
+
+		let id: string = this.activatedRoute.snapshot.params['id'];
+
+
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 		this.initializeForm();
+		if (id != undefined) {
+			this.taskForm.disable();
+		}
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
 
+
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
-			if (team) {
+			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
 				this.taskForm.get('targetUser').enable();
 				this.loadProjects(team.id);
@@ -110,11 +118,11 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 
+
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
 			this.task = new Task();
 		} else {
-			this.taskForm.disable();
 			this.taskChanges = this.task.taskChanges;
 			this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
@@ -288,7 +296,8 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
+		this.loadingProjects = true;
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false; });
 	}
 
 	addComment() {
