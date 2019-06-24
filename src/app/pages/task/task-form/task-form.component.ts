@@ -50,7 +50,8 @@ export class TaskFormComponent implements OnInit {
 	@ViewChild('textComment') textCommentEl: ElementRef;
 
 	task: Task;
-
+	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
+	
 	canEdit: boolean = true;
 
 	possibleTargetUsers: User[];
@@ -71,7 +72,6 @@ export class TaskFormComponent implements OnInit {
 	hasLookAlike: boolean;
 
 	dueDate: Date;
-	minDate = new Date();
 
 	loadingProjects: boolean = false;
 	saved: boolean = false;
