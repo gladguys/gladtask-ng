@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { User } from "../../shared/models/user.model";
@@ -13,15 +13,12 @@ import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
 	templateUrl: './signup.component.html',
 	styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit, AfterViewInit {
+export class SignupComponent {
 	previewImage: any = '../../../assets/images/default-user.png'
 	hidePassword = true;
 	userForm: FormGroup;
 	showLogoPhoto: boolean = true;
 	teamId: string;
-
-	@ViewChild('usernameInput')
-	usernameInput: ElementRef;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -29,32 +26,26 @@ export class SignupComponent implements OnInit, AfterViewInit {
 		private notificationService: GTNotificationService,
 		private uploadFileService: UploadFileService,
 		private route: ActivatedRoute,
-		private router: Router,
-		private cd: ChangeDetectorRef) { }
-		
-		ngOnInit() {
-			
-			this.userForm = this.formBuilder.group({
-				'firstName': [''],
-				'lastName': [''],
-				'username': ['', Validators.compose([Validators.required, Validators.minLength(4)]),
+		private router: Router) { }
+
+	ngOnInit() {
+
+		this.userForm = this.formBuilder.group({
+			'firstName': [''],
+			'lastName': [''],
+			'username': ['', Validators.compose([Validators.required, Validators.minLength(4)]),
 				this.validateUsernameNotTaken.bind(this)],
-				'email': ['', Validators.compose([Validators.required, Validators.email]),
+			'email': ['', Validators.compose([Validators.required, Validators.email]),
 				this.validateEmailNotTaken.bind(this)],
-				'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-				'confirm_password': ['', Validators.compose([Validators.required, this.passwordConfirming])],
-				'profileEnum': [ProfileEnum.ROLE_CUSTOMER]
-			});
-			
-			this.teamId = this.route.snapshot.params['teamId'];
-		}
-		
-		ngAfterViewInit(): void {
-			this.cd.detectChanges();
-			this.usernameInput.nativeElement.focus();
-		}
-		
-		onSubmit() {
+			'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+			'confirm_password': ['', Validators.compose([Validators.required, this.passwordConfirming])],
+			'profileEnum': [ProfileEnum.ROLE_CUSTOMER]
+		});
+
+		this.teamId = this.route.snapshot.params['teamId'];
+	}
+
+	onSubmit() {
 		const submittedUser = this.userForm.getRawValue() as User;
 		if (this.previewImage) {
 			submittedUser.profilePhoto = this.previewImage;

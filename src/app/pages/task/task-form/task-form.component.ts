@@ -147,8 +147,6 @@ export class TaskFormComponent implements OnInit {
 			'project': [{ value: '', disabled: true }]
 		},
 			{ validator: ValidateTitleEqualDesc });
-
-			this.taskForm.disable();
 	}
 
 	private getPossibleOptions() {
