@@ -14,6 +14,7 @@ import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
 import { TaskRoutingNames } from '../task-routing-names';
+import { HomeUpdaterService } from "../../../core/services/home-updater.service";
 
 @Component({
 	selector: 'task-card',
@@ -35,6 +36,7 @@ export class TaskCardComponent implements OnInit {
 		private sharedService: SharedService,
 		private notificationService: GTNotificationService,
 		private gladService: GladService,
+		private homeUpdater: HomeUpdaterService,
 		private bottomSheet: MatBottomSheet,
 		private formBuilder: FormBuilder,
 		private router: Router) {
@@ -82,6 +84,7 @@ export class TaskCardComponent implements OnInit {
 				.subscribe(value => {
 					this.task.taskChanges.push(this.buildTaskChange("Título", this.task.title, value));
 					this.task.title = value;
+					this.homeUpdater.publishHomeUpdate(this.task);
 					this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
 						e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 				});

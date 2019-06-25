@@ -53,6 +53,7 @@
 
 			input:not(:focus) {
 				font-weight: bold;
+				text-overflow: ellipsis;
 			}
 		}
 

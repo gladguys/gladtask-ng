@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subscription} from "rxjs";
 
 import { TaskService } from "../../../core/services/task.service";
 import { Task } from "../../../shared/models/task.model";
 import { DateProximityPipe } from "../../../shared/pipes/date-proximity.pipe";
 import { SharedService } from "../../../core/services/shared.service";
-import {Observable} from "rxjs";
 import { TaskRoutingNames } from '../../task/task-routing-names';
-import { getStatusFromEnum, getStatusAsText, Status } from 'src/app/shared/enums/status.enum';
+import { HomeUpdaterService } from "../../../core/services/home-updater.service";
 
 export enum ProximityDate {
+	ATRASADA = "Atrasada",
 	HOJE = "Hoje",
 	AMANHA = "Amanhã"
 }
@@ -19,9 +20,10 @@ export enum ProximityDate {
 	templateUrl: './due-soon-tasks.component.html',
 	styleUrls: ['./due-soon-tasks.component.scss']
 })
-export class DueSoonTasksComponent implements OnInit {
-
-	dueSoonTasks$: Observable<Task[]>;
+export class DueSoonTasksComponent implements OnInit, OnDestroy {
+	
+	homeUpdaterSubscription: Subscription;
+	dueSoonTasks: Task[] = [];
 	proximityDate = ProximityDate;
 
 	@Input('dueDays') dueDays: number = 3;
@@ -29,11 +31,24 @@ export class DueSoonTasksComponent implements OnInit {
 	constructor(
 		private taskService: TaskService,
 		private router: Router,
+		private changeDetectorRef: ChangeDetectorRef,
+		private homeUpdater: HomeUpdaterService,
 		private dateProximity: DateProximityPipe,
 		private sharedService: SharedService) {}
 
 	ngOnInit(): void {
-		this.dueSoonTasks$ = this.taskService.findBetweenDates(this.dueDays, this.sharedService.getUserLogged().id);
+		this.taskService.findBetweenDates(this.dueDays, this.sharedService.getUserLogged().id)
+			.subscribe(tasks => this.dueSoonTasks = tasks);
+
+		this.homeUpdaterSubscription = this.homeUpdater.getSubscriberHomeUpdate().subscribe(taskPublished => {
+			let tasksCopy = [...this.dueSoonTasks];
+			tasksCopy.forEach(task => {
+				if (task.id === taskPublished.id) {
+					task.title = taskPublished.title;
+				}
+			});
+			this.dueSoonTasks = [...tasksCopy];
+		});
 	}
 
 	showTaskDetail(task: Task) {
@@ -43,13 +58,8 @@ export class DueSoonTasksComponent implements OnInit {
 	getDateProximityDescription(task: Task): string {
 		return this.dateProximity.transform(task.dueDate);
 	}
-
-	getEnum(status: string) {
-		return getStatusFromEnum(status);
-	}
-
-	getStatus(task: Task){
-		console.log(getStatusAsText(task.status));
-		return getStatusAsText(task.status);
+	
+	ngOnDestroy(): void {
+		this.homeUpdaterSubscription.unsubscribe();
 	}
 }

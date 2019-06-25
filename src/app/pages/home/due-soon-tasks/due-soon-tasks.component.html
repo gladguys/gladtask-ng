@@ -1,6 +1,6 @@
 <div class="container">
 
-	<div *ngIf="(dueSoonTasks$ | async) as dueSoonTasks; else loadingTasks">
+	<div *ngIf="dueSoonTasks.length > 0; else loadingTasks">
 
 		<h1>Tasks em Alerta</h1>
 
@@ -25,6 +25,7 @@
 					<span class="task-status-label task-status-label--{{ task.status | statusColor }}">{{ getStatus(task) }}</span>
 					<div *ngIf="task.dueDate | dateProximity">
 						<div [ngSwitch]="getDateProximityDescription(task)">
+							<span *ngSwitchCase="proximityDate.ATRASADA" class="task-due-days-hoje">{{ task.dueDate | dateProximity }}</span>
 							<span *ngSwitchCase="proximityDate.HOJE" class="task-due-days-hoje">{{ task.dueDate | dateProximity }}</span>
 							<span *ngSwitchCase="proximityDate.AMANHA" class="task-due-days-amanha">{{ task.dueDate | dateProximity }}</span>
 							<span *ngSwitchDefault class="task-due-days-depois">{{ task.dueDate | dateProximity }}</span>

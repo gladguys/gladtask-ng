@@ -191,7 +191,6 @@
 			<input
 				matInput
 				formControlName="dueDate"
-				[min]="minDate"
 				[value]="dueDate"
 				(click)="picker.open()"
 				[matDatepicker]="picker">
@@ -204,7 +203,7 @@
 			appearance="outline">
 
 			<mat-label>Tempo estimado</mat-label>
-			<input formControlName="estimatedTime" matInput type="text">
+			<input formControlName="estimatedTime" matInput type="text" [textMask]="{mask: hourMinuteMask}">
 		</mat-form-field>
 
 		<h4 fxFlex="100%">Comentários</h4>
@@ -261,6 +260,7 @@
 
 		<div class="activities-panel">
 			<button
+				*ngIf="task.id !== undefined"
 				mat-raised-button
 				type="button"
 				class="btn-orange btn-open-time-spent"

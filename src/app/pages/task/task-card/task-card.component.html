@@ -6,7 +6,7 @@
 	<mat-card-content>
 		<div fxLayout="column" [formGroup]="taskForm">
 			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-title">
-				<input matInput formControlName="title" required>
+				<input matInput formControlName="title" title="{{task.title}}"required>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">

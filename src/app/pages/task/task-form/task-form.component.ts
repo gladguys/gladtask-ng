@@ -50,7 +50,8 @@ export class TaskFormComponent implements OnInit {
 	@ViewChild('textComment') textCommentEl: ElementRef;
 
 	task: Task;
-
+	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
+	
 	canEdit: boolean = true;
 
 	possibleTargetUsers: User[];
@@ -71,8 +72,8 @@ export class TaskFormComponent implements OnInit {
 	hasLookAlike: boolean;
 
 	dueDate: Date;
-	minDate = new Date();
 
+	loadingProjects: boolean = false;
 	saved: boolean = false;
 
 	constructor(
@@ -91,12 +92,20 @@ export class TaskFormComponent implements OnInit {
 		private teamService: TeamService,
 		private sharedService: SharedService) { }
 
-		ngOnInit() {
-			this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
-			this.initializeForm();
-			this.getPossibleOptions();
-			this.configureTitleLookAlikeSearch();
-		
+	ngOnInit() {
+
+		let id: string = this.activatedRoute.snapshot.params['id'];
+
+
+		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
+		this.initializeForm();
+		if (id != undefined) {
+			this.taskForm.disable();
+		}
+		this.getPossibleOptions();
+		this.configureTitleLookAlikeSearch();
+
+
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
 			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
@@ -289,7 +298,8 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
+		this.loadingProjects = true;
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false; });
 	}
 
 	addComment() {

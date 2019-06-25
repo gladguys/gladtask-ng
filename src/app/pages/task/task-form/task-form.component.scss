@@ -1,9 +1,7 @@
 @import "../../../../variables";
-
 form {
 	margin-bottom: 50px;
 }
-
 .button-container {
 	position: sticky;
 	z-index: 1;
@@ -24,6 +22,10 @@ form {
 	color: $green;
 }
 
+.progress-bar {
+	margin-top: 12px;
+}
+
 .look-alike {
 	position: absolute;
 	z-index: 1;
@@ -35,10 +37,8 @@ form {
 	border: 1px solid $accent;
 	border-radius: 10px;
 	box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
-
 	.look-alike__title {
 		margin: 0;
-
 		mat-icon {
 			float: right;
 			width: 18px;
@@ -46,15 +46,12 @@ form {
 			font-size: 18px;
 		}
 	}
-
 	ul {
 		margin-top: 10px;
 		margin-bottom: 0;
 		padding-left: 20px;
-
 		li {
 			margin-bottom: 5px;
-
 			h4 {
 				margin-top: 0;
 				margin-bottom: 0;
@@ -62,45 +59,36 @@ form {
 		}
 	}
 }
-
 h4 {
 	margin-bottom: 5px;
 }
-
 .fill-remaining-space {
 	margin-right: 0 !important;
 }
-
 .btn-new-project {
 	margin-top: 17px;
 }
-
 .mat-form-field-comment {
 	textarea {
 		min-height: 45px;
 		padding-bottom: 10px;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 	}
-
 	.btn-add-comment, .btn-add-file {
 		margin-top: 10px;
 		line-height: 1.6rem;
 		font-size: .8rem;
 	}
-
 	.btn-add-comment {
 		float: left;
 	}
-
 	.btn-add-file {
 		float: right;
 	}
 }
-
 .block-side-right {
 	padding: 15px 0 15px 15px;
 	border-left: 1px solid rgb(230, 230, 230);
-
 	.activities-panel {
 		position: sticky;
 		z-index: 1;
@@ -110,12 +98,10 @@ h4 {
 		padding-bottom: 10px;
 		background-color: white;
 		border-bottom: 1px solid rgb(230, 230, 230);
-
 		.btn-open-time-spent {
 			::ng-deep .mat-button-wrapper {
 				display: inline-flex;
 				align-items: center;
-
 				fa-icon {
 					margin-right: 4px;
 				}
@@ -123,14 +109,11 @@ h4 {
 		}
 	}
 }
-
 @media (max-width: 599px) {
-
 	.block-side-right {
 		margin-bottom: 50px;
 		padding: 0;
 		border-left: 0;
-
 		.activities-panel {
 			display: flex;
     		justify-content: center;
