@@ -129,11 +129,14 @@
 			appearance="outline">
 
 			<mat-label>Projeto</mat-label>
-			<mat-select formControlName="project" [compareWith]="compareProject">
+			<mat-select *ngIf="!loadingProjects; else loadingProject" formControlName="project" [compareWith]="compareProject">
 				<mat-option *ngFor="let project of possibleProjects" [value]="project">
 					{{project.name}}
 				</mat-option>
 			</mat-select>
+			<ng-template #loadingProject>
+				<mat-progress-bar class="progress-bar" mode="query"></mat-progress-bar>
+			</ng-template>
 		</mat-form-field>
 		
 		<div *ngIf="taskForm.controls['team'].value">

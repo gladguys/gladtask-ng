@@ -14,8 +14,10 @@ export class StatusColorPipe implements PipeTransform {
 		switch (status) {
 			case "CRIADA" : return "grey";
 			case "CONCLUIDA" : return "blue";
-			case "EM ESPERA": return "yellow";
+			case "EM ESPERA" :  return "yellow";
+			case "EM_ESPERA" :  return "yellow";
 			case "EM ANDAMENTO": return "green";
+			case "EM_ANDAMENTO": return "green";
 		}
 	}
 }

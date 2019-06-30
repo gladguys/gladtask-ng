@@ -8,7 +8,7 @@ import { TaskService } from "../../../core/services/task.service";
 import { SharedService } from "../../../core/services/shared.service";
 import { GTNotificationService } from "../../../core/services/gt-notification.service";
 
-import { getPossibleStatus, Status, getStatusFromEnum } from "../../../shared/enums/status.enum";
+import { getPossibleStatus, Status, getStatusFromEnum, getStatusAsText } from "../../../shared/enums/status.enum";
 import { Task } from "../../../shared/models/task.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
