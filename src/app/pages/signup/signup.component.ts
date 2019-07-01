@@ -43,7 +43,6 @@ export class SignupComponent {
 		});
 
 		this.teamId = this.route.snapshot.params['teamId'];
-		this.userForm.get('secondaryEmail').setValidators(Validators.email);
 	}
 
 	onSubmit() {
