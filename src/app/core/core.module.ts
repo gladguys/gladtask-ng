@@ -1,4 +1,4 @@
-import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { MAT_DATE_LOCALE } from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -10,8 +10,8 @@ import { TaskFormGuard } from "./guards/task-form.guard";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { ProfilerInterceptor } from "./interceptors/profiler.interceptor";
 import { LoaderInterceptor } from "./interceptors/loader.interceptor";
-import { AuthErrorHandler } from "./errors-handlers/auth-error-handler";
 import { TeamFormGuard } from './guards/team-form.guard';
+import { ErrorInterceptor } from "./interceptors/error.interceptor";
 
 @NgModule({
 	imports: [RouterModule],
@@ -37,8 +37,9 @@ import { TeamFormGuard } from './guards/team-form.guard';
 			multi: true
 		},
 		{
-			provide: ErrorHandler,
-			useClass: AuthErrorHandler
+			provide: HTTP_INTERCEPTORS,
+			useClass: ErrorInterceptor,
+			multi: true
 		},
 		{ provide: LOCALE_ID, useValue: 'pt-BR' },
 		{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
