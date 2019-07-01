@@ -1,5 +1,5 @@
 import { TeamModule } from './pages/team/team.module';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,6 +17,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { GTModule } from './pages/gt.module';
+import { GTErrorHandler, rollbarFactory, RollbarService } from "./core/errors-handlers/gt-error-handler";
 
 registerLocaleData(localePt);
 
@@ -33,6 +34,10 @@ registerLocaleData(localePt);
 		FontAwesomeModule,
 		AppRoutingModule,
 		TeamModule
+	],
+	providers: [
+		{ provide: ErrorHandler, useClass: GTErrorHandler },
+		{ provide: RollbarService, useFactory: rollbarFactory }
 	],
 	entryComponents: [ProjectFormComponent, GTConfirmationDialogComponent],
 	bootstrap: [AppComponent]
