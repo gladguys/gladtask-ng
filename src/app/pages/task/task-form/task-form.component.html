@@ -28,7 +28,7 @@
 		<mat-form-field
 			fxFlex="600px"
 			fxFlex.lt-md="100%"
-			fxFlex.lt-sm="292px"
+			fxFlex.lt-sm="280px"
 			appearance="outline">
 
 			<mat-label>Título</mat-label>
@@ -92,9 +92,7 @@
 		</mat-form-field>
 
 		<mat-form-field
-			fxFlex="230px"
-			fxFlex.lt-md="1 1 100%"
-			fxFlex.lt-sm="100px"
+			fxFlex="150px"
 			appearance="outline">
 
 			<mat-label>Status</mat-label>
@@ -110,7 +108,7 @@
 
 		<mat-form-field
 			fxFlex="290px"
-			fxFlex.lt-sm="290px"
+			fxFlex.lt-sm="280px"
 			appearance="outline">
 
 			<mat-label>Equipe</mat-label>
@@ -120,13 +118,14 @@
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
-		
+
 		<span class="line-break"></span>
 
 		<mat-form-field
 			fxFlex="290px"
-			fxFlex.lt-sm="290px"
-			appearance="outline">
+			fxFlex.lt-sm="180px"
+			appearance="outline"
+			class="mat-form-field-project-container">
 
 			<mat-label>Projeto</mat-label>
 			<mat-select formControlName="project" [compareWith]="compareProject">
@@ -136,7 +135,14 @@
 			</mat-select>
 		</mat-form-field>
 		
-		<div *ngIf="taskForm.controls['team'].value">
+		<div
+			fxFlex="1 0 90px"
+			fxFlex.lt-sm="0 0 90px"
+			fxLayout="row"
+			fxLayoutAlign="start center"
+			class="create-project-container"
+			*ngIf="taskForm.controls['team'].value">
+
 			<button 
 				mat-stroked-button
 				type="button"
@@ -166,8 +172,9 @@
 
 		<mat-form-field
 			fxFlex="250px"
-			fxFlex.lt-sm="290px"
-			appearance="outline">
+			fxFlex.lt-sm="180px"
+			appearance="outline"
+			class="mat-form-field-assign-to">
 
 			<mat-label>Atribuir para</mat-label>
 			<mat-select
@@ -179,9 +186,27 @@
 					{{ user.username }}
 				</mat-option>
 			</mat-select>
-			<mat-hint class="label-atribuir-para-mim" (click)="atribuirParaMim()">Atribuir para mim</mat-hint>
 			<gt-form-error *ngIf="taskForm.controls['targetUser'].errors?.required && !taskForm.controls['targetUser'].pristine"></gt-form-error>
 		</mat-form-field>
+
+		<div
+			fxFlex="1 0 90px"
+			fxFlex.lt-sm="0 0 90px"
+			fxLayout="row"
+			fxLayoutAlign="start center"
+			class="assign-to-me-container">
+
+			<button
+				mat-stroked-button
+				type="button"
+				class="btn-blue btn--small btn-assign-to-me"
+				(click)="atribuirParaMim()">
+
+				Atribuir para mim
+			</button>
+		</div>
+
+		<span class="line-break"></span>
 
 		<mat-form-field
 			fxFlex="170px"
@@ -211,8 +236,8 @@
 		<mat-form-field
 			fxFlex="600px"
 			fxFlex.lt-lg="500px"
-			fxFlex.lt-md="100%"
-			fxFlex.lt-sm="100%"
+			fxFlex.lt-md="0 0 100%"
+			fxFlex.lt-sm="0 0 100%"
 			appearance="outline"
 			class="mat-form-field--without-label mat-form-field-comment">
 
@@ -256,11 +281,11 @@
 		fxFlex.lt-lg="180px"
 		fxFlex.lt-md="30%"
 		fxFlex.lt-sm="100%"
-		class="block-side-right">
+		class="block-side-right"
+		*ngIf="task.id !== undefined">
 
 		<div class="activities-panel">
 			<button
-				*ngIf="task.id !== undefined"
 				mat-raised-button
 				type="button"
 				class="btn-orange btn-open-time-spent"

@@ -1,5 +1,7 @@
-@import "../../../../variables";
-
 .label-msg {
-    color: $primary;
+    font-weight: 500;
+}
+
+[mat-dialog-actions] {
+    justify-content: flex-end;
 }

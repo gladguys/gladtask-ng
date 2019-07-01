@@ -88,6 +88,12 @@ body {
 
 	&.mat-form-field-appearance-outline {
 
+		.mat-form-field-outline-gap,
+		.mat-form-field-outline-end,
+		.mat-form-field-outline-start {
+			border-color: rgba(0, 0, 0, .6);
+		}
+
 		&.mat-focused {
 
 			.mat-form-field-outline-thick, .mat-form-field-label {
@@ -122,8 +128,11 @@ body {
 				transform: translateY(-7px) scale(0.75);
 			}
 
-			&.mat-form-field-should-float .mat-form-field-outline-gap {
-				border-top-color: currentColor;
+			&.mat-form-field-should-float {
+
+				.mat-form-field-outline-gap {
+					border-top-color: rgba(0, 0, 0, .6);
+				}
 			}
 		}
 
@@ -197,11 +206,17 @@ body {
 				border: 0;
 			}
 		}
-
+		
 		&.mat-form-field-disabled {
 			
 			.mat-form-field-outline {
 				color: rgba(0, 0, 0, .2);
+
+				.mat-form-field-outline-gap,
+				.mat-form-field-outline-end,
+				.mat-form-field-outline-start {
+					border-color: rgba(0, 0, 0, .2);
+				}
 			}
 			
 			.mat-form-field-label {

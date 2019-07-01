@@ -65,8 +65,18 @@ h4 {
 .fill-remaining-space {
 	margin-right: 0 !important;
 }
-.btn-new-project {
-	margin-top: 17px;
+
+.create-project-container,
+.assign-to-me-container {
+	padding-bottom: 18px;
+
+	.btn-new-project,
+	.btn-assign-to-me {
+		padding-top: 4px;
+		padding-bottom: 4px;
+		line-height: 1em;
+		white-space: normal;
+	}
 }
 .mat-form-field-comment {
 	textarea {
@@ -110,6 +120,17 @@ h4 {
 	}
 }
 @media (max-width: 599px) {
+
+	.mat-form-field-project-container,
+	.mat-form-field-assign-to {
+		margin-right: 10px !important;
+	}
+
+	.create-project-container,
+	.assign-to-me-container {
+		margin-right: 0 !important;
+	}
+
 	.block-side-right {
 		margin-bottom: 50px;
 		padding: 0;
