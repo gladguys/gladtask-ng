@@ -7,7 +7,6 @@ import { DateProximityPipe } from "../../../shared/pipes/date-proximity.pipe";
 import { SharedService } from "../../../core/services/shared.service";
 import {Observable} from "rxjs";
 import { TaskRoutingNames } from '../../task/task-routing-names';
-import { getStatusFromEnum, getStatusAsText, Status } from 'src/app/shared/enums/status.enum';
 
 export enum ProximityDate {
 	HOJE = "Hoje",
@@ -42,14 +41,5 @@ export class DueSoonTasksComponent implements OnInit {
 
 	getDateProximityDescription(task: Task): string {
 		return this.dateProximity.transform(task.dueDate);
-	}
-
-	getEnum(status: string) {
-		return getStatusFromEnum(status);
-	}
-
-	getStatus(task: Task){
-		console.log(getStatusAsText(task.status));
-		return getStatusAsText(task.status);
 	}
 }

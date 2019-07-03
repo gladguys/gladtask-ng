@@ -207,7 +207,7 @@
 			appearance="outline">
 
 			<mat-label>Tempo estimado</mat-label>
-			<input formControlName="estimatedTime" matInput type="text">
+			<input formControlName="estimatedTime" matInput type="text" [textMask]="{mask: hourMinuteMask}">
 		</mat-form-field>
 
 		<h4 fxFlex="100%">Comentários</h4>
