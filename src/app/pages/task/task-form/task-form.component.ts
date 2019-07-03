@@ -52,7 +52,7 @@ export class TaskFormComponent implements OnInit {
 	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
 
 	task: Task;
-
+	loadingProjects: boolean = false;
 	canEdit: boolean = true;
 
 	possibleTargetUsers: User[];
@@ -290,7 +290,8 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadProjects(teamId: string) {
-		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
+		this.loadingProjects = true;
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false });
 	}
 
 	addComment() {
