@@ -1,19 +1,63 @@
 @import "../../../../variables";
 
-.panel-invitation {
-    background: #9e9595;
-    color: white;
-    padding: 10px;
+.panel-invitation-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 99995;
+
+    .panel-invitation {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 8px 16px;
+        color: rgb(0, 0, 0);
+        background-color: $accent-background;
+        border: 1px solid rgba(0, 0, 0, .1);
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+        .label-team-name {
+            color: $primary;
+            font-weight: bold;
+        }
+
+        .panel-invitation__buttons {
+            margin-left: 16px;
+
+            .btn-aceitar {
+                margin-right: 8px;
+            }
+        }
+    }
 }
 
-.btn-aceitar {
-    margin-left: 10px;
-    background: white;
-    color: $primary;
+@media (max-width: 959px) {
+
+    .panel-invitation-container {
+        top: 12px;
+        margin-bottom: 32px;
+    }
 }
 
-.btn-aceitar {
-    margin-left: 10px;
-    background: darkred;
-    color: white;
+@media (max-width: 600px) {
+
+    .panel-invitation-container .panel-invitation {
+        justify-content: center;
+        flex: 0 1 280px;
+        padding: 16px;
+        text-align: center;
+
+        label > a {
+            display: block;
+            margin-top: 4px;
+        }
+
+        .panel-invitation__buttons {
+            margin-top: 16px;
+            margin-left: 0;
+        }
+    }
 }

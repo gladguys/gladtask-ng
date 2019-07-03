@@ -26,7 +26,7 @@
 		</div>
 
 		<mat-form-field
-			fxFlex="500px"
+			fxFlex="600px"
 			fxFlex.lt-md="100%"
 			fxFlex.lt-sm="292px"
 			appearance="outline">
@@ -35,7 +35,7 @@
 			<input matInput formControlName="title" (keyup)="debounceTitle.next($event.target.value)" required>
 			<gt-form-error *ngIf="taskForm.controls['title'].errors?.required && !taskForm.controls['title'].pristine"></gt-form-error>
 			<gt-form-error *ngIf="taskForm.controls['title'].errors?.minlength && !taskForm.controls['title'].pristine"
-			errorMessage="Título muito curto, explique melhor..."></gt-form-error>
+				errorMessage="Título muito curto, explique melhor..."></gt-form-error>
 
 			<div *ngIf="hasLookAlike && !taskForm.controls['title'].errors?.required" class="look-alike">
 				<h4 class="look-alike__title">
@@ -50,10 +50,6 @@
 				</ul>
 			</div>
 		</mat-form-field>
-
-		<button *ngIf="taskForm.disabled" type="button" mat-fab (click)="taskForm.enable()">
-			<fa-icon icon="edit" size="lg"></fa-icon>
-		</button>
 
 		<span class="line-break"></span>
 
@@ -83,7 +79,7 @@
 		</mat-form-field>
 
 		<mat-form-field
-			fxFlex="120px"
+			fxFlex="150px"
 			appearance="outline">
 
 			<mat-label>Prioridade</mat-label>
@@ -95,6 +91,21 @@
 			<gt-form-error *ngIf="taskForm.controls['priority'].errors?.required && !taskForm.controls['priority'].pristine"></gt-form-error>
 		</mat-form-field>
 
+		<mat-form-field
+			fxFlex="230px"
+			fxFlex.lt-md="1 1 100%"
+			fxFlex.lt-sm="100px"
+			appearance="outline">
+
+			<mat-label>Status</mat-label>
+			<mat-select formControlName="status" required>
+				<mat-option *ngFor="let status of possibleStatus" [value]="getEnum(status)">
+					{{ status }}
+				</mat-option>
+			</mat-select>
+			<gt-form-error *ngIf="taskForm.controls['status'].errors?.required && !taskForm.controls['status'].pristine"></gt-form-error>
+		</mat-form-field>
+
 		<span class="line-break"></span>
 
 		<mat-form-field
@@ -104,11 +115,13 @@
 
 			<mat-label>Equipe</mat-label>
 			<mat-select formControlName="team" [compareWith]="compareTeam">
-				<mat-option *ngFor="let team of (possibleTeams$ | async)" (change)="loadProjects(team.id)" [value]="team">
+				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
 					{{team.name}}
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
+		
+		<span class="line-break"></span>
 
 		<mat-form-field
 			fxFlex="290px"
@@ -116,12 +129,41 @@
 			appearance="outline">
 
 			<mat-label>Projeto</mat-label>
-			<mat-select formControlName="project" [compareWith]="compareProject">
+			<mat-select *ngIf="!loadingProjects; else loadingProject" formControlName="project" [compareWith]="compareProject">
 				<mat-option *ngFor="let project of possibleProjects" [value]="project">
 					{{project.name}}
 				</mat-option>
 			</mat-select>
+			<ng-template #loadingProject>
+				<mat-progress-bar class="progress-bar" mode="query"></mat-progress-bar>
+			</ng-template>
 		</mat-form-field>
+		
+		<div *ngIf="taskForm.controls['team'].value">
+			<button 
+				mat-stroked-button
+				type="button"
+				class="btn-blue btn--small btn-new-project"
+				*ngIf="taskForm.enabled && possibleProjects.length == 0; else btnNovoProj" 
+				(click)="openNewProjectDialog()">
+
+				<fa-icon icon="plus"></fa-icon>
+				Criar primeiro projeto
+			</button>
+
+			<ng-template #btnNovoProj>
+				<button
+					mat-stroked-button
+					type="button"
+					class="btn-blue btn--small btn-new-project"
+					(click)="openNewProjectDialog()"
+					*ngIf="taskForm.enabled">
+
+					<fa-icon icon="plus"></fa-icon>
+					Novo Projeto
+				</button>
+			</ng-template>
+		</div>
 
 		<span class="line-break"></span>
 
@@ -136,10 +178,11 @@
 				[compareWith]="compareUser"
 				required>
 
-				<mat-option *ngFor="let user of (possibleTargetUsers$ | async)" [value]="user">
+				<mat-option *ngFor="let user of possibleTargetUsers" [value]="user">
 					{{ user.username }}
 				</mat-option>
 			</mat-select>
+			<mat-hint class="label-atribuir-para-mim" (click)="atribuirParaMim()">Atribuir para mim</mat-hint>
 			<gt-form-error *ngIf="taskForm.controls['targetUser'].errors?.required && !taskForm.controls['targetUser'].pristine"></gt-form-error>
 		</mat-form-field>
 
@@ -151,7 +194,6 @@
 			<input
 				matInput
 				formControlName="dueDate"
-				[min]="minDate"
 				[value]="dueDate"
 				(click)="picker.open()"
 				[matDatepicker]="picker">
@@ -159,9 +201,12 @@
 			<mat-datepicker #picker color="#a91919"></mat-datepicker>
 		</mat-form-field>
 
-		<mat-form-field	fxFlex="140px" appearance="outline">
+		<mat-form-field
+			fxFlex="140px"
+			appearance="outline">
+
 			<mat-label>Tempo estimado</mat-label>
-			<input formControlName="estimatedTime" matInput [textMask]="{mask: hourMinuteMask}" type="text">
+			<input formControlName="estimatedTime" matInput type="text" [textMask]="{mask: hourMinuteMask}">
 		</mat-form-field>
 
 		<h4 fxFlex="100%">Comentários</h4>
@@ -182,17 +227,18 @@
 				required></textarea>
 
 			<button
-				mat-stroked-button
+				mat-flat-button
 				type="button"
-				class="btn--icon-and-text btn-blue btn-add-comment"
+				class="btn--icon-and-text btn-blue-dark btn-add-comment"
 				(click)="addComment()">
 
-				<fa-icon icon="plus"></fa-icon>
-				Adicionar
+				<fa-icon icon="paper-plane"></fa-icon>
+				Enviar
 			</button>
 
 			<button
 				mat-stroked-button
+				type="button"
 				(click)="fileInput.click()"
 				class="btn--icon-and-text btn-add-file">
 
@@ -215,47 +261,32 @@
 		fxFlex.lt-sm="100%"
 		class="block-side-right">
 
-		<div
-			fxLayout="row wrap"
-			fxLayoutGap="5px"
-			class="activities-panel">
+		<div class="activities-panel">
+			<button
+				mat-raised-button
+				type="button"
+				class="btn-orange btn-open-time-spent"
+				(click)="openBottomSheetTimeSpent()">
 
-			<mat-form-field
-				fxFlex="100px"
-				fxFlex.lt-md="1 1 100%"
-				fxFlex.lt-sm="100px"
-				appearance="outline"
-				class="mat-form-field--appearence-label-smaller">
-
-				<mat-label>Status</mat-label>
-				<mat-select formControlName="status" required>
-					<mat-option *ngFor="let status of possibleStatus" value="{{ status }}">
-						{{ status }}
-					</mat-option>
-				</mat-select>
-				<gt-form-error *ngIf="taskForm.controls['status'].errors?.required && !taskForm.controls['status'].pristine"></gt-form-error>
-			</mat-form-field>
-
-			<mat-form-field
-				*ngIf="!taskForm.disabled"
-				fxFlex="70px"
-				appearance="outline"
-				class="mat-form-field--appearence-label-smaller">
-
-				<mat-label>Tempo gasto</mat-label>
-				<input #timeSpent matInput [textMask]="{mask: hourMinuteMask}" type="text">
-			</mat-form-field>
-
-			<div *ngIf="!taskForm.disabled" fxLayoutGap="5px">
-				<button mat-mini-fab class="btn-green btn-play-task mat-elevation-z0">
-					<fa-icon icon="play"></fa-icon>
-				</button>
-				<button mat-mini-fab class="btn-blue btn-pause-task mat-elevation-z0">
-					<fa-icon icon="pause"></fa-icon>
-				</button>
-			</div>
+				<fa-icon icon="clock"></fa-icon>
+				Registrar horas
+			</button>
 		</div>
 
+		<gt-task-times #taskTimes fxFlex="1 1 100%"></gt-task-times>
 		<gt-task-changes #taskChanges fxFlex="1 1 100%"></gt-task-changes>
 	</div>
+
+	<ng-container *ngIf="taskForm.disabled">
+		<div *ifCreatorOrTargetOrManager="task">
+			<button
+				mat-fab
+				type="button"
+				class="btn-blue-dark mat-fab--floating"
+				(click)="taskForm.enable()">
+
+				<fa-icon icon="pen" size="lg"></fa-icon>
+			</button>
+		</div>
+	</ng-container>
 </form>

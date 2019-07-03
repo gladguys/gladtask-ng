@@ -23,9 +23,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/gt-theme.scss"
+              "src/gt-theme.scss",
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/marked/lib/marked.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-css.min.js"
+            ]
           },
           "configurations": {
             "production": {

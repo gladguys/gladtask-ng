@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import { Task } from "../../../shared/models/task.model";
 import {Router} from "@angular/router";
+import { TaskRoutingNames } from '../task-routing-names';
 
 @Component({
 	selector: 'task-grid',
@@ -48,15 +49,28 @@ export class TaskGridComponent implements OnInit {
 			if (params.data.priority === 'Baixo') {
 				return null;
 			} else if (params.data.priority === 'Normal') {
-				return { background: 'yellow' };
+				return { background: 'rgb(255, 255, 225)' };
 			} else {
-				return { background: 'red' };
+				return { background: 'rgb(255, 230, 230)' };
 			}
 		};
 	}
 
 	onRowSelected(row):void {
 		let task = row.data;
-		this.router.navigate(['tasks', 'task-form', task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+	}
+
+	onFirstDataRendered(params) {
+		this.autoSizeAll();
+		params.api.sizeColumnsToFit();
+	}
+
+	autoSizeAll() {
+		var allColumnIds = [];
+		this.gridOptions.columnApi.getAllColumns().forEach(function(column) {
+			allColumnIds.push(column.colId);
+		});
+		this.gridOptions.columnApi.autoSizeColumns(allColumnIds);
 	}
 }

@@ -11,7 +11,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { GTToolbarComponent } from './gt-toolbar.component';
 import { GTSearchComponent } from './gt-search/gt-search.component';
 import { MaterialModule } from '../material/material.module';
-import { GTNotificationModule } from '../gt-notification/gt-notification.module';
 import { GTUserLoggedInfoModule } from '../gt-user-logged-info/gt-user-logged-info.module';
 import { GTPipesModule } from "../../pipes/gt-pipes.module";
 
@@ -27,7 +26,6 @@ import { GTPipesModule } from "../../pipes/gt-pipes.module";
 		SatPopoverModule,
 		RouterModule,
 		GTUserLoggedInfoModule,
-		GTNotificationModule,
 		GTPipesModule,
 		ClickOutsideModule,
 		FontAwesomeModule

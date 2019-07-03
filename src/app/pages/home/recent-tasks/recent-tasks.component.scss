@@ -1,12 +1,10 @@
 @import "../../../../variables";
 
 .container {
-	padding-bottom: 10px;
-	overflow: auto;
+	padding-top: 10px;
 
-	.empty-msg {
-		display: block;
-		padding: 10px;
+	.flowable {
+		overflow: auto;
 	}
 
 	.skeleton-loading {

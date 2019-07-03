@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 
+import { environment } from '../environments/environment';
 import { AuthGuard } from "./core/guards/auth.guard";
 import { LoginComponent } from "./pages/login/login.component";
 import { LoginAuthGuard } from "./core/guards/login.auth.guard";
 import { SignupComponent } from "./pages/signup/signup.component";
-import {HomeComponent} from "./pages/home/home.component";
-import {InboxComponent} from "./pages/inbox/inbox.component";
-import {KanbanComponent} from "./pages/kanban/kanban.component";
-import {PageNotFoundComponent} from "./pages/page-not-found/page-not-found.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { InboxComponent } from "./pages/inbox/inbox.component";
+import { KanbanComponent } from "./pages/kanban/kanban.component";
+import { PageNotFoundComponent } from "./pages/page-not-found/page-not-found.component";
+import { TaskRoutingNames } from './pages/task/task-routing-names';
+import { TeamRoutingNames } from './pages/team/team-routing-names';
+import { ProjectRoutingNames } from './pages/project/project-routing-names';
+import { UserRoutingNames } from './pages/user/user-routing-names';
 
 export const ROUTES: Routes = [
 	{
@@ -66,10 +71,10 @@ export const ROUTES: Routes = [
 			}
 	},
 
-	{ path: "tasks", loadChildren: "./pages/task/task.module#TaskModule" },
-	{ path: "users", loadChildren: "./pages/user/user.module#UserModule" },
-	{ path: "teams", loadChildren: "./pages/team/team.module#TeamModule" },
-	{ path: "projects", loadChildren: "./pages/project/project.module#ProjectModule" },
+	{ path: TaskRoutingNames.TASKS , loadChildren: "./pages/task/task.module#TaskModule", canLoad: [AuthGuard] },
+	{ path: UserRoutingNames.USERS, loadChildren: "./pages/user/user.module#UserModule", canLoad: [AuthGuard] },
+	{ path: TeamRoutingNames.TEAMS, loadChildren: "./pages/team/team.module#TeamModule", canLoad: [AuthGuard] },
+	{ path: ProjectRoutingNames.PROJECTS, loadChildren: "./pages/project/project.module#ProjectModule", canLoad: [AuthGuard] },
 
 	{
 		path: '**',
@@ -83,7 +88,8 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(ROUTES)],
+	imports: [RouterModule.forRoot(ROUTES, { onSameUrlNavigation: 'reload' })],
+	//imports: [RouterModule.forRoot(ROUTES, { enableTracing: !environment.production })],
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }

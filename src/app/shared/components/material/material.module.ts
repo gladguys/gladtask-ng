@@ -1,13 +1,34 @@
 import { NgModule } from '@angular/core';
 import {
-	MatButtonModule, MatCardModule, MatCheckboxModule,
-	MatDatepickerModule, MatDialogModule,
-	MatDividerModule, MatError, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
-	MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule,
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatDatepickerModule,
+	MatDialogModule,
+	MatDividerModule,
+	MatError,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatNativeDateModule,
+	MatPaginatorModule,
+	MatProgressSpinnerModule,
 	MatRadioModule,
-	MatSelectModule, MatSidenavModule,
-	MatSliderModule, MatSnackBarModule, MatSortModule, MatTableModule,
-	MatTabsModule, MatToolbarModule, MatExpansionModule, MatMenuModule, MatChipsModule, MatButtonToggleModule
+	MatSelectModule,
+	MatSidenavModule,
+	MatSliderModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatTableModule,
+	MatTabsModule,
+	MatToolbarModule,
+	MatExpansionModule,
+	MatMenuModule,
+	MatChipsModule,
+	MatButtonToggleModule,
+	MatBottomSheetModule,
+	MatProgressBarModule
 } from "@angular/material";
 
 @NgModule({
@@ -27,9 +48,9 @@ import {
 		MatDatepickerModule,
 		MatSnackBarModule,
 		MatIconModule,
-		MatDialogModule,
 		MatProgressSpinnerModule,
 		MatButtonModule,
+		MatDividerModule,
 		MatSortModule,
 		MatTableModule,
 		MatTabsModule,
@@ -43,8 +64,10 @@ import {
 		MatFormFieldModule,
 		MatPaginatorModule,
 		MatSortModule,
+		MatBottomSheetModule,
 		MatExpansionModule,
-		MatMenuModule
+		MatMenuModule,
+		MatProgressBarModule
 	],
 	exports: [
 		MatButtonModule,
@@ -59,11 +82,11 @@ import {
 		MatSliderModule,
 		MatSelectModule,
 		MatRadioModule,
+		MatDividerModule,
 		MatNativeDateModule,
 		MatDatepickerModule,
 		MatSnackBarModule,
 		MatIconModule,
-		MatDialogModule,
 		MatProgressSpinnerModule,
 		MatButtonModule,
 		MatSortModule,
@@ -79,8 +102,10 @@ import {
 		MatPaginatorModule,
 		MatButtonToggleModule,
 		MatSortModule,
+		MatBottomSheetModule,
 		MatMenuModule,
-		MatExpansionModule
+		MatExpansionModule,
+		MatProgressBarModule
 	]
 })
 export class MaterialModule {}

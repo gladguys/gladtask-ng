@@ -1,20 +1,23 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, UrlSerializer } from '@angular/router';
+import { MatDialog } from "@angular/material";
 import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
-import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
-import { TeamService } from '../../../core/services/team.service';
 import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
+import { InvitationDTO } from '../../../shared/models/dtos/invitation-dto';
+
+import { TeamService } from '../../../core/services/team.service';
 import { UserService } from '../../../core/services/user.service';
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { GTNotificationService } from 'src/app/shared/components/gt-notification/gt-notification.service';
+import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationService } from 'src/app/core/services/invitation.service';
-import { Invitation } from 'src/app/shared/models/invitation.model';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { EmailService } from "../../../core/services/email.service";
-import { environment } from "../../../../environments/environment";
 import { GladService } from "../../../core/services/glad.service";
+
+import { environment } from "../../../../environments/environment";
+import { ProjectRoutingNames } from '../../project/project-routing-names';
 
 @Component({
   selector: 'app-team-detail',
@@ -30,6 +33,8 @@ export class TeamDetailComponent implements OnInit {
 	showAddParticipant: boolean = false;
 	filteredParticipants: Array<User> = [];
 
+	projectFormLink = `/${ProjectRoutingNames.PROJECTS}/${ProjectRoutingNames.PROJECT_FORM}`;
+
 	constructor(
 		private teamService: TeamService,
 		private route: ActivatedRoute,
@@ -41,6 +46,7 @@ export class TeamDetailComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private gladService: GladService,
 		private serializer: UrlSerializer,
+		private matDialog: MatDialog,
 		private emailService: EmailService,
 		private router: Router) { }
 
@@ -52,11 +58,8 @@ export class TeamDetailComponent implements OnInit {
 				this.userService.findByAnyTerm(term).subscribe(users =>
 					this.filteredParticipants = this.getPossibleUsers(users));
 			});
-		
-		let teamId: string = this.route.snapshot.params['id'];
-		if (teamId != undefined) {
-			this.teamService.findById(teamId).subscribe(team => this.team = team);
-		}
+
+		this.route.params.subscribe(params => this.teamService.findById(params.id).subscribe(team => this.team = team));
 	}
 
 	getPossibleUsers(users: User[]) {
@@ -70,25 +73,17 @@ export class TeamDetailComponent implements OnInit {
 			invitation.receiverUserId = user.id;
 			invitation.teamId = this.team.id;
 
-			this.invitationService.createOrUpdate(invitation).subscribe( invitation => {
+			this.invitationService.createOrUpdateByDTO(invitation).subscribe( invitation => {
 				this.notificationService.notificateSuccess(`Convite enviado para usuario ${invitation.receiver.username}`);
 			});
         }
 	}
 
-	buildInvitationToUser(user: User): Invitation {
-		let invitation = new Invitation();
-			invitation.author = this.sharedService.getUserLogged();
-			invitation.receiver = user;
-			invitation.team = this.team;
-			return invitation;
-	}
-	
 	emailValidator(email:string): boolean {
 		let EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return EMAIL_REGEXP.test(email);
 	}
-	
+
 	handleInviteEmail() {
 		let email = this.email.nativeElement.value;
 		if (this.emailValidator(email)) {

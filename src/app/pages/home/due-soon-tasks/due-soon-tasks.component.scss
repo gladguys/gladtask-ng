@@ -2,21 +2,26 @@
 
 .container {
 
-	.empty-msg {
-		display: block;
-		padding: 10px;
+	h1 {
+		margin-top: 0;
 	}
 
 	.tasks-content {
-		max-height: 300px;
+	  	margin-top: 10px;
+		max-height: 163px;
 		padding: 4px 8px;
 		overflow: auto;
 		border: 1px solid $border;
 		border-radius: 8px;
 
+		.due-task:hover {
+			cursor: pointer;
+		}
+
 		.due-task {
 			padding: 10px;
 			border-bottom: 1px solid $border-light;
+			
 
 			&:last-child {
 				border-bottom: 0;

@@ -5,9 +5,10 @@ import { Project } from "./project.model";
 import { TaskType } from "../enums/task-type.enum";
 import { TaskComment } from "./task-comment.model";
 import { Status } from "../enums/status.enum";
+import { TimeSpent } from "./time-spent.model";
+import { BaseModel } from './base.model';
 
-export class Task {
-	public id: string;
+export class Task extends BaseModel {
 	public title: string;
 	public status: Status;
 	public project: Project;
@@ -24,6 +25,6 @@ export class Task {
 	public estimatedTime: string;
 	public taskChanges: Array<TaskChange> = [];
 	public taskComments: Array<TaskComment> = [];
+	public timeSpentValues: Array<TimeSpent> = [];
 
-	constructor() {}
 }

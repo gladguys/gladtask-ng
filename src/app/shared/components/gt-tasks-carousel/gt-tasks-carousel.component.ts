@@ -12,8 +12,7 @@ import { Task } from "../../models/task.model";
 export class GTTasksCarouselComponent implements OnInit, AfterViewInit {
 
 	@Input('tasks') tasks: Task[];
-	@Input('grid') grid: any = { xs: 1, sm: 1, md: 2, lg: 3, all: 0 };
-	@Input('interval') interval: any = { timing: 4000, initialDelay: 1000 };
+	@Input('grid') grid: any = { xs: 1, sm: 2, md: 3, lg: 4, all: 0 };
 	@Input('loop') loop: boolean = true;
 	@Input('touch') touch: boolean = true;
 	@Input('velocity') velocity: number = 0.2;
@@ -25,7 +24,6 @@ export class GTTasksCarouselComponent implements OnInit, AfterViewInit {
 	carouselConfig: NguCarouselConfig = {
 		grid: this.grid,
 		load: 3,
-		interval: this.interval,
 		loop: this.loop,
 		touch: this.touch,
 		velocity: this.velocity

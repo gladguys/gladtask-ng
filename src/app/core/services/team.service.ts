@@ -1,43 +1,56 @@
-import { BehaviorSubject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Team } from 'src/app/shared/models/team.model';
 import { environment } from "../../../environments/environment";
 import { InvitationDTO } from 'src/app/shared/models/dtos/invitation-dto';
+import { BaseService } from './base.service';
+
+import { CacheBuster, Cacheable } from 'ngx-cacheable';
+
+const cacheBuster$ = new Subject<void>();
 
 @Injectable({
 	providedIn: 'root'
 })
-export class TeamService {
+export class TeamService extends BaseService<Team> {
 
 	myTeams: BehaviorSubject<Array<Team>> = new BehaviorSubject<Array<Team>>(null);
 
-	constructor(private http: HttpClient) {}
+	constructor(protected http: HttpClient,
+		protected injector: Injector) {
+		super(injector, "/teams");
+	}
 
-	createOrUpdate(team: Team): Observable<Team> {
-		if (team.id != null && team.id != '') {
-			return this.http.put<Team>(`${environment.API}/teams`, team);
+	@CacheBuster({
+    cacheBusterNotifier: cacheBuster$
+  })
+	createOrUpdate(t: Team): Observable<Team> {
+		if (t.id != null && t.id != '') {
+			return this.http.put<Team>(environment.API + this.pathToApi, t);
 		} else {
-			return this.http.post<Team>(`${environment.API}/teams`, team);
+			return this.http.post<Team>(environment.API + this.pathToApi, t);
 		}
 	}
 
+	@Cacheable({
+    cacheBusterObserver: cacheBuster$
+  })
 	findAllByUser(userId: string): Observable<Team[]> {
 		return this.http.get<Team[]>(`${environment.API}/teams/user/${userId}`);
-    }
-
-    findById(id: string): Observable<Team> {
-		return this.http.get<Team>(`${environment.API}/teams/${id}`);
 	}
 
+	@CacheBuster({
+    cacheBusterNotifier: cacheBuster$
+  })
 	addUserToTeam(invitationDTO: InvitationDTO) {
 		return this.http.post(`${environment.API}/teams/add-user`, invitationDTO);
 	}
 
 	updateMyTeams(userId: string) {
-		this.findAllByUser(userId).subscribe( teams => {
+		this.findAllByUser(userId).subscribe(teams => {
 			this.myTeams.next(teams);
 		});
 	}

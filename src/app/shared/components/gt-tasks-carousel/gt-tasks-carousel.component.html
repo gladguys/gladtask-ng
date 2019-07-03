@@ -1,12 +1,27 @@
-<ngu-carousel #myCarousel [inputs]="carouselConfig" [dataSource]="carouselItems">
-	<div *nguCarouselDef="let item;" class="item">
+<ngu-carousel
+	#myCarousel
+	[inputs]="carouselConfig"
+	[dataSource]="carouselItems">
+
+	<div
+		*nguCarouselDef="let item;"
+		class="item">
+
 		<task-card [task]="item"></task-card>
 	</div>
 
-	<!--<button NguCarouselNext class="rightRs">></button>
-	<button NguCarouselPrev class="leftRs"><</button>!-->
+	<button NguCarouselPrev class="btn-prev">
+		<fa-icon icon="chevron-circle-left" size="lg"></fa-icon>
+	</button>
+	<button NguCarouselNext class="btn-next">
+		<fa-icon icon="chevron-circle-right" size="lg"></fa-icon>
+	</button>
 
-	<ul class="myPoint" NguCarouselPoint>
-		<li *ngFor="let j of myCarousel.pointNumbers; let j = index" [class.active]="j==myCarousel.activePoint" (click)="myCarousel.moveTo(j)"></li>
+	<ul class="my-point" NguCarouselPoint>
+		<li
+			*ngFor="let j of myCarousel.pointNumbers; let j = index"
+			[class.active]="j==myCarousel.activePoint"
+			(click)="myCarousel.moveTo(j)">
+		</li>
 	</ul>
 </ngu-carousel>

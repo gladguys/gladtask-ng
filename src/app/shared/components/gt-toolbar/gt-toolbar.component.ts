@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
+import { SubSink } from "subsink";
 
 import { SharedService } from "../../../core/services/shared.service";
 import { SideNavService } from "../../../core/services/side-nav.service";
@@ -12,11 +13,12 @@ import { environment } from '../../../../environments/environment';
 	templateUrl: './gt-toolbar.component.html',
 	styleUrls: ['./gt-toolbar.component.scss']
 })
-export class GTToolbarComponent implements OnInit {
+export class GTToolbarComponent implements OnInit, OnDestroy {
 
 	profileImg: string;
 	version: string;
 	public titleMenu: string;
+	private subSink = new SubSink();
 
 	constructor(
 		private domSanitizer: DomSanitizer,
@@ -26,14 +28,21 @@ export class GTToolbarComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.version = environment.VERSION;
-		this.sharedService.getTitleNameMenu().subscribe( title => this.titleMenu = title);
+		this.subSink.add(
+			this.sharedService.getTitleNameMenu()
+					  .subscribe( title => this.titleMenu = title));
 		let userLogged = this.sharedService.getUserLogged();
 		if (userLogged != null) {
-			this.profileImg = userLogged.profilePhoto ? userLogged.profilePhoto : GTConstants.GLADIATOR_DEFAULT_PROFILE;
+			this.profileImg = 
+				userLogged.profilePhoto;
 		}
 	}
 
 	toggleSidenav(): void {
 		this.sideNavService.toggleSideNav();
+	}
+	
+	ngOnDestroy(): void {
+		this.subSink.unsubscribe();
 	}
 }

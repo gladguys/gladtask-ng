@@ -1,22 +1,28 @@
 <div class="container scrollbar-thin">
 
 	<div *ngIf="(projects$ | async) as projects; else loadingProjects">
-		<span class="empty-msg" *ngIf="projects.length == 0; else projectsList">Não há projetos recentes.</span>
+
+		<h1>Projetos Recentes</h1>
+		
+		<div *ngIf="projects.length == 0; else projectsList" class="no-project-content scrollbar-thin">
+			<span class="empty-msg" >Não há projetos recentes.</span>
+		</div>
 
 		<ng-template #projectsList>
-			<h1>Projetos Recentes</h1>
 			<div
 				fxLayout="row"
-				fxLayoutGap="10px">
+				fxLayoutGap="10px"
+				class="scrollable">
 
 				<div fxFlex="1 1 160px"  class="card-project" *ngFor="let p of projects">
 					<div
 						fxLayout="column"
 						fxLayoutAlign="center center"
 						class="project-image"
-						[routerLink]="['projects', 'project-info', p.id]">
+						[style.background-image]="'url(' + p.projectImage + ')'"
+						routerLink="{{goToInfoProject(p.id)}}">
 
-						<span>{{p.name}}</span>
+						<span *ngIf="!p.projectImage">{{p.name}}</span>
 					</div>
 					<div class="team-of-project">{{p.team.name}}</div>
 				</div>

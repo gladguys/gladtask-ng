@@ -11,6 +11,7 @@ import { SharedService } from "../../../core/services/shared.service";
 import { MatButtonToggleChange } from "@angular/material";
 import { Status } from 'src/app/shared/enums/status.enum';
 import { Task } from "../../../shared/models/task.model";
+import { TaskRoutingNames } from '../task-routing-names';
 
 @Component({
 	templateUrl: './task-list.component.html',
@@ -71,7 +72,7 @@ export class TaskListComponent implements OnInit {
 	}
 
 	addTask() {
-		this.router.navigate(['tasks', 'task-form']);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM]);
 	}
 
 	toggleView(change: MatButtonToggleChange){

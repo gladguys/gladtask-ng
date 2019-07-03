@@ -7,5 +7,6 @@
 	[localeText]="localeText"
 	[gridOptions]="gridOptions"
 	[rowData]="rowData"
-	[columnDefs]="columnTaskDefinitions">
+	[columnDefs]="columnTaskDefinitions"
+	(firstDataRendered)="onFirstDataRendered($event)">
 </ag-grid-angular>

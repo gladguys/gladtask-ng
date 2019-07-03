@@ -6,6 +6,7 @@ import { Task } from "../../../shared/models/task.model";
 import { DateProximityPipe } from "../../../shared/pipes/date-proximity.pipe";
 import { SharedService } from "../../../core/services/shared.service";
 import {Observable} from "rxjs";
+import { TaskRoutingNames } from '../../task/task-routing-names';
 
 export enum ProximityDate {
 	HOJE = "Hoje",
@@ -35,7 +36,7 @@ export class DueSoonTasksComponent implements OnInit {
 	}
 
 	showTaskDetail(task: Task) {
-		this.router.navigate(['tasks', 'task-form', task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
 	}
 
 	getDateProximityDescription(task: Task): string {

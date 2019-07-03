@@ -8,6 +8,7 @@ import { Observable } from "rxjs/internal/Observable";
 
 import { SharedService } from './core/services/shared.service';
 import { SideNavService } from "./core/services/side-nav.service";
+import { TaskRoutingNames } from './pages/task/task-routing-names';
 
 @Component({
 	selector: 'app-root',
@@ -18,9 +19,12 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 	@ViewChild('sidenav') private sidenav: MatSidenav;
 
+	taskFormLink = `/${TaskRoutingNames.TASKS}/${TaskRoutingNames.TASK_FORM}`;
+	tasksLink = `/${TaskRoutingNames.TASKS}`;
+
 	itensMenuViewExtended: boolean = true;
 	itensMenuViewExtendedAlways: boolean = true;
-	version: string;
+	version: string;	
 	userIsLoggedIn$ = new Observable<boolean>(null);
 	mobileQuery: MediaQueryList;
 	private _mobileQueryListener: () => void;
@@ -32,8 +36,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 		private titleService: Title,
 		private sideNavService: SideNavService,
 		private changeDetectorRef: ChangeDetectorRef,
-		private media: MediaMatcher,
-		public dialog: MatDialog) { }
+		private media: MediaMatcher) { }
 
 	ngOnInit(): void {
 		this.userIsLoggedIn$ = this.sharedService.userIsLoggedIn$;

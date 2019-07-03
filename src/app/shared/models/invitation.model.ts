@@ -1,8 +1,8 @@
 import { User } from './user.model';
 import { Team } from './team.model';
+import { BaseModel } from './base.model';
 
-export class Invitation {
-    public id: string;
+export class Invitation extends BaseModel {
     public author: User;
     public receiver: User;
     public team: Team;

@@ -7,8 +7,8 @@ form {
 .button-container {
 	position: sticky;
 	z-index: 1;
-	top: -10px;
-	margin-top: -10px;
+	top: -16px;
+	margin-top: -16px;
 	margin-right: 0 !important;
 	margin-bottom: 10px;
 	padding: 10px 0 10px 10px;
@@ -17,6 +17,15 @@ form {
 	border-top: 0;
 	border-radius: 0 0 10px 10px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.label-atribuir-para-mim {
+	cursor: pointer;
+	color: $green;
+}
+
+.progress-bar {
+	margin-top: 12px;
 }
 
 .look-alike {
@@ -66,6 +75,10 @@ h4 {
 	margin-right: 0 !important;
 }
 
+.btn-new-project {
+	margin-top: 17px;
+}
+
 .mat-form-field-comment {
 	textarea {
 		min-height: 45px;
@@ -98,19 +111,18 @@ h4 {
 		top: -10px;
 		margin-top: -10px;
 		padding-top: 10px;
-		padding-bottom: 5px;
+		padding-bottom: 10px;
 		background-color: white;
 		border-bottom: 1px solid rgb(230, 230, 230);
 
-		.btn-play-task, .btn-pause-task {
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
-			height: 34px;
-			width: 34px;
+		.btn-open-time-spent {
+			::ng-deep .mat-button-wrapper {
+				display: inline-flex;
+				align-items: center;
 
-			/deep/ .mat-button-wrapper {
-				padding: 0;
+				fa-icon {
+					margin-right: 4px;
+				}
 			}
 		}
 	}
@@ -124,19 +136,20 @@ h4 {
 		border-left: 0;
 
 		.activities-panel {
+			display: flex;
+    		justify-content: center;
 			position: fixed;
 			top: unset;
 			bottom: 0;
-			left: 50%;
+			left: 0;
 			margin-top: 0;
-			margin-left: -138px;
 			padding: 10px;
-			width: 275px;
+			width: 148px;
 			background-color: rgba(255, 255, 255, 0.9);
 			border: 1px solid rgb(240, 240, 240);
 			border-bottom: 0;
-			border-radius: 10px 10px 0 0;
-			box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.1);
+			border-radius: 0 10px 0 0;
+			box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 		}
 	}
 }

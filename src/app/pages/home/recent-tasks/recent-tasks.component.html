@@ -2,13 +2,14 @@
 
 	<div *ngIf="(tasks$ | async) as recentTasks; else loadingTasks">
 
-		<span class="empty-msg" *ngIf="recentTasks == 0; else taskslist">Nenhuma participação em Tasks recentemente.</span>
+		<h1>Últimas Tasks Editadas</h1>
+
+		<div *ngIf="recentTasks == 0; else taskslist" class="no-tasks-content scrollbar-thin">
+			<span class="empty-msg">Nenhuma participação em Tasks recentemente.</span>
+		</div>
 
 		<ng-template #taskslist>
-			<h1>Últimas Tasks Editadas</h1>
-			<div fxLayout="row" fxLayoutGap="10px" class="card-container">
-				<task-card *ngFor="let task of recentTasks" [task]="task"></task-card>
-			</div>
+			<gt-tasks-carousel [tasks]="recentTasks"></gt-tasks-carousel>
 		</ng-template>
 	</div>
 

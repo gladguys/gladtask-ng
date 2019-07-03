@@ -8,6 +8,7 @@ import { User } from '../../../models/user.model';
 import { UserService } from '../../../../core/services/user.service';
 import { TaskService } from '../../../../core/services/task.service';
 import { ProjectService } from '../../../../core/services/project.service';
+import { ProjectRoutingNames } from 'src/app/pages/project/project-routing-names';
 
 @Component({
   selector: 'gt-search',
@@ -61,7 +62,7 @@ export class GTSearchComponent {
 	goToProject(project: Project) {
 		this.resetLists();
 		this.searchInput.nativeElement.value = '';
-		this.router.navigate(['project-form', project.id]);
+		this.router.navigate([ProjectRoutingNames.PROJECT_FORM, project.id]);
 	}
 
 	toggleSearch() {

@@ -30,6 +30,7 @@
 
 			<div
 				class="image-rounded image--with-hover-msg"
+				[ngClass]="{'image-empty': fileInput.files.length === 0}"
 				(click)="fileInput.click()"
 				[ngStyle]="{'background-image': 'url('+ previewImage +')'}"
 				*ngIf="previewImage">
@@ -67,19 +68,7 @@
 				<gt-form-error *ngIf="userForm.controls['username'].errors?.usernameTaken" errorMessage="Gladname já existe"></gt-form-error>
 			</mat-form-field>
 
-			<mat-form-field
-				fxFlex="0 0 150px"
-				appearance="outline">
-
-				<mat-label>Tipo de Usuário</mat-label>
-				<mat-select
-					formControlName="profileEnum"
-					[compareWith]="compareProfile">
-
-					<mat-option value="ROLE_ADMIN">ADMIN</mat-option>
-					<mat-option value="ROLE_CUSTOMER">USER</mat-option>
-				</mat-select>
-			</mat-form-field>
+			
 		</div>
 
 		<div

@@ -6,6 +6,7 @@ import { Project } from 'src/app/shared/models/project.model';
 import { Task } from "../../../shared/models/task.model";
 import { SharedService } from "../../../core/services/shared.service";
 import {Observable} from "rxjs";
+import { ProjectRoutingNames } from '../project-routing-names';
 
 @Component({
   selector: 'user-project-dashboard',
@@ -25,5 +26,9 @@ export class UserProjectDashboardComponent implements OnInit {
 	ngOnInit() {
 		let userId = this.sharedService.getUserLogged().id;
 		this.projects$ = this.projectService.getRecentProjectsByUserId(userId);
+	}
+
+	goToInfoProject(id: string): string {
+		return `${ProjectRoutingNames.PROJECTS}/${ProjectRoutingNames.PROJECT_INFO}/${id}`;
 	}
 }

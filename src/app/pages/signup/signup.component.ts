@@ -1,21 +1,20 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Profile } from 'selenium-webdriver/firefox';
 
 import { User } from "../../shared/models/user.model";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { GTNotificationService } from "../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../core/services/gt-notification.service";
 import { UploadFileService } from "../../core/services/upload-file.service";
-import { GTConstants } from "../../GT-constants";
 import { debounceTime, first, map, switchMap } from "rxjs/operators";
 import { UserService } from "../../core/services/user.service";
+import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
 
 @Component({
 	templateUrl: './signup.component.html',
 	styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-	previewImage: any = GTConstants.GLADIATOR_DEFAULT_PROFILE;
+	previewImage: any = '../../../assets/images/default-user.png'
 	hidePassword = true;
 	userForm: FormGroup;
 	showLogoPhoto: boolean = true;
@@ -34,13 +33,13 @@ export class SignupComponent {
 		this.userForm = this.formBuilder.group({
 			'firstName': [''],
 			'lastName': [''],
-			'username': ['', Validators.compose([Validators.required, Validators.minLength(6)]),
+			'username': ['', Validators.compose([Validators.required, Validators.minLength(4)]),
 				this.validateUsernameNotTaken.bind(this)],
 			'email': ['', Validators.compose([Validators.required, Validators.email]),
 				this.validateEmailNotTaken.bind(this)],
 			'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
 			'confirm_password': ['', Validators.compose([Validators.required, this.passwordConfirming])],
-			'profileEnum': ['', [Validators.required]]
+			'profileEnum': [ProfileEnum.ROLE_CUSTOMER]
 		});
 
 		this.teamId = this.route.snapshot.params['teamId'];
@@ -52,7 +51,7 @@ export class SignupComponent {
 		if (this.previewImage) {
 			submittedUser.profilePhoto = this.previewImage;
 		}
-		this.userService.createOrUpdate(submittedUser, this.teamId)
+		this.userService.createOrUpdateWithTeam(submittedUser, this.teamId)
 			.subscribe((user) => {
 				this.notificationService.notificateSuccess("Usuário criado");
 				this.router.navigate(['/login']);
@@ -83,10 +82,6 @@ export class SignupComponent {
 		if (pwd.value !== cpwd.value) {
 			return { invalid: true };
 		}
-	}
-
-	compareProfile(x: Profile, y: Profile): boolean {
-		return x && y ? x === y : x === y;
 	}
 
 	get password_confirm() {

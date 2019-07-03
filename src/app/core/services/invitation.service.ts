@@ -1,19 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Invitation } from 'src/app/shared/models/invitation.model';
 import { environment } from "../../../environments/environment";
 import { InvitationDTO } from 'src/app/shared/models/dtos/invitation-dto';
+import { BaseService } from './base.service';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class InvitationService {
+export class InvitationService extends BaseService<Invitation> {
 
-	constructor(private http: HttpClient) {}
+	constructor(protected injector:Injector,
+				protected http: HttpClient) {
+		super(injector, "/invitations");
+	}
 
-	createOrUpdate(invitation: InvitationDTO): Observable<Invitation> {
+	createOrUpdateByDTO(invitation: InvitationDTO): Observable<Invitation> {
 		if (invitation.id != null && invitation.id != '') {
 			return this.http.put<Invitation>(`${environment.API}/invitations`, invitation);
 		} else {
@@ -25,11 +29,4 @@ export class InvitationService {
 		return this.http.get<Invitation[]>(`${environment.API}/invitations/user-receiver/${userId}`);
     }
 
-    findById(id: string): Observable<Invitation> {
-		return this.http.get<Invitation>(`${environment.API}/invitations/${id}`);
-	}
-
-	delete(id: string) {
-		return this.http.delete(`${environment.API}/invitations/${id}`);
-	}
 }

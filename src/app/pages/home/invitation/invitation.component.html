@@ -1,6 +1,28 @@
+<div
+    class="panel-invitation-container"
+    *ngFor="let invitation of (invitations$ | async)">
 
-<div class="panel-invitation" *ngFor="let invitation of (invitations$ | async)">
-    <label>{{invitation.author.username}} convidou você para o time: {{invitation.team.name}}</label>
-    <button mat-button class="btn-aceitar" (click)="acceptInvitation(invitation)">Aceitar</button>
-    <button mat-button class="btn-deny" (click)="denyInvitation(invitation)">Recusar</button>
-</div>  
+    <div class="panel-invitation">
+        <label>
+            {{invitation.author.username}} convidou você para o time: 
+            <a
+                routerLink="{{goToTeamDetail(invitation.team.id)}}"
+                class="label-team-name">
+                {{invitation.team.name}}
+            </a>
+        </label>
+        <div class="panel-invitation__buttons">
+            <button
+                mat-flat-button
+                class="btn-aceitar btn-green"
+                (click)="acceptInvitation(invitation)">
+                Aceitar
+            </button>
+            <button
+                mat-stroked-button
+                (click)="denyInvitation(invitation)">
+                Recusar
+            </button>
+        </div>
+    </div>
+</div>

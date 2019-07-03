@@ -7,12 +7,11 @@ import { UserService } from "../../../core/services/user.service";
 import { ProjectService } from "../../../core/services/project.service";
 import { TeamService } from '../../../core/services/team.service';
 import { GladService } from "../../../core/services/glad.service";
-import { GTNotificationService } from "../../../shared/components/gt-notification/gt-notification.service";
+import { GTNotificationService } from "../../../core/services/gt-notification.service";
 import { SharedService } from "../../../core/services/shared.service";
 
 import { Project } from "../../../shared/models/project.model";
 import { Team } from "../../../shared/models/team.model";
-import { GTConstants } from "../../../GT-constants";
 
 @Component({
   selector: 'project-form',
@@ -44,7 +43,7 @@ export class ProjectFormComponent implements OnInit {
 		this.projectForm = this.formBuilder.group({
 			'name': ['', [Validators.required]],
 			'description': [''],
-			'team': ['', Validators.required]
+			'team': [null, Validators.required]
 		});
 
 		let id: string = this.route.snapshot.params['id'];
@@ -55,9 +54,12 @@ export class ProjectFormComponent implements OnInit {
 				this.populateForm(this.project);
 			}, e => this.router.navigate(['/task-not-found']));
 		} else {
-			this.previewImage = GTConstants.GLADIATOR_DEFAULT_PROFILE;
 			this.projectExists = true;
 		}
+	}
+
+	compareFn(x: Team, y: Team): boolean {
+		return x && y && x.id == y.id;
 	}
 
 	onSubmit(): void {
@@ -73,7 +75,6 @@ export class ProjectFormComponent implements OnInit {
 				} else {
 					this.gladService.openSnack("Projeto criado");
 				}
-				this.router.navigate(['/']);
 			}, e => this.notificationService.notificateFailure("Falha ao criar projeto"));
 	}
 

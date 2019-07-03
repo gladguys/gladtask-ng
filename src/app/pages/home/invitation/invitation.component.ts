@@ -1,11 +1,12 @@
-import { GTNotificationService } from 'src/app/shared/components/gt-notification/gt-notification.service';
+import { GTNotificationService } from 'src/app/core/services/gt-notification.service';
 import { InvitationDTO } from 'src/app/shared/models/dtos/invitation-dto';
-import { InvitationService } from './../../../core/services/invitation.service';
-import { Invitation } from './../../../shared/models/invitation.model';
-import { Component, Output, OnInit } from '@angular/core';
+import { InvitationService } from '../../../core/services/invitation.service';
+import { Invitation } from '../../../shared/models/invitation.model';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { TeamService } from 'src/app/core/services/team.service';
+import { TeamRoutingNames } from '../../team/team-routing-names';
 
 @Component({
     selector: 'gt-invitation',
@@ -48,5 +49,9 @@ export class InvitationComponent implements OnInit {
         this.invitationService.delete(invitation.id).subscribe(() => {
             this.notificationService.notificateSuccess("Convite negado.");
         })
+    }
+
+    goToTeamDetail(id: string): string {
+        return  `/${TeamRoutingNames.TEAMS}/${id}`;
     }
 }
