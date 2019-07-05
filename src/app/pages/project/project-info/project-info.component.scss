@@ -52,3 +52,14 @@
 		}
 	}
 }
+
+.card-project-kanban {
+	margin-top: 15px;
+	border: 1px solid $border;
+    border-radius: 10px;
+	box-shadow: none;
+
+	mat-card-title {
+		font-size: 16px;
+	}
+}

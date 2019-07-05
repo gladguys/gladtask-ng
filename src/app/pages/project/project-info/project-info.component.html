@@ -89,4 +89,15 @@
 			<task-grid [rowData]="projectTasks"></task-grid>
 		</mat-card-content>
 	</mat-card>
+
+	<mat-card
+		class="card-project-kanban"
+		fxFlex="0 0 100%">
+
+		<mat-card-title>Kanban Projeto</mat-card-title>
+		<mat-card-content>
+			<gt-kanban [projectId]="project.id"></gt-kanban>
+		</mat-card-content>
+
+	</mat-card>
 </div>

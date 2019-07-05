@@ -13,6 +13,7 @@ import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { ProjectInfoComponent } from "./project-info/project-info.component";
 import { TaskGridModule } from "../task/task-grid/task-grid.module";
+import { KanbanModule } from '../kanban/kanban.module';
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,8 @@ import { TaskGridModule } from "../task/task-grid/task-grid.module";
 		FontAwesomeModule,
 		TaskGridModule,
 		CoreModule,
-		SharedModule
+		SharedModule,
+		KanbanModule
 	],
 	exports: [UserProjectDashboardComponent],
 	providers: [ProjectService]

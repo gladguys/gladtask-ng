@@ -17,13 +17,14 @@
 			(cdkDropListDropped)="drop($event)">
 
 			<div
-				fxLayout="row"
-				fxLayoutAlign="space-between center"
-				class="kanban__card__list__box"
-				*ngFor="let item of created"
+			fxLayout="row"
+			fxLayoutAlign="space-between center"
+			class="kanban__card__list__box"
+			*ngFor="let item of created"
+			[cdkDragDisabled]="item.targetUser?.id != userId"
 				cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item}}</label>
+				<label fxFlex="1 1 100%">{{item.title}}</label>
 
 				<button
 					fxFlex="0 0 30px"
@@ -59,9 +60,10 @@
 				fxLayoutAlign="space-between center"
 				class="kanban__card__list__box"
 				*ngFor="let item of todo"
+				[cdkDragDisabled]="item.targetUser?.id != userId"
 				cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item}}</label>
+				<label fxFlex="1 1 100%">{{item.title}}</label>
 
 				<button
 					fxFlex="0 0 30px"
@@ -97,9 +99,10 @@
 				fxLayoutAlign="space-between center"
 				class="kanban__card__list__box"
 				*ngFor="let item of doing"
+				[cdkDragDisabled]="item.targetUser?.id != userId"
 				cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item}}</label>
+				<label fxFlex="1 1 100%">{{item.title}}</label>
 
 				<button
 					fxFlex="0 0 30px"
@@ -135,9 +138,10 @@
 				fxLayoutAlign="space-between center"
 				class="kanban__card__list__box"
 				*ngFor="let item of done"
+				[cdkDragDisabled]="item.targetUser?.id != userId"
 				cdkDrag>
 				
-				<label fxFlex="1 1 100%">{{item}}</label>
+				<label fxFlex="1 1 100%">{{item.title}}</label>
 
 				<button
 					fxFlex="0 0 30px"
