@@ -44,7 +44,6 @@ export class TaskFormComponent implements OnInit {
 	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
 
 	task: Task;
-	loadingProjects: boolean = false;
 	canEdit: boolean = true;
 	possibleTargetUsers: User[];
 	possibleTeams$: Observable<Team[]>;
