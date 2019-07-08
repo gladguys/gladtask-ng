@@ -1,39 +1,36 @@
-<div
-	fxLayout="row"
-	fxLayoutGap="20px"
-	class="kanban">
+<div fxLayout="row" fxLayoutGap="20px" class="kanban">
 
-	<div
-		fxFlex="1 0 250px"
-		class="kanban__card">
+	<div fxFlex="1 0 250px" class="kanban__card">
 
 		<h3>Criadas</h3>
-		<div
-			cdkDropList
-			#createdList="cdkDropList"
-			[cdkDropListData]="created"
-			[cdkDropListConnectedTo]="[todoList, doneList, doingList]"
-			class="kanban__card__list"
+		<div cdkDropList #createdList="cdkDropList" [cdkDropListData]="created"
+			[cdkDropListConnectedTo]="[todoList, doneList, doingList]" class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
 
-			<div
-			fxLayout="row"
-			fxLayoutAlign="space-between center"
-			class="kanban__card__list__box"
-			*ngFor="let item of created"
-			[cdkDragDisabled]="item.targetUser?.id != userId"
-				cdkDrag>
+			<div (click)="showTaskDetail(findTaskByTitle(item))" fxLayout="row" fxLayoutAlign="space-between center"
+				class="kanban__card__list__box" *ngFor="let item of created"
+				[cdkDragDisabled]="item.targetUser?.id != userId" cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item.title}}</label>
-
-				<button
-					fxFlex="0 0 30px"
-					mat-mini-fab
-					class="mat-elevation-z0"
-					(click)="showTaskDetail(findTaskByTitle(item))">
-
-					<fa-icon icon="expand"></fa-icon>
-				</button>
+				<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+					<div class="participant__image image-rounded"
+						[ngStyle]="{'background-image': 'url('+ item.targetUser.profilePhoto +')'}">
+					</div>
+					<label fxFlex="1 1 100%">{{item.title}}</label>
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3px">
+						<span
+							class="task-status-label task-status-label--{{ item.status | statusColor }}">{{ item.status }}</span>
+						<div *ngIf="item.dueDate | dateProximity">
+							<div [ngSwitch]="getDateProximityDescription(item)">
+								<span *ngSwitchCase="proximityDate.HOJE"
+									class="task-due-days-hoje">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchCase="proximityDate.AMANHA"
+									class="task-due-days-amanha">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchDefault
+									class="task-due-days-depois">{{ item.dueDate | dateProximity }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div *ngIf="findTaskByTitle(item) as task">
 					<task-preview *cdkDragPreview [task]="task"></task-preview>
@@ -42,118 +39,103 @@
 		</div>
 	</div>
 
-	<div
-		fxFlex="1 0 250px"
-		class="kanban__card kanban__card--waiting">
+	<div fxFlex="1 0 250px" class="kanban__card kanban__card--waiting">
 
 		<h3>Em espera</h3>
-		<div
-			cdkDropList
-			#todoList="cdkDropList"
-			[cdkDropListData]="todo"
-			[cdkDropListConnectedTo]="[createdList, doneList, doingList]"
-			class="kanban__card__list"
+		<div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+			[cdkDropListConnectedTo]="[createdList, doneList, doingList]" class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
 
-			<div
-				fxLayout="row"
-				fxLayoutAlign="space-between center"
-				class="kanban__card__list__box"
-				*ngFor="let item of todo"
-				[cdkDragDisabled]="item.targetUser?.id != userId"
-				cdkDrag>
+			<div fxLayout="row" fxLayoutAlign="space-between center" class="kanban__card__list__box"
+				*ngFor="let item of todo" [cdkDragDisabled]="item.targetUser?.id != userId" cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item.title}}</label>
-
-				<button
-					fxFlex="0 0 30px"
-					mat-mini-fab
-					class="mat-elevation-z0"
-					(click)="showTaskDetail(findTaskByTitle(item))">
-
-					<fa-icon icon="expand"></fa-icon>
-				</button>
-
-				<div *ngIf="findTaskByTitle(item) as task">
-					<task-preview *cdkDragPreview [task]="task"></task-preview>
+				<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+					<div class="participant__image image-rounded"
+						[ngStyle]="{'background-image': 'url('+ item.targetUser.profilePhoto +')'}">
+					</div>
+					<label fxFlex="1 1 100%">{{item.title}}</label>
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3px">
+						<span
+							class="task-status-label task-status-label--{{ item.status | statusColor }}">{{ item.status }}</span>
+						<div *ngIf="item.dueDate | dateProximity">
+							<div [ngSwitch]="getDateProximityDescription(item)">
+								<span *ngSwitchCase="proximityDate.HOJE"
+									class="task-due-days-hoje">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchCase="proximityDate.AMANHA"
+									class="task-due-days-amanha">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchDefault
+									class="task-due-days-depois">{{ item.dueDate | dateProximity }}</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div
-		fxFlex="1 0 250px"
-		class="kanban__card kanban__card--doing">
+
+	<div fxFlex="1 0 250px" class="kanban__card kanban__card--doing">
 
 		<h3>Em andamento</h3>
-		<div
-			cdkDropList
-			#doingList="cdkDropList"
-			[cdkDropListData]="doing"
-			[cdkDropListConnectedTo]="[createdList, todoList, doneList]"
-			class="kanban__card__list"
+		<div cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing"
+			[cdkDropListConnectedTo]="[createdList, todoList, doneList]" class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
 
-			<div
-				fxLayout="row"
-				fxLayoutAlign="space-between center"
-				class="kanban__card__list__box"
-				*ngFor="let item of doing"
-				[cdkDragDisabled]="item.targetUser?.id != userId"
-				cdkDrag>
+			<div fxLayout="row" fxLayoutAlign="space-between center" class="kanban__card__list__box"
+				*ngFor="let item of doing" [cdkDragDisabled]="item.targetUser?.id != userId" cdkDrag>
 
-				<label fxFlex="1 1 100%">{{item.title}}</label>
-
-				<button
-					fxFlex="0 0 30px"
-					mat-mini-fab
-					class="mat-elevation-z0"
-					(click)="showTaskDetail(findTaskByTitle(item))">
-
-					<fa-icon icon="expand"></fa-icon>
-				</button>
-
-				<div *ngIf="findTaskByTitle(item) as task">
-					<task-preview *cdkDragPreview [task]="task"></task-preview>
+				<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+					<div class="participant__image image-rounded"
+						[ngStyle]="{'background-image': 'url('+ item.targetUser.profilePhoto +')'}">
+					</div>
+					<label fxFlex="1 1 100%">{{item.title}}</label>
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3px">
+						<span
+							class="task-status-label task-status-label--{{ item.status | statusColor }}">{{ item.status }}</span>
+						<div *ngIf="item.dueDate | dateProximity">
+							<div [ngSwitch]="getDateProximityDescription(item)">
+								<span *ngSwitchCase="proximityDate.HOJE"
+									class="task-due-days-hoje">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchCase="proximityDate.AMANHA"
+									class="task-due-days-amanha">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchDefault
+									class="task-due-days-depois">{{ item.dueDate | dateProximity }}</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div
-		fxFlex="1 0 250px"
-		class="kanban__card kanban__card--done">
+
+	<div fxFlex="1 0 250px" class="kanban__card kanban__card--done">
 
 		<h3>Concluídas</h3>
-		<div
-			cdkDropList
-			#doneList="cdkDropList"
-			[cdkDropListData]="done"
-			[cdkDropListConnectedTo]="[createdList, todoList, doingList]"
-			class="kanban__card__list"
+		<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+			[cdkDropListConnectedTo]="[createdList, todoList, doingList]" class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
 
-			<div
-				fxLayout="row"
-				fxLayoutAlign="space-between center"
-				class="kanban__card__list__box"
-				*ngFor="let item of done"
-				[cdkDragDisabled]="item.targetUser?.id != userId"
-				cdkDrag>
-				
-				<label fxFlex="1 1 100%">{{item.title}}</label>
+			<div fxLayout="row" fxLayoutAlign="space-between center" class="kanban__card__list__box"
+				*ngFor="let item of done" [cdkDragDisabled]="item.targetUser?.id != userId" cdkDrag>
 
-				<button
-					fxFlex="0 0 30px"
-					mat-mini-fab
-					class="mat-elevation-z0"
-					(click)="showTaskDetail(findTaskByTitle(item))">
-
-					<fa-icon icon="expand"></fa-icon>
-				</button>
-
-				<div *ngIf="findTaskByTitle(item) as task">
-					<task-preview *cdkDragPreview [task]="task"></task-preview>
+				<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+					<div class="participant__image image-rounded"
+						[ngStyle]="{'background-image': 'url('+ item.targetUser.profilePhoto +')'}">
+					</div>
+					<label fxFlex="1 1 100%">{{item.title}}</label>
+					<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3px">
+						<span
+							class="task-status-label task-status-label--{{ item.status | statusColor }}">{{ item.status }}</span>
+						<div *ngIf="item.dueDate | dateProximity">
+							<div [ngSwitch]="getDateProximityDescription(item)">
+								<span *ngSwitchCase="proximityDate.HOJE"
+									class="task-due-days-hoje">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchCase="proximityDate.AMANHA"
+									class="task-due-days-amanha">{{ item.dueDate | dateProximity }}</span>
+								<span *ngSwitchDefault
+									class="task-due-days-depois">{{ item.dueDate | dateProximity }}</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

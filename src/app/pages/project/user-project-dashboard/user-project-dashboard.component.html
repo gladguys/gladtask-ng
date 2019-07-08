@@ -2,7 +2,7 @@
 
 	<div *ngIf="(projects$ | async) as projects; else loadingProjects">
 
-		<h1>Projetos Recentes</h1>
+		<h1>Seus Projetos</h1>
 		
 		<div *ngIf="projects.length == 0; else projectsList" class="no-project-content scrollbar-thin">
 			<span class="empty-msg" >Não há projetos recentes.</span>

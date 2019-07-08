@@ -7,6 +7,8 @@ import { SharedService } from '../../core/services/shared.service';
 import { Task } from '../../shared/models/task.model'
 import { Status, getStatusFromEnum } from '../../shared/enums/status.enum';
 import { TaskRoutingNames } from '../task/task-routing-names';
+import { DateProximityPipe } from 'src/app/shared/pipes/date-proximity.pipe';
+import { ProximityDate } from '../home/due-soon-tasks/due-soon-tasks.component';
 
 @Component({
 	selector: 'gt-kanban',
@@ -14,6 +16,8 @@ import { TaskRoutingNames } from '../task/task-routing-names';
 	styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent {
+
+	proximityDate = ProximityDate;
 
 	tasks: Task[] = [];
 	createdTasks: Task[] = [];
@@ -33,9 +37,11 @@ export class KanbanComponent {
 	constructor(
 		private taskService: TaskService,
 		private sharedService: SharedService,
+		private dateProximity: DateProximityPipe,
 		private router: Router) { }
 
 	ngOnInit() {
+		
 		this.userId = this.sharedService.getUserLogged().id;
 		if (!this.projectId) {
 			this.taskService.findTasksByTargetUser(this.userId).subscribe(tasks => {
@@ -132,5 +138,9 @@ export class KanbanComponent {
 
 	showTaskDetail(task: Task): void {
 		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+	}
+
+	getDateProximityDescription(task: Task): string {
+		return this.dateProximity.transform(task.dueDate);
 	}
 }
