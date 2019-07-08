@@ -7,7 +7,7 @@
 			[cdkDropListConnectedTo]="[todoList, doneList, doingList]" class="kanban__card__list"
 			(cdkDropListDropped)="drop($event)">
 
-			<div (click)="showTaskDetail(findTaskByTitle(item))" fxLayout="row" fxLayoutAlign="space-between center"
+			<div (click)="showTaskDetail(item)" fxLayout="row" fxLayoutAlign="space-between center"
 				class="kanban__card__list__box" *ngFor="let item of created"
 				[cdkDragDisabled]="item.targetUser?.id != userId" cdkDrag>
 
