@@ -14,23 +14,23 @@ export class ProjectService extends BaseService<Project> {
 		protected http: HttpClient,
 		protected gladService: GladService,
 		protected injector: Injector) { 
-			super(injector, "/projects");
+			super(injector, "/project");
 		}
 
 	findByParticipants(userId: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/participant/${userId}`);
+		return this.http.get<Project[]>(`${environment.API}/project/participant/${userId}`);
 	}
 
 	findAllByTeam(teamId: string, ignoreLoader: boolean = false): Observable<Project[]> {
-		return this.http.get<Project[]>(`${environment.API}/projects/team/${teamId}`,
+		return this.http.get<Project[]>(`${environment.API}/project/team/${teamId}`,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
 	findByNameLikeAllIgnoreCase(term: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/name/${term}`);
+		return this.http.get<Project[]>(`${environment.API}/project/name/${term}`);
 	}
 
 	getRecentProjectsByUserId(userId: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/user/${userId}`);
+		return this.http.get<Project[]>(`${environment.API}/project/user/${userId}`);
 	}
 }

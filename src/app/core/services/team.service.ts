@@ -21,7 +21,7 @@ export class TeamService extends BaseService<Team> {
 
 	constructor(protected http: HttpClient,
 		protected injector: Injector) {
-		super(injector, "/teams");
+		super(injector, "/team");
 	}
 
 	@CacheBuster({
@@ -39,14 +39,14 @@ export class TeamService extends BaseService<Team> {
     cacheBusterObserver: cacheBuster$
   })
 	findAllByUser(userId: string): Observable<Team[]> {
-		return this.http.get<Team[]>(`${environment.API}/teams/user/${userId}`);
+		return this.http.get<Team[]>(`${environment.API}/team/user/${userId}`);
 	}
 
 	@CacheBuster({
     cacheBusterNotifier: cacheBuster$
   })
 	addUserToTeam(invitationDTO: InvitationDTO) {
-		return this.http.post(`${environment.API}/teams/add-user`, invitationDTO);
+		return this.http.post(`${environment.API}/team/add-user`, invitationDTO);
 	}
 
 	updateMyTeams(userId: string) {

@@ -13,7 +13,7 @@ export class UserService extends BaseService<User> {
 
 	constructor(protected http: HttpClient,
 				protected injector: Injector) {
-		super(injector, "/users");
+		super(injector, "/user");
 	 }
 	
 	createOrUpdateWithTeam(user: User, teamId: string): Observable<User> {
@@ -26,22 +26,22 @@ export class UserService extends BaseService<User> {
 	}
 
 	findByUsername(username: string): Observable<User> {
-		return this.http.get<User>(`${environment.API}/users/username/${username}`);
+		return this.http.get<User>(`${environment.API}/user/username/${username}`);
 	}
 
 	findByEmail(email: string): Observable<User> {
-		return this.http.get<User>(`${environment.API}/users/email/${email}/`);
+		return this.http.get<User>(`${environment.API}/user/email/${email}/`);
 	}
 
 	findAllByTeam(teamId: string): Observable<User[]> {
-		return this.http.get<User[]>(`${environment.API}/users?teamId=${teamId}`);
+		return this.http.get<User[]>(`${environment.API}/user?teamId=${teamId}`);
 	}
 
 	findByFirstNameLikeOrLastNameLikeAllIgnoreCase(term: string): Observable<User[]> {
-		return this.http.get<User[]>(`${environment.API}/users/term/${term}`);
+		return this.http.get<User[]>(`${environment.API}/user/term/${term}`);
 	}
 
 	findByAnyTerm(term: string): Observable<User[]> {
-		return this.http.get<User[]>(`${environment.API}/users/any/${term}`);
+		return this.http.get<User[]>(`${environment.API}/user/any/${term}`);
 	}
 }
