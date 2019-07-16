@@ -12,9 +12,9 @@ import { TeamRoutingNames } from '../team-routing-names';
     styleUrls: ['./team-list-sidenav.component.scss']
 })
 export class TeamListSidenavComponent implements OnInit {
-    
+
     myTeams: Observable<Array<Team>> = new Observable();
-    
+
     constructor(
     	private teamService: TeamService,
         private sharedService: SharedService,
@@ -26,6 +26,6 @@ export class TeamListSidenavComponent implements OnInit {
     }
 
     goToTeamInfo(team) {
-        this.router.navigate([TeamRoutingNames.TEAMS, team.id]);
+        this.router.navigate([TeamRoutingNames.TEAMS, team._id]);
     }
 }
