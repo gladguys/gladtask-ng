@@ -10,7 +10,7 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
-	login(email:string, senha:string) {
-		return this.http.post(`${environment.API}/auth`, {email:email, password:senha});
+	login(usernameOrEmail: string, senha: string) {
+		return this.http.post(`${environment.API}/auth`, {usernameOrEmail: usernameOrEmail, password: senha});
 	}
 }
