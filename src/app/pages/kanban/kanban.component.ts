@@ -31,7 +31,7 @@ export class KanbanComponent {
 		private router: Router) {}
 	
 	ngOnInit() {
-		let id = this.sharedService.getUserLogged().id;
+		let id = this.sharedService.getUserLogged()._id;
 		this.taskService.findTasksByTargetUser(id).subscribe(tasks => {
 			this.tasks = tasks;
 			this.createdTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CRIADA));
@@ -62,7 +62,7 @@ export class KanbanComponent {
 		if (changedValue !== undefined) {
 			let task = this.findTaskByTitle(changedValue);
 			let taskStatus = this.decideTargetStatus(changedValue);
-			this.taskService.updateTaskStatus(task.id, taskStatus, true).subscribe(c => {});
+			this.taskService.updateTaskStatus(task._id, taskStatus, true).subscribe(c => {});
 		}
 	}
 
@@ -116,6 +116,6 @@ export class KanbanComponent {
 	}
 
 	showTaskDetail(task: Task): void {
-		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
 	}
 }

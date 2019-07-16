@@ -74,9 +74,9 @@ export class TaskService extends BaseService<Task> {
 	}
 
 	isTaskOwnerOrTargetOrTeamManager(task: Task, userId: string): boolean {
-		let isTaskOwner = task.creatorUser.id === userId;
-		let isTaskTarget = task.targetUser.id === userId;
-		let isUserTeamManager = task.project.team.manager.id === userId;
+		let isTaskOwner = task.creatorUser._id === userId;
+		let isTaskTarget = task.targetUser._id === userId;
+		let isUserTeamManager = task.project.team.manager._id === userId;
 
 		return isTaskOwner || isTaskTarget || isUserTeamManager;
 	}

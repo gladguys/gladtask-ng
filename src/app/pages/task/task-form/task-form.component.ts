@@ -121,7 +121,7 @@ export class TaskFormComponent implements OnInit {
 			this.taskComments = this.task.taskComments;
 			this.taskCommentsService.setUpdatedComments(this.task.taskComments);
 			this.populateForm(this.task);
-			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
+			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged()._id);
 		}
 	}
 
@@ -146,7 +146,7 @@ export class TaskFormComponent implements OnInit {
 	private getPossibleOptions() {
 		this.possibleStatus = getPossibleStatus();
 		this.possibleTaskTypes = possibleTaskTypes();
-		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
+		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 	}
 
 	private configureTitleLookAlikeSearch() {
@@ -160,19 +160,19 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	compareUser(x: User, y: User): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
 
 	compareProject(x: Project, y: Project): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
 
 	compareTeam(x: Team, y: Team): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
 
 	populateForm(task: Task): void {
-		this.loadProjects(task.project.team.id);
+		this.loadProjects(task.project.team._id);
 		this.taskForm.patchValue({
 			title: task.title,
 			priority: this.getPriorityFromTask(task.priority),
@@ -190,7 +190,7 @@ export class TaskFormComponent implements OnInit {
 			this.dueDate = new Date(task.dueDate);
 		}
 
-		if (task.id == undefined) {
+		if (task._id == undefined) {
 			this.resetForm();
 		}
 	}
@@ -207,13 +207,13 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		let isEdit = this.task.id != undefined;
+		let isEdit = this.task._id != undefined;
 
 		const submittedTask = this.taskForm.getRawValue() as Task;
 		submittedTask.taskComments = this.taskComments;
 
 		if (isEdit) {
-			submittedTask.id = this.task.id;
+			submittedTask._id = this.task._id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
 
@@ -241,7 +241,7 @@ export class TaskFormComponent implements OnInit {
 					this.gladService.openSnack("Task editada");
 				}
 				this.saved = true;
-				this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+				this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
 
 				this.matDialog.closeAll();
 			},
@@ -305,9 +305,9 @@ export class TaskFormComponent implements OnInit {
 		this.taskComments.push(taskComment);
 		this.taskCommentsService.setUpdatedComments(this.taskComments);
 
-		if (this.task.id !== undefined) {
+		if (this.task._id !== undefined) {
 			taskComment.date = dateNow.toISOString();
-			this.taskService.saveTaskComment(this.task.id, taskComment, true).subscribe(t => { });
+			this.taskService.saveTaskComment(this.task._id, taskComment, true).subscribe(t => { });
 		}
 
 		this.textCommentEl.nativeElement.value = '';
@@ -321,7 +321,7 @@ export class TaskFormComponent implements OnInit {
 
 	openBottomSheetTimeSpent() {
 		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
-			data: { taskId: this.task.id },
+			data: { taskId: this.task._id },
 			panelClass: 'mat-bottom-sheet-container-time-spent'
 		});
 

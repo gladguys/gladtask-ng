@@ -17,11 +17,11 @@ export class UserService extends BaseService<User> {
 	 }
 	
 	createOrUpdateWithTeam(user: User, teamId: string): Observable<User> {
-		if (user.id != null && user.id != '') {
-			return this.http.put<User>(`${environment.API}/users`, user);
+		if (user._id != null && user._id != '') {
+			return this.http.put<User>(`${environment.API}/user`, user);
 		} else {
-			user.id = null;
-			return this.http.post<User>(`${environment.API}/users`, { user, teamId });
+			user._id = null;
+			return this.http.post<User>(`${environment.API}/user`, { user, teamId });
 		}
 	}
 

@@ -22,7 +22,7 @@ export class TeamListSidenavComponent implements OnInit {
 
     ngOnInit(): void {
         this.myTeams = this.teamService.myTeams;
-        this.teamService.updateMyTeams(this.sharedService.getUserLogged().id);
+        this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
     }
 
     goToTeamInfo(team) {

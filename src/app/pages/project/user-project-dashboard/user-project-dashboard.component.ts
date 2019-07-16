@@ -24,7 +24,7 @@ export class UserProjectDashboardComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
-		let userId = this.sharedService.getUserLogged().id;
+		let userId = this.sharedService.getUserLogged()._id;
 		this.projects$ = this.projectService.getRecentProjectsByUserId(userId);
 	}
 

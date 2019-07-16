@@ -50,19 +50,19 @@ export class GTSearchComponent {
 	goToTask(task: Task) {
 		this.resetLists();
 		this.searchInput.nativeElement.value = '';
-		this.router.navigate(['tasks/task-form', task.id]);
+		this.router.navigate(['tasks/task-form', task._id]);
 	}
 
 	goToUser(user: User) {
 		this.resetLists();
 		this.searchInput.nativeElement.value = '';
-		this.router.navigate(['users/user-info', user.id]);
+		this.router.navigate(['users/user-info', user._id]);
 	}
 
 	goToProject(project: Project) {
 		this.resetLists();
 		this.searchInput.nativeElement.value = '';
-		this.router.navigate([ProjectRoutingNames.PROJECT_FORM, project.id]);
+		this.router.navigate([ProjectRoutingNames.PROJECT_FORM, project._id]);
 	}
 
 	toggleSearch() {

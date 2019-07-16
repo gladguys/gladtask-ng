@@ -21,6 +21,6 @@ export class HomeComponent implements OnInit {
 		private sharedService: SharedService) {}
 
 	ngOnInit(): void {
-		this.userTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
+		this.userTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 	}
 }

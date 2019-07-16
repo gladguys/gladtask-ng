@@ -21,7 +21,7 @@ export class ProjectInfoComponent implements OnInit {
 		if(projectId) {
 			this.projectService.findById(projectId).subscribe(p => {
 				this.project = p;
-				this.taskService.findTasksByProject(this.project.id).subscribe(tasks => this.projectTasks = tasks);
+				this.taskService.findTasksByProject(this.project._id).subscribe(tasks => this.projectTasks = tasks);
 			})
 		}
 	}

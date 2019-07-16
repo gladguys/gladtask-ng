@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit {
 		this.userService.delete(id)
 			.subscribe(() => {
 				this.notificationService.notificateSuccess("Usuário removido");
-				this.data = this.data.filter(user => user.id != id);
+				this.data = this.data.filter(user => user._id != id);
 			}, e => this.notificationService.notificateFailure("Falha ao remover usuário"));
 		}
 }

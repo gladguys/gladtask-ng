@@ -19,7 +19,7 @@ export class RecentTasksComponent implements OnInit {
 		private sharedService: SharedService) {}
 
 	ngOnInit() {
-		let userId = this.sharedService.getUserLogged().id;
+		let userId = this.sharedService.getUserLogged()._id;
 		this.tasks$ = this.taskService.findFirst4ByTargetUserIdOrderByLastEdited(userId);
 	}
 }

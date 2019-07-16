@@ -69,9 +69,9 @@ export class TeamDetailComponent implements OnInit {
 	addUserToTeam(user: User) {
 		if (!this.team.participants.map(p => p.email).includes(user.email)) {
 			let invitation = new InvitationDTO();
-			invitation.authorUserId = this.sharedService.getUserLogged().id;
-			invitation.receiverUserId = user.id;
-			invitation.teamId = this.team.id;
+			invitation.authorUserId = this.sharedService.getUserLogged()._id;
+			invitation.receiverUserId = user._id;
+			invitation.teamId = this.team._id;
 
 			this.invitationService.createOrUpdateByDTO(invitation).subscribe( invitation => {
 				this.notificationService.notificateSuccess(`Convite enviado para usuario ${invitation.receiver.username}`);
@@ -87,7 +87,7 @@ export class TeamDetailComponent implements OnInit {
 	handleInviteEmail() {
 		let email = this.email.nativeElement.value;
 		if (this.emailValidator(email)) {
-			const tree = this.router.createUrlTree(['signup', this.team.id]);
+			const tree = this.router.createUrlTree(['signup', this.team._id]);
 			let url = environment.API_ADRESS + tree;
 
 			this.emailService.sendInviteToTeamEmail(email, url).subscribe(c => {

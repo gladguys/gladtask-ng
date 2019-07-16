@@ -28,7 +28,7 @@ export class TeamService extends BaseService<Team> {
     cacheBusterNotifier: cacheBuster$
   })
 	createOrUpdate(t: Team): Observable<Team> {
-		if (t.id != null && t.id != '') {
+		if (t._id != null && t._id != '') {
 			return this.http.put<Team>(environment.API + this.pathToApi, t);
 		} else {
 			return this.http.post<Team>(environment.API + this.pathToApi, t);

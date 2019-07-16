@@ -38,7 +38,7 @@ export class ProjectFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
-		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
+		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 
 		this.projectForm = this.formBuilder.group({
 			'name': ['', [Validators.required]],
@@ -59,18 +59,18 @@ export class ProjectFormComponent implements OnInit {
 	}
 
 	compareFn(x: Team, y: Team): boolean {
-		return x && y && x.id == y.id;
+		return x && y && x._id == y._id;
 	}
 
 	onSubmit(): void {
 		const submittedProject = this.projectForm.getRawValue() as Project;
-		submittedProject.id = this.project.id;
+		submittedProject._id = this.project._id;
 		if (this.previewImage != null) {
 			submittedProject.projectImage = this.previewImage;
 		}
 		this.projectService.createOrUpdate(submittedProject)
 			.subscribe(project => {
-				if (this.project.id != null) {
+				if (this.project._id != null) {
 					this.gladService.openSnack("Projeto editado");
 				} else {
 					this.gladService.openSnack("Projeto criado");

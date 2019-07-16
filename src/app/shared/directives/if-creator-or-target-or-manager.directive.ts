@@ -18,7 +18,7 @@ export class IfCreatorOrTargetOrManagerDirective {
 
 	@Input()
 	set ifCreatorOrTargetOrManager(task) {
-		const canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(task, this.sharedService.getUserLogged().id);
+		const canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(task, this.sharedService.getUserLogged()._id);
 		if (canEdit) {
 			this.viewContainer.createEmbeddedView(this.templateRef);
 		} else {
