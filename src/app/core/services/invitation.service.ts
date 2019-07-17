@@ -14,18 +14,18 @@ export class InvitationService extends BaseService<Invitation> {
 
 	constructor(protected injector:Injector,
 				protected http: HttpClient) {
-		super(injector, "/invitation");
+		super(injector, "/invitations");
 	}
 
 	createOrUpdateByDTO(invitation: InvitationDTO): Observable<Invitation> {
 		if (invitation.id != null && invitation.id != '') {
-			return this.http.put<Invitation>(`${environment.API}/invitation`, invitation);
+			return this.http.put<Invitation>(`${environment.API}/invitations`, invitation);
 		} else {
-			return this.http.post<Invitation>(`${environment.API}/invitation`, invitation);
+			return this.http.post<Invitation>(`${environment.API}/invitations`, invitation);
 		}
 	}
 
 	findAllByUser(userId: string): Observable<Invitation[]> {
-		return this.http.get<Invitation[]>(`${environment.API}/invitation/user-receiver/${userId}`);
+		return this.http.get<Invitation[]>(`${environment.API}/invitations/user-receiver/${userId}`);
     }
 }
