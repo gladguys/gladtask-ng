@@ -54,12 +54,12 @@ export class TaskService extends BaseService<Task> {
 	}
 
 	updateTaskStatus(taskId: string, status: string, ignoreLoader: boolean = false): Observable<Task> {
-		return this.http.put<Task>(`${environment.API}/tasks/${taskId}/update-status`, status, 
-		this.gladService.getIgnoreLoaderParam(ignoreLoader));
+		return this.http.put<Task>(`${environment.API}/tasks/${taskId}/update-status/${status}`,
+			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
 	findTasksLookAlikeByTitle(title: string, ignoreLoader: boolean = false): Observable<Task[]> {
-		return this.http.get<Task[]>(`${environment.API}/tasks/similar?title=${title}`,
+		return this.http.get<Task[]>(`${environment.API}/tasks/similar/title/${title}`,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
