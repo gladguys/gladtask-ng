@@ -8,5 +8,6 @@ export class User extends BaseModel {
 	public password: string;
 	public profileEnum: string;
 	public profilePhoto: string;
+	public creationDate: string;
 
 }

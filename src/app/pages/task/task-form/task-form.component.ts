@@ -5,10 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
-
 import { Team } from 'src/app/shared/models/team.model';
 import { User } from 'src/app/shared/models/user.model';
-
 import { TaskService } from "../../../core/services/task.service";
 import { ProjectService } from "../../../core/services/project.service";
 import { UserService } from "../../../core/services/user.service";
@@ -18,13 +16,11 @@ import { GTNotificationService } from "../../../core/services/gt-notification.se
 import { SharedService } from "../../../core/services/shared.service";
 import { TaskCommentsService } from "../../../core/services/task-comments.service";
 import { TimeSpentService } from "./time-spent.service";
-
 import { TaskChangesComponent } from "../task-changes/task-changes.component";
 import { TaskCommentsComponent } from "../task-comments/task-comments.component";
 import { TaskTimeSpentComponent } from "../task-time-spent/task-time-spent.component";
 import { TaskTimesComponent } from "../task-times/task-times.component";
 import { QuickProjectFormComponent } from "../../project/quick-project-form/quick-project-form.component";
-
 import { Task } from "../../../shared/models/task.model";
 import { TimeSpent } from "../../../shared/models/time-spent.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
@@ -32,10 +28,8 @@ import { TaskComment } from "../../../shared/models/task-comment.model";
 import { Project } from "../../../shared/models/project.model";
 import { getPossibleStatus, Status, getStatusFromEnum } from "../../../shared/enums/status.enum";
 import { possibleTaskTypes, TaskType } from "../../../shared/enums/task-type.enum";
-
 import { ValidateTitleEqualDesc } from "../../../shared/validators/title-equal-description.validator";
 import { TaskRoutingNames } from '../task-routing-names';
-
 
 @Component({
 	selector: 'task-form',
@@ -43,7 +37,6 @@ import { TaskRoutingNames } from '../task-routing-names';
 	styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
-
 	@ViewChild('taskTimes') taskTimesComponent: TaskTimesComponent;
 	@ViewChild('taskChanges') taskChangesComponent: TaskChangesComponent;
 	@ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
@@ -52,28 +45,24 @@ export class TaskFormComponent implements OnInit {
 	hourMinuteMask = [/[0-9]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
 
 	task: Task;
-	loadingProjects: boolean = false;
 	canEdit: boolean = true;
-
 	possibleTargetUsers: User[];
 	possibleTeams$: Observable<Team[]>;
-
 	taskChanges: Array<TaskChange> = [];
 	taskComments: Array<TaskComment> = [];
 	possibleStatus: Array<Status> = [];
 	possibleTaskTypes: Array<TaskType> = [];
 	possibleProjects: Array<Project> = [];
-
 	timeSpent$: BehaviorSubject<TimeSpent>;
-
 	taskForm: FormGroup;
-
 	debounceTitle: Subject<string> = new Subject<string>();
 	lookAlikeTasksByTitle: Task[] = [];
 	hasLookAlike: boolean;
 
 	dueDate: Date;
+	minDate = new Date();
 
+	loadingProjects: boolean = false;
 	saved: boolean = false;
 
 	constructor(
@@ -93,22 +82,31 @@ export class TaskFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
+
+		let id: string = this.activatedRoute.snapshot.params['id'];
+
+
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 		this.initializeForm();
+		if (id != undefined) {
+			this.taskForm.disable();
+		}
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
+
 
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
 			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
 				this.taskForm.get('targetUser').enable();
-				this.loadProjects(team.id);
-				this.loadUsers(team.id);
+				this.loadProjects(team._id);
+				this.loadUsers(team._id);
 			} else {
 				this.taskForm.get('project').disable();
 				this.taskForm.get('targetUser').disable();
 			}
 		});
+
 
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
@@ -124,7 +122,6 @@ export class TaskFormComponent implements OnInit {
 			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged()._id);
 		}
 	}
-
 	private initializeForm() {
 		this.taskForm = this.formBuilder.group({
 			'title': ['', [Validators.required, Validators.minLength(6)]],
@@ -139,16 +136,12 @@ export class TaskFormComponent implements OnInit {
 			'project': [{ value: '', disabled: true }]
 		},
 			{ validator: ValidateTitleEqualDesc });
-			
-			this.taskForm.disable();
 	}
-
 	private getPossibleOptions() {
 		this.possibleStatus = getPossibleStatus();
 		this.possibleTaskTypes = possibleTaskTypes();
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 	}
-
 	private configureTitleLookAlikeSearch() {
 		this.debounceTitle.pipe(debounceTime(800), distinctUntilChanged()).subscribe(title => {
 			if (title.length > 5 && title.match(/[a-z]/i)) {
@@ -158,24 +151,20 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 	}
-
 	compareUser(x: User, y: User): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
-
 	compareProject(x: Project, y: Project): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
-
 	compareTeam(x: Team, y: Team): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
-
 	populateForm(task: Task): void {
 		this.loadProjects(task.project.team._id);
 		this.taskForm.patchValue({
 			title: task.title,
-			priority: this.getPriorityFromTask(task.priority),
+			priority: task.priority,
 			description: task.description,
 			targetUser: task.targetUser,
 			status: task.status,
@@ -184,39 +173,22 @@ export class TaskFormComponent implements OnInit {
 			project: task.project,
 			estimatedTime: task.estimatedTime
 		});
-
-
 		if (task.dueDate != undefined) {
 			this.dueDate = new Date(task.dueDate);
 		}
-
 		if (task._id == undefined) {
 			this.resetForm();
 		}
 	}
 
-	getPriorityFromTask(priorityText) {
-		switch (priorityText) {
-			case ("Alto"):
-				return "0";
-			case ("Normal"):
-				return "1";
-			case ("Baixo"):
-				return "2";
-		}
-	}
-
 	onSubmit() {
 		let isEdit = this.task._id != undefined;
-
 		const submittedTask = this.taskForm.getRawValue() as Task;
 		submittedTask.taskComments = this.taskComments;
-
 		if (isEdit) {
 			submittedTask._id = this.task._id;
 			submittedTask.creatorUser = this.task.creatorUser;
 			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
-
 			if (submittedTask.title !== this.task.title) {
 				let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
 				submittedTask.taskChanges.push(taskChangeTitulo);
@@ -229,9 +201,7 @@ export class TaskFormComponent implements OnInit {
 				let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
 				submittedTask.taskChanges.push(taskChangeStatus);
 			}
-
 		}
-
 		this.taskService.createOrUpdate(submittedTask)
 			.subscribe(task => {
 				this.task = task;
@@ -242,12 +212,10 @@ export class TaskFormComponent implements OnInit {
 				}
 				this.saved = true;
 				this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
-
 				this.matDialog.closeAll();
 			},
 				e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 	}
-
 	buildTaskChange(whatHasChanged: string, oldValue: any, newValue: any): TaskChange {
 		let taskChange = new TaskChange();
 		taskChange.userFirstName = this.sharedService.getUserLogged().firstName;
@@ -285,35 +253,32 @@ export class TaskFormComponent implements OnInit {
 	}
 
 	loadUsers(teamId: string) {
-		this.userService.findByTeam(teamId).subscribe(users => { this.possibleTargetUsers = users; console.log(users) });
-
+		this.userService.findByTeam(teamId).subscribe(users => this.possibleTargetUsers = users);
 	}
 
 	loadProjects(teamId: string) {
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; });
 		this.loadingProjects = true;
-		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false });
+		this.projectService.findAllByTeam(teamId, true).subscribe(projects => { this.possibleProjects = projects; this.loadingProjects = false; });
 	}
 
 	addComment() {
 		let taskComment = new TaskComment();
 		taskComment.user = this.sharedService.getUserLogged();
 		taskComment.text = this.textCommentEl.nativeElement.value;
-
 		//The api returns the dates as numbers, so for the comments sorting works i have to make this hack
 		let dateNow = new Date();
 		taskComment.date = dateNow.getTime().toString();
 		this.taskComments.push(taskComment);
 		this.taskCommentsService.setUpdatedComments(this.taskComments);
-
 		if (this.task._id !== undefined) {
 			taskComment.date = dateNow.toISOString();
 			this.taskService.saveTaskComment(this.task._id, taskComment, true).subscribe(t => { });
 		}
-
 		this.textCommentEl.nativeElement.value = '';
 	}
 
-	atribuirParaMim() {
+	assignToMe() {
 		this.taskForm.patchValue({
 			'targetUser': this.sharedService.getUserLogged()
 		});
@@ -324,7 +289,6 @@ export class TaskFormComponent implements OnInit {
 			data: { taskId: this.task._id },
 			panelClass: 'mat-bottom-sheet-container-time-spent'
 		});
-
 		bottomSheetRef.afterDismissed().subscribe(() => {
 			this.task.timeSpentValues.push(this.timeSpent$.getValue());
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
@@ -336,7 +300,6 @@ export class TaskFormComponent implements OnInit {
 			width: '400px',
 			data: { team: this.taskForm.controls['team'].value }
 		});
-
 		dialogRef.afterClosed().subscribe((newProject: Project) => {
 			if (newProject !== undefined) {
 				this.possibleProjects.push(newProject);
@@ -351,5 +314,4 @@ export class TaskFormComponent implements OnInit {
 	getEnum(status: string) {
 		return getStatusFromEnum(status);
 	}
-
 }

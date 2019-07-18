@@ -19,6 +19,9 @@ import { TaskModule } from '../task/task.module';
 		SharedModule,
 		TaskModule,
 		DragDropModule
+	],
+	exports: [
+		KanbanComponent
 	]
 })
 export class KanbanModule {

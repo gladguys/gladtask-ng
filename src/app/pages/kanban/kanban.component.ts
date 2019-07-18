@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 
@@ -7,45 +7,65 @@ import { SharedService } from '../../core/services/shared.service';
 import { Task } from '../../shared/models/task.model'
 import { Status, getStatusFromEnum } from '../../shared/enums/status.enum';
 import { TaskRoutingNames } from '../task/task-routing-names';
+import { DateProximityPipe } from 'src/app/shared/pipes/date-proximity.pipe';
+import { ProximityDate } from '../home/due-soon-tasks/due-soon-tasks.component';
 
 @Component({
+	selector: 'gt-kanban',
 	templateUrl: './kanban.component.html',
 	styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent {
+
+	proximityDate = ProximityDate;
 
 	tasks: Task[] = [];
 	createdTasks: Task[] = [];
 	todoTasks: Task[] = [];
 	doingTasks: Task[] = [];
 	doneTasks: Task[] = [];
+	userId: String;
 
 	created = [];
 	todo = [];
 	doing = [];
 	done = [];
-	
+
+	@Input('projectId')
+	private projectId: String;
+
 	constructor(
 		private taskService: TaskService,
 		private sharedService: SharedService,
-		private router: Router) {}
-	
+		private dateProximity: DateProximityPipe,
+		private router: Router) { }
+
 	ngOnInit() {
-		let id = this.sharedService.getUserLogged()._id;
-		this.taskService.findTasksByTargetUser(id).subscribe(tasks => {
-			this.tasks = tasks;
-			this.createdTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CRIADA));
-			this.created = this.createdTasks.map(task => task.title);
+		this.userId = this.sharedService.getUserLogged()._id;
+		if (!this.projectId) {
+			this.taskService.findTasksByTargetUser(this.userId).subscribe(tasks => {
+				this.buildKanban(tasks);
+			});
+		} else {
+			this.taskService.findTasksByProject(this.projectId).subscribe(tasks => {
+				this.buildKanban(tasks);
+			});
+		}
+	}
 
-			this.todoTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ESPERA));
-			this.todo = this.todoTasks.map(task => task.title);
+	buildKanban(tasks: Task[]) {
+		this.tasks = tasks;
+		this.createdTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CRIADA));
+		this.created = this.createdTasks;
 
-			this.doingTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ANDAMENTO));
-			this.doing = this.doingTasks.map(task => task.title);
-			
-			this.doneTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CONCLUIDA));
-			this.done = this.doneTasks.map(task => task.title);
-		});
+		this.todoTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ESPERA));
+		this.todo = this.todoTasks;
+
+		this.doingTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.EM_ANDAMENTO));
+		this.doing = this.doingTasks;
+
+		this.doneTasks = tasks.filter(task => task.status === getStatusFromEnum(Status.CONCLUIDA));
+		this.done = this.doneTasks;
 	}
 
 	drop(event: CdkDragDrop<string[]>) {
@@ -62,7 +82,7 @@ export class KanbanComponent {
 		if (changedValue !== undefined) {
 			let task = this.findTaskByTitle(changedValue);
 			let taskStatus = this.decideTargetStatus(changedValue);
-			this.taskService.updateTaskStatus(task._id, taskStatus, true).subscribe(c => {});
+			this.taskService.updateTaskStatus(task._id, taskStatus, true).subscribe(c => { });
 		}
 	}
 
@@ -82,11 +102,11 @@ export class KanbanComponent {
 		let missingTodo = oldTodos.filter(item => this.todo.indexOf(item) < 0);
 		let missingTodoReverse = this.todo.filter(item => oldTodos.indexOf(item) < 0);
 		let diferenceTodo = [...missingTodo, ...missingTodoReverse];
-		
+
 		let missingDoing = oldDoings.filter(item => this.doing.indexOf(item) < 0);
 		let missingDoingReverse = this.doing.filter(item => oldDoings.indexOf(item) < 0);
 		let diferenceDoing = [...missingDoing, ...missingDoingReverse];
-		
+
 		let missingDone = oldDones.filter(item => this.done.indexOf(item) < 0);
 		let missingDoneReverse = this.done.filter(item => oldDones.indexOf(item) < 0);
 		let diferenceDone = [...missingDone, ...missingDoneReverse];
@@ -117,5 +137,9 @@ export class KanbanComponent {
 
 	showTaskDetail(task: Task): void {
 		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
+	}
+
+	getDateProximityDescription(task: Task): string {
+		return this.dateProximity.transform(task.dueDate);
 	}
 }

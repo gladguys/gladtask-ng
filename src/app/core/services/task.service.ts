@@ -50,7 +50,7 @@ export class TaskService extends BaseService<Task> {
 	}
 
 	findBetweenDates(days: number, userId: string): Observable<Task[]> {
-		return this.http.get<Task[]>(`${environment.API}/tasks/between/${days}?userId=${userId}`);
+		return this.http.get<Task[]>(`${environment.API}/tasks/between/${days}/${userId}`);
 	}
 
 	updateTaskStatus(taskId: string, status: string, ignoreLoader: boolean = false): Observable<Task> {

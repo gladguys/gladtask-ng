@@ -70,7 +70,7 @@ export class TaskCardComponent implements OnInit {
 	getColorCard() {
 		if(this.task.priority == 'Normal') {
 			return 'card-task--yellow'; 
-		} else if (this.task.priority == 'Alto') {
+		} else if (this.task.priority == 'Alta') {
 			return 'card-task--red';
 		}
 	}
