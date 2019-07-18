@@ -31,8 +31,7 @@ export class KanbanComponent {
 	doing = [];
 	done = [];
 
-	@Input('projectId')
-	private projectId: String;
+	@Input('projectId') private projectId: String;
 
 	constructor(
 		private taskService: TaskService,
