@@ -24,7 +24,7 @@
 				<gt-task-changes></gt-task-changes>
 
 				<td><button  *ngIf="canChangeStatus()" class="btn btn-primary" (click)="edit(task.number)">Editar</button></td>
-				<td><button *ngIf="canRemoveTask()" class="btn btn-danger" (click)="remover(task.id)">Remover</button></td>
+				<td><button *ngIf="canRemoveTask()" class="btn btn-danger" (click)="remover(task._id)">Remover</button></td>
 			</div>
 		</form>
 	</div>

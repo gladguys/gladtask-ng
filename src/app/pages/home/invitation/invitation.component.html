@@ -6,7 +6,7 @@
         <label>
             {{invitation.author.username}} convidou você para o time: 
             <a
-                routerLink="{{goToTeamDetail(invitation.team.id)}}"
+                routerLink="{{goToTeamDetail(invitation.team._id)}}"
                 class="label-team-name">
                 {{invitation.team.name}}
             </a>
