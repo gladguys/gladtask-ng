@@ -64,7 +64,7 @@ export class TaskService extends BaseService<Task> {
 	}
 
 	saveTaskComment(id: string, taskComment: TaskComment, ignoreLoader: boolean = false): Observable<Task> {
-		return this.http.post<Task>(`${environment.API}/tasks/save-comment/${id}`, taskComment,
+		return this.http.post<Task>(`${environment.API}/tasks/${id}/save-comment`, taskComment,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
