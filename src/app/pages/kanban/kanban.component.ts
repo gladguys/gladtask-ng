@@ -75,12 +75,11 @@ export class KanbanComponent {
 
 		this.handleDropEvent(event);
 
-		let diferences = this.checkForDiferences(oldCreated, oldTodo, oldDoing, oldDone);
-		let changedValue = diferences[0];
+		const diferences = this.checkForDiferences(oldCreated, oldTodo, oldDoing, oldDone);
+		const task = diferences[0];
 
-		if (changedValue !== undefined) {
-			let task = this.findTaskByTitle(changedValue);
-			let taskStatus = this.decideTargetStatus(changedValue);
+		if (task !== undefined) {
+			let taskStatus = this.decideTargetStatus(task.title);
 			this.taskService.updateTaskStatus(task._id, taskStatus, true).subscribe(c => { });
 		}
 	}
@@ -93,7 +92,7 @@ export class KanbanComponent {
 		}
 	}
 
-	checkForDiferences(oldCreated: string[], oldTodos: string[], oldDoings: string[], oldDones: string[]): string[] {
+	checkForDiferences(oldCreated: string[], oldTodos: string[], oldDoings: string[], oldDones: string[]): Task[] {
 		let missingCreated = oldCreated.filter(item => this.created.indexOf(item) < 0);
 		let missingCreatedReverse = this.created.filter(item => oldCreated.indexOf(item) < 0);
 		let diferenceCreated = [...missingCreated, ...missingCreatedReverse];
@@ -118,16 +117,16 @@ export class KanbanComponent {
 		if (this.foundTaskIn(taskTitle, this.created)) {
 			return Status.CRIADA;
 		} else if (this.foundTaskIn(taskTitle, this.todo)) {
-			return Status.EM_ESPERA;
+			return 'EM_ESPERA';
 		} else if (this.foundTaskIn(taskTitle, this.doing)) {
-			return Status.EM_ANDAMENTO;
+			return 'EM_ANDAMENTO';
 		} else if (this.foundTaskIn(taskTitle, this.done)) {
 			return Status.CONCLUIDA;
 		}
 	}
 
-	foundTaskIn(taskTitle: string, titles: string[]): boolean {
-		return titles.filter(t => t === taskTitle).length > 0
+	foundTaskIn(taskTitle: string, tasks: Task[]): boolean {
+		return tasks.filter(task => task.title === taskTitle).length > 0
 	}
 
 	findTaskByTitle(taskTitle: string): Task {
