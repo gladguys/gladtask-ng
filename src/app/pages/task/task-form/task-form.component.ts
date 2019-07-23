@@ -37,6 +37,7 @@ import { TaskRoutingNames } from '../task-routing-names';
 	styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
+
 	@ViewChild('taskTimes') taskTimesComponent: TaskTimesComponent;
 	@ViewChild('taskChanges') taskChangesComponent: TaskChangesComponent;
 	@ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
@@ -49,6 +50,7 @@ export class TaskFormComponent implements OnInit {
 	possibleTargetUsers: User[];
 	possibleTeams$: Observable<Team[]>;
 	taskChanges: Array<TaskChange> = [];
+	buildedTaskChanges: Array<TaskChange> = [];
 	taskComments: Array<TaskComment> = [];
 	possibleStatus: Array<Status> = [];
 	possibleTaskTypes: Array<TaskType> = [];
@@ -82,10 +84,7 @@ export class TaskFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
-
 		let id: string = this.activatedRoute.snapshot.params['id'];
-
-
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 		this.initializeForm();
 		if (id != undefined) {
@@ -93,7 +92,6 @@ export class TaskFormComponent implements OnInit {
 		}
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
-
 
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
 			if (team && !this.taskForm.disabled) {
@@ -106,7 +104,6 @@ export class TaskFormComponent implements OnInit {
 				this.taskForm.get('targetUser').disable();
 			}
 		});
-
 
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
@@ -122,6 +119,7 @@ export class TaskFormComponent implements OnInit {
 			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged()._id);
 		}
 	}
+
 	private initializeForm() {
 		this.taskForm = this.formBuilder.group({
 			'title': ['', [Validators.required, Validators.minLength(6)]],
@@ -137,11 +135,13 @@ export class TaskFormComponent implements OnInit {
 		},
 			{ validator: ValidateTitleEqualDesc });
 	}
+
 	private getPossibleOptions() {
 		this.possibleStatus = getPossibleStatus();
 		this.possibleTaskTypes = possibleTaskTypes();
 		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 	}
+
 	private configureTitleLookAlikeSearch() {
 		this.debounceTitle.pipe(debounceTime(800), distinctUntilChanged()).subscribe(title => {
 			if (title.length > 5 && title.match(/[a-z]/i)) {
@@ -151,15 +151,19 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 	}
+
 	compareUser(x: User, y: User): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
+
 	compareProject(x: Project, y: Project): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
+
 	compareTeam(x: Team, y: Team): boolean {
 		return x && y ? x._id === y._id : x === y;
 	}
+
 	populateForm(task: Task): void {
 		this.loadProjects(task.project.team._id);
 		this.taskForm.patchValue({
@@ -181,6 +185,33 @@ export class TaskFormComponent implements OnInit {
 		}
 	}
 
+	checkAndPersistChanges(submittedTask: Task) {
+		if (submittedTask.title !== this.task.title) {
+			let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeTitulo).subscribe(t => {});
+		}
+		if (submittedTask.description !== this.task.description) {
+			let taskChangeDescription = this.buildTaskChange('Descrição', this.task.description, submittedTask.description);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeDescription).subscribe(t => {});
+		}
+		if (submittedTask.status !== this.task.status) {
+			let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeStatus).subscribe(t => {});
+		}
+		if (submittedTask.taskType !== this.task.taskType) {
+			let taskChangeType = this.buildTaskChange('Tipo', this.task.taskType, submittedTask.taskType);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeType).subscribe(t => {});
+		}
+		if (submittedTask.priority !== this.task.priority) {
+			let taskChangePriority = this.buildTaskChange('Prioridade', this.task.priority, submittedTask.priority);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangePriority).subscribe(t => {});
+		}
+		if (submittedTask.targetUser !== this.task.targetUser) {
+			let taskChangeTargetUser = this.buildTaskChange('Atribuir para', this.task.targetUser, submittedTask.targetUser);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeTargetUser).subscribe(t => {});
+		}
+	}
+
 	onSubmit() {
 		let isEdit = this.task._id != undefined;
 		const submittedTask = this.taskForm.getRawValue() as Task;
@@ -188,34 +219,23 @@ export class TaskFormComponent implements OnInit {
 		if (isEdit) {
 			submittedTask._id = this.task._id;
 			submittedTask.creatorUser = this.task.creatorUser;
-			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
-			if (submittedTask.title !== this.task.title) {
-				let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
-				submittedTask.taskChanges.push(taskChangeTitulo);
-			}
-			if (submittedTask.description !== this.task.description) {
-				let taskChangeDescription = this.buildTaskChange('Descrição', this.task.description, submittedTask.description);
-				submittedTask.taskChanges.push(taskChangeDescription);
-			}
-			if (submittedTask.status !== this.task.status) {
-				let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
-				submittedTask.taskChanges.push(taskChangeStatus);
-			}
+			this.checkAndPersistChanges(submittedTask);
 		}
-		this.taskService.createOrUpdate(submittedTask)
-			.subscribe(task => {
-				this.task = task;
-				if (!isEdit) {
-					this.gladService.openSnack("Task criada");
-				} else {
-					this.gladService.openSnack("Task editada");
-				}
-				this.saved = true;
-				this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
-				this.matDialog.closeAll();
-			},
-				e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+
+		this.taskService.createOrUpdate(submittedTask).subscribe(task => {
+			this.task = task;
+			if (!isEdit) {
+				this.gladService.openSnack("Task criada");
+			} else {
+				this.gladService.openSnack("Task editada");
+			}
+			this.saved = true;
+			this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
+			this.matDialog.closeAll();
+		},
+			e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 	}
+
 	buildTaskChange(whatHasChanged: string, oldValue: any, newValue: any): TaskChange {
 		let taskChange = new TaskChange();
 		taskChange.userFirstName = this.sharedService.getUserLogged().firstName;
