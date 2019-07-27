@@ -25,7 +25,7 @@ export class UserProjectDashboardComponent implements OnInit {
 
 	ngOnInit() {
 		let userId = this.sharedService.getUserLogged()._id;
-		this.projects$ = this.projectService.getRecentProjectsByUserId(userId);
+		this.projects$ = this.projectService.findByParticipants(userId);
 	}
 
 	goToInfoProject(id: string): string {

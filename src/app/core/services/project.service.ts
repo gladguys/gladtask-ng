@@ -18,7 +18,7 @@ export class ProjectService extends BaseService<Project> {
 		}
 
 	findByParticipants(userId: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/participant/${userId}`);
+		return this.http.get<Project[]>(`${environment.API}/projects/user/${userId}`);
 	}
 
 	findAllByTeam(teamId: string, ignoreLoader: boolean = false): Observable<Project[]> {
@@ -27,7 +27,7 @@ export class ProjectService extends BaseService<Project> {
 	}
 
 	findByNameLikeAllIgnoreCase(term: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/name/${term}`);
+		return this.http.get<Project[]>(`${environment.API}/projects/term/${term}`);
 	}
 
 	getRecentProjectsByUserId(userId: string) {

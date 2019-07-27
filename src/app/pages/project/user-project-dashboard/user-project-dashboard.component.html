@@ -2,7 +2,7 @@
 
 	<div *ngIf="(projects$ | async) as projects; else loadingProjects">
 
-		<h1>Projetos Recentes</h1>
+		<h1>Seus Projetos</h1>
 		
 		<div *ngIf="projects.length == 0; else projectsList" class="no-project-content scrollbar-thin">
 			<span class="empty-msg" >Não há projetos recentes.</span>
@@ -20,7 +20,7 @@
 						fxLayoutAlign="center center"
 						class="project-image"
 						[style.background-image]="'url(' + p.projectImage + ')'"
-						routerLink="{{goToInfoProject(p.id)}}">
+						routerLink="{{goToInfoProject(p._id)}}">
 
 						<span *ngIf="!p.projectImage">{{p.name}}</span>
 					</div>
