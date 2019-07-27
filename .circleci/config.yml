@@ -30,4 +30,3 @@ jobs:
       #    command: yarn lint -- --formatters-dir ./tslint-formatters --format junit -o tslint.xml
       #- store_artifacts:
       #    path: tslint.xml
-      #    prefix: lint
