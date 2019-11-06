@@ -1,9 +1,9 @@
 {
   "/api/*": {
-    "target": "http://api-gladtask:3000",
+    "target": "http://localhost:3000",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
-    "pathRewrite": {"^/api" : "http://api-gladtask:3000/api"}
+    "pathRewrite": {"^/api" : "http://localhost:3000/api"}
   }
 }
