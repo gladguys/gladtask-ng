@@ -63,7 +63,7 @@ export class TaskListComponent implements OnInit {
 	getTasksDelayed(tasks: Task[]): Task[] {
 		return tasks.filter(task => {
 			let taskDueDateMilli = new Date(this.datePipe.transform(new Date(task.dueDate), 'yyyy-MM-dd')).getTime() as number;
-			return taskDueDateMilli < this.todayDateMilli;
+			return taskDueDateMilli < this.todayDateMilli && task.status != Status.CONCLUIDA;
 		});
 	}
 
