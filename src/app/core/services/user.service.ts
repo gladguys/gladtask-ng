@@ -42,6 +42,6 @@ export class UserService extends BaseService<User> {
 	}
 
 	findByAnyTerm(term: string): Observable<User[]> {
-		return this.http.get<User[]>(`${environment.API}/users/any/${term}`);
+		return this.http.get<User[]>(`${environment.API}/users/term/${term}`);
 	}
 }

@@ -6,7 +6,7 @@ export const environment = {
 	VERSION: require('../../package.json').version,
 	production: false,
 	API: "/api",
-	API_ADRESS: "http://api-gladtask:4200"
+	API_ADRESS: "http://localhost:4200"
 };
 
 /*
