@@ -52,29 +52,29 @@ export class TeamFormComponent implements OnInit {
 	}
 
 	compareUser(x: User, y: User): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
 
 	onSubmit(): void {
-		let isEdit = this.team.id != undefined;
+		let isEdit = this.team._id != undefined;
 		const submittedTeam = this.teamForm.getRawValue() as Team;
 
 		if(isEdit) {
-			submittedTeam.id = this.team.id;
+			submittedTeam._id = this.team._id;
 		} else {
 			submittedTeam.manager = this.sharedService.getUserLogged();
 			submittedTeam.participants = [];
 		}
 
 		this.teamService.createOrUpdate(submittedTeam).subscribe(team => {
-			if (this.team.id != null) {
+			if (this.team._id != null) {
 				this.gladService.openSnack("Equipe editada");
 				this.teamForm.markAsPristine();
 			} else {
 				this.gladService.openSnack("Equipe criada");
 			}
-			this.teamService.updateMyTeams(this.sharedService.getUserLogged().id);
-			this.router.navigate(['/teams', team.id]);
+			this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
+			this.router.navigate(['/teams', team._id]);
 		}, e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 	}
 

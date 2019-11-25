@@ -18,6 +18,7 @@ import { GladService } from "../../../core/services/glad.service";
 
 import { environment } from "../../../../environments/environment";
 import { ProjectRoutingNames } from '../../project/project-routing-names';
+import { Invitation } from 'src/app/shared/models/invitation.model';
 
 @Component({
   selector: 'app-team-detail',
@@ -66,15 +67,26 @@ export class TeamDetailComponent implements OnInit {
 		return users.filter(u => !this.team.participants.map(p => p.email).includes(u.email));
 	}
 
-	addUserToTeam(user: User) {
-		if (!this.team.participants.map(p => p.email).includes(user.email)) {
-			let invitation = new InvitationDTO();
-			invitation.authorUserId = this.sharedService.getUserLogged().id;
-			invitation.receiverUserId = user.id;
-			invitation.teamId = this.team.id;
+	addUserToTeam(newUser: User) {
+		if (!this.team.participants.map(p => p.email).includes(newUser.email)) {
+			let invitation = new Invitation();
+
+			let user = new User();
+			user._id = this.sharedService.getUserLogged()._id;
+			
+			let userReceiver = new User();
+			userReceiver._id = newUser._id;
+
+			invitation.author = user;
+			invitation.receiver  = userReceiver;
+			invitation.team = this.team;
+
 
 			this.invitationService.createOrUpdateByDTO(invitation).subscribe( invitation => {
-				this.notificationService.notificateSuccess(`Convite enviado para usuario ${invitation.receiver.username}`);
+				this.gladService.openSnack(`Convite enviado!`);
+			},
+			error => {
+				console.log("errrrror");
 			});
         }
 	}
@@ -87,7 +99,7 @@ export class TeamDetailComponent implements OnInit {
 	handleInviteEmail() {
 		let email = this.email.nativeElement.value;
 		if (this.emailValidator(email)) {
-			const tree = this.router.createUrlTree(['signup', this.team.id]);
+			const tree = this.router.createUrlTree(['signup', this.team._id]);
 			let url = environment.API_ADRESS + tree;
 
 			this.emailService.sendInviteToTeamEmail(email, url).subscribe(c => {

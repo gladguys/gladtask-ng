@@ -1,3 +1,3 @@
 export class BaseModel {
-    public id: string;
+    public _id: string;
 }

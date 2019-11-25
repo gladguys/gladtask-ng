@@ -58,7 +58,7 @@ export class TaskGridComponent implements OnInit {
 
 	onRowSelected(row):void {
 		let task = row.data;
-		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
 	}
 
 	onFirstDataRendered(params) {

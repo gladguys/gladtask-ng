@@ -16,12 +16,14 @@ export class ProjectInfoComponent implements OnInit {
 				private router: Router,
 				private taskService: TaskService,
 				private projectService: ProjectService) {}
+
+	//TODO muito estranho isso, tem um resolver que já faz a request e carrega o projeto. Isso aqui é sono do Bala
 	ngOnInit(): void {
 		let projectId = this.activatedRoute.snapshot.params['projectId'];
-		if(projectId) {
+		if (projectId) {
 			this.projectService.findById(projectId).subscribe(p => {
 				this.project = p;
-				this.taskService.findTasksByProject(this.project.id).subscribe(tasks => this.projectTasks = tasks);
+				this.taskService.findTasksByProject(this.project._id).subscribe(tasks => this.projectTasks = tasks);
 			})
 		}
 	}

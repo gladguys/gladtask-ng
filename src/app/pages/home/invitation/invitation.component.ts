@@ -27,18 +27,18 @@ export class InvitationComponent implements OnInit {
 
     getInvitationsAsObservable() {
         this.invitations$ = this.invitationService
-            .findAllByUser(this.sharedService.getUserLogged().id);
+            .findAllByUser(this.sharedService.getUserLogged()._id);
     }
 
     acceptInvitation(invitation: Invitation) {
         let invitationDTO = new InvitationDTO();
-        invitationDTO.teamId = invitation.team.id;
-        invitationDTO.receiverUserId = invitation.receiver.id;
-        invitationDTO.id = invitation.id;
+        invitationDTO.teamId = invitation.team._id;
+        invitationDTO.receiverUserId = invitation.receiver._id;
+        invitationDTO.id = invitation._id;
 
         this.teamService.addUserToTeam(invitationDTO)
             .subscribe(() => {
-                this.teamService.updateMyTeams(this.sharedService.getUserLogged().id);
+                this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
                 this.getInvitationsAsObservable();
                 this.notificationService.notificateSuccess("Convite aceito com sucesso");
             });
@@ -46,7 +46,8 @@ export class InvitationComponent implements OnInit {
     }
 
     denyInvitation(invitation: Invitation) {
-        this.invitationService.delete(invitation.id).subscribe(() => {
+        this.invitationService.delete(invitation._id).subscribe(() => {
+            this.getInvitationsAsObservable();
             this.notificationService.notificateSuccess("Convite negado.");
         })
     }

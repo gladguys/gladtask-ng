@@ -17,8 +17,8 @@ export class InvitationService extends BaseService<Invitation> {
 		super(injector, "/invitations");
 	}
 
-	createOrUpdateByDTO(invitation: InvitationDTO): Observable<Invitation> {
-		if (invitation.id != null && invitation.id != '') {
+	createOrUpdateByDTO(invitation: Invitation): Observable<Invitation> {
+		if (invitation._id != null && invitation._id != '') {
 			return this.http.put<Invitation>(`${environment.API}/invitations`, invitation);
 		} else {
 			return this.http.post<Invitation>(`${environment.API}/invitations`, invitation);
@@ -27,6 +27,6 @@ export class InvitationService extends BaseService<Invitation> {
 
 	findAllByUser(userId: string): Observable<Invitation[]> {
 		return this.http.get<Invitation[]>(`${environment.API}/invitations/user-receiver/${userId}`);
+		
     }
-
 }

@@ -8,6 +8,7 @@ import { GladService } from "./glad.service";
 import { TaskComment } from "../../shared/models/task-comment.model";
 import { TimeSpent } from "../../shared/models/time-spent.model";
 import { BaseService } from './base.service';
+import { TaskChange } from "../../shared/models/task-change.model";
 
 @Injectable({
 	providedIn: 'root'
@@ -50,21 +51,21 @@ export class TaskService extends BaseService<Task> {
 	}
 
 	findBetweenDates(days: number, userId: string): Observable<Task[]> {
-		return this.http.get<Task[]>(`${environment.API}/tasks/between/${days}?userId=${userId}`);
+		return this.http.get<Task[]>(`${environment.API}/tasks/between/${days}/${userId}`);
 	}
 
 	updateTaskStatus(taskId: string, status: string, ignoreLoader: boolean = false): Observable<Task> {
-		return this.http.put<Task>(`${environment.API}/tasks/${taskId}/update-status`, status, 
-		this.gladService.getIgnoreLoaderParam(ignoreLoader));
+		return this.http.put<Task>(`${environment.API}/tasks/${taskId}/update-status/${status}`,
+			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
 	findTasksLookAlikeByTitle(title: string, ignoreLoader: boolean = false): Observable<Task[]> {
-		return this.http.get<Task[]>(`${environment.API}/tasks/similar?title=${title}`,
+		return this.http.get<Task[]>(`${environment.API}/tasks/similar/title/${title}`,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
 	saveTaskComment(id: string, taskComment: TaskComment, ignoreLoader: boolean = false): Observable<Task> {
-		return this.http.post<Task>(`${environment.API}/tasks/save-comment/${id}`, taskComment,
+		return this.http.post<Task>(`${environment.API}/tasks/${id}/save-comment`, taskComment,
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
@@ -73,10 +74,15 @@ export class TaskService extends BaseService<Task> {
 			this.gladService.getIgnoreLoaderParam(ignoreLoader));
 	}
 
+	saveTaskChange(id: string, taskChange: TaskChange, ignoreLoader: boolean = false): Observable<TaskChange> {
+		return this.http.post<TaskChange>(`${environment.API}/tasks/${id}/save-task-change`, taskChange,
+			this.gladService.getIgnoreLoaderParam(ignoreLoader));
+	}
+
 	isTaskOwnerOrTargetOrTeamManager(task: Task, userId: string): boolean {
-		let isTaskOwner = task.creatorUser.id === userId;
-		let isTaskTarget = task.targetUser.id === userId;
-		let isUserTeamManager = task.project.team.manager.id === userId;
+		let isTaskOwner = task.creatorUser._id === userId;
+		let isTaskTarget = task.targetUser._id === userId;
+		let isUserTeamManager = task.project.team.manager._id === userId;
 
 		return isTaskOwner || isTaskTarget || isUserTeamManager;
 	}

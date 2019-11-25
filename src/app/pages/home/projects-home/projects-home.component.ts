@@ -25,11 +25,11 @@ export class ProjectsHomeComponent implements OnInit {
 	ngOnInit(): void {
 		if (this.sharedService.isUserLoggedIn()) {
 			this.user = this.sharedService.getUserLogged();
-			this.projects$ = this.projectService.findByParticipants(this.user.id);
+			this.projects$ = this.projectService.findByParticipants(this.user._id);
 		}
 	}
 
 	gotoProject(project: Project) {
-		this.router.navigate(["/project-dashboard",  project.id,  this.user.id]);
+		this.router.navigate(["/project-dashboard",  project._id,  this.user._id]);
 	}
 }

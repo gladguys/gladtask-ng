@@ -8,7 +8,7 @@ import { TaskService } from "../../../core/services/task.service";
 import { SharedService } from "../../../core/services/shared.service";
 import { GTNotificationService } from "../../../core/services/gt-notification.service";
 
-import { getPossibleStatus, Status, getStatusFromEnum, getStatusAsText } from "../../../shared/enums/status.enum";
+import { getPossibleStatus, Status, getStatusFromEnum } from "../../../shared/enums/status.enum";
 import { Task } from "../../../shared/models/task.model";
 import { TaskChange } from "../../../shared/models/task-change.model";
 import { GladService } from 'src/app/core/services/glad.service';
@@ -54,7 +54,7 @@ export class TaskCardComponent implements OnInit {
 			'project': [this.task.project.name]
 		});
 
-		this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
+		this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged()._id);
 		this.setupFormValueChanges();
 	}
 
@@ -70,7 +70,7 @@ export class TaskCardComponent implements OnInit {
 	getColorCard() {
 		if(this.task.priority == 'Normal') {
 			return 'card-task--yellow'; 
-		} else if (this.task.priority == 'Alto') {
+		} else if (this.task.priority == 'Alta') {
 			return 'card-task--red';
 		}
 	}
@@ -105,12 +105,12 @@ export class TaskCardComponent implements OnInit {
 	}
 
 	showTaskDetail(task: Task): void {
-		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
 	}
 
 	openBottomSheetTimeSpent() {
 		this.bottomSheet.open(TaskTimeSpentComponent, {
-			data: { taskId: this.task.id }
+			data: { taskId: this.task._id }
 		});
 	}
 

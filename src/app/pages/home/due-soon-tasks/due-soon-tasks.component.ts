@@ -32,11 +32,11 @@ export class DueSoonTasksComponent implements OnInit {
 		private sharedService: SharedService) {}
 
 	ngOnInit(): void {
-		this.dueSoonTasks$ = this.taskService.findBetweenDates(this.dueDays, this.sharedService.getUserLogged().id);
+		this.dueSoonTasks$ = this.taskService.findBetweenDates(this.dueDays, this.sharedService.getUserLogged()._id);
 	}
 
 	showTaskDetail(task: Task) {
-		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
+		this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
 	}
 
 	getDateProximityDescription(task: Task): string {

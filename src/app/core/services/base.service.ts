@@ -18,7 +18,7 @@ export abstract class BaseService<T extends BaseModel> {
     }
     
     createOrUpdate(t: T): Observable<T> {
-		if(t.id != null && t.id != '') {
+		if(t._id != null && t._id != '') {
 			return this.http.put<T>(environment.API + this.pathToApi, t);
 		} else {
 			return this.http.post<T>(environment.API + this.pathToApi, t);

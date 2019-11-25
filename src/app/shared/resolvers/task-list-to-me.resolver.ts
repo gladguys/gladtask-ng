@@ -16,7 +16,7 @@ export class TaskListToMeResolver implements Resolve<Observable<Task[]>> {
 		private sharedService: SharedService) { }
 
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Task[]> {
-		let userId = this.sharedService.getUserLogged().id;
+		let userId = this.sharedService.getUserLogged()._id;
 		return this.taskService.findTasksByTargetUser(userId);
 	}
 }

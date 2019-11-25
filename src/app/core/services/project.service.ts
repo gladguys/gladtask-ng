@@ -27,7 +27,7 @@ export class ProjectService extends BaseService<Project> {
 	}
 
 	findByNameLikeAllIgnoreCase(term: string) {
-		return this.http.get<Project[]>(`${environment.API}/projects/name/${term}`);
+		return this.http.get<Project[]>(`${environment.API}/projects/term/${term}`);
 	}
 
 	getRecentProjectsByUserId(userId: string) {

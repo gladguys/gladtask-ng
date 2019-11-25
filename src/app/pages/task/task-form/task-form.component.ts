@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatDialog } from "@angular/material";
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -30,12 +30,14 @@ import { getPossibleStatus, Status, getStatusFromEnum } from "../../../shared/en
 import { possibleTaskTypes, TaskType } from "../../../shared/enums/task-type.enum";
 import { ValidateTitleEqualDesc } from "../../../shared/validators/title-equal-description.validator";
 import { TaskRoutingNames } from '../task-routing-names';
+
 @Component({
 	selector: 'task-form',
 	templateUrl: './task-form.component.html',
 	styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
+
 	@ViewChild('taskTimes') taskTimesComponent: TaskTimesComponent;
 	@ViewChild('taskChanges') taskChangesComponent: TaskChangesComponent;
 	@ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
@@ -48,6 +50,7 @@ export class TaskFormComponent implements OnInit {
 	possibleTargetUsers: User[];
 	possibleTeams$: Observable<Team[]>;
 	taskChanges: Array<TaskChange> = [];
+	buildedTaskChanges: Array<TaskChange> = [];
 	taskComments: Array<TaskComment> = [];
 	possibleStatus: Array<Status> = [];
 	possibleTaskTypes: Array<TaskType> = [];
@@ -81,10 +84,7 @@ export class TaskFormComponent implements OnInit {
 		private sharedService: SharedService) { }
 
 	ngOnInit() {
-
 		let id: string = this.activatedRoute.snapshot.params['id'];
-
-
 		this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 		this.initializeForm();
 		if (id != undefined) {
@@ -93,19 +93,17 @@ export class TaskFormComponent implements OnInit {
 		this.getPossibleOptions();
 		this.configureTitleLookAlikeSearch();
 
-
 		this.taskForm.controls['team'].valueChanges.subscribe(team => {
 			if (team && !this.taskForm.disabled) {
 				this.taskForm.get('project').enable();
 				this.taskForm.get('targetUser').enable();
-				this.loadProjects(team.id);
-				this.loadUsers(team.id);
+				this.loadProjects(team._id);
+				this.loadUsers(team._id);
 			} else {
 				this.taskForm.get('project').disable();
 				this.taskForm.get('targetUser').disable();
 			}
 		});
-
 
 		this.task = this.activatedRoute.snapshot.data['task'];
 		if (this.task === undefined) {
@@ -118,9 +116,10 @@ export class TaskFormComponent implements OnInit {
 			this.taskComments = this.task.taskComments;
 			this.taskCommentsService.setUpdatedComments(this.task.taskComments);
 			this.populateForm(this.task);
-			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged().id);
+			this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(this.task, this.sharedService.getUserLogged()._id);
 		}
 	}
+
 	private initializeForm() {
 		this.taskForm = this.formBuilder.group({
 			'title': ['', [Validators.required, Validators.minLength(6)]],
@@ -136,11 +135,13 @@ export class TaskFormComponent implements OnInit {
 		},
 			{ validator: ValidateTitleEqualDesc });
 	}
+
 	private getPossibleOptions() {
 		this.possibleStatus = getPossibleStatus();
 		this.possibleTaskTypes = possibleTaskTypes();
-		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged().id);
+		this.possibleTeams$ = this.teamService.findAllByUser(this.sharedService.getUserLogged()._id);
 	}
+
 	private configureTitleLookAlikeSearch() {
 		this.debounceTitle.pipe(debounceTime(800), distinctUntilChanged()).subscribe(title => {
 			if (title.length > 5 && title.match(/[a-z]/i)) {
@@ -150,20 +151,24 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 	}
+
 	compareUser(x: User, y: User): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
+
 	compareProject(x: Project, y: Project): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
+
 	compareTeam(x: Team, y: Team): boolean {
-		return x && y ? x.id === y.id : x === y;
+		return x && y ? x._id === y._id : x === y;
 	}
+
 	populateForm(task: Task): void {
-		this.loadProjects(task.project.team.id);
+		this.loadProjects(task.project.team._id);
 		this.taskForm.patchValue({
 			title: task.title,
-			priority: this.getPriorityFromTask(task.priority),
+			priority: task.priority,
 			description: task.description,
 			targetUser: task.targetUser,
 			status: task.status,
@@ -175,55 +180,62 @@ export class TaskFormComponent implements OnInit {
 		if (task.dueDate != undefined) {
 			this.dueDate = new Date(task.dueDate);
 		}
-		if (task.id == undefined) {
+		if (task._id == undefined) {
 			this.resetForm();
 		}
 	}
-	getPriorityFromTask(priorityText) {
-		switch (priorityText) {
-			case ("Alto"):
-				return "0";
-			case ("Normal"):
-				return "1";
-			case ("Baixo"):
-				return "2";
+
+	checkAndPersistChanges(submittedTask: Task) {
+		if (submittedTask.title !== this.task.title) {
+			let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeTitulo).subscribe(t => {});
+		}
+		if (submittedTask.description !== this.task.description) {
+			let taskChangeDescription = this.buildTaskChange('Descrição', this.task.description, submittedTask.description);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeDescription).subscribe(t => {});
+		}
+		if (submittedTask.status !== this.task.status) {
+			let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeStatus).subscribe(t => {});
+		}
+		if (submittedTask.taskType !== this.task.taskType) {
+			let taskChangeType = this.buildTaskChange('Tipo', this.task.taskType, submittedTask.taskType);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeType).subscribe(t => {});
+		}
+		if (submittedTask.priority !== this.task.priority) {
+			let taskChangePriority = this.buildTaskChange('Prioridade', this.task.priority, submittedTask.priority);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangePriority).subscribe(t => {});
+		}
+		if (submittedTask.targetUser !== this.task.targetUser) {
+			let taskChangeTargetUser = this.buildTaskChange('Atribuir para', this.task.targetUser, submittedTask.targetUser);
+			this.taskService.saveTaskChange(submittedTask._id, taskChangeTargetUser).subscribe(t => {});
 		}
 	}
+
 	onSubmit() {
-		let isEdit = this.task.id != undefined;
+		let isEdit = this.task._id != undefined;
 		const submittedTask = this.taskForm.getRawValue() as Task;
 		submittedTask.taskComments = this.taskComments;
 		if (isEdit) {
-			submittedTask.id = this.task.id;
+			submittedTask._id = this.task._id;
 			submittedTask.creatorUser = this.task.creatorUser;
-			submittedTask.taskChanges = this.task.taskChanges != undefined ? this.task.taskChanges : [];
-			if (submittedTask.title !== this.task.title) {
-				let taskChangeTitulo = this.buildTaskChange('Título', this.task.title, submittedTask.title);
-				submittedTask.taskChanges.push(taskChangeTitulo);
-			}
-			if (submittedTask.description !== this.task.description) {
-				let taskChangeDescription = this.buildTaskChange('Descrição', this.task.description, submittedTask.description);
-				submittedTask.taskChanges.push(taskChangeDescription);
-			}
-			if (submittedTask.status !== this.task.status) {
-				let taskChangeStatus = this.buildTaskChange('Situação', this.task.status, submittedTask.status);
-				submittedTask.taskChanges.push(taskChangeStatus);
-			}
+			this.checkAndPersistChanges(submittedTask);
 		}
-		this.taskService.createOrUpdate(submittedTask)
-			.subscribe(task => {
-				this.task = task;
-				if (!isEdit) {
-					this.gladService.openSnack("Task criada");
-				} else {
-					this.gladService.openSnack("Task editada");
-				}
-				this.saved = true;
-				this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task.id]);
-				this.matDialog.closeAll();
-			},
-				e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+
+		this.taskService.createOrUpdate(submittedTask).subscribe(task => {
+			this.task = task;
+			if (!isEdit) {
+				this.gladService.openSnack("Task criada");
+			} else {
+				this.gladService.openSnack("Task editada");
+			}
+			this.saved = true;
+			this.router.navigate([TaskRoutingNames.TASKS, TaskRoutingNames.TASK_FORM, task._id]);
+			this.matDialog.closeAll();
+		},
+			e => this.notificationService.notificateFailure("Falha ao criar equpe"));
 	}
+
 	buildTaskChange(whatHasChanged: string, oldValue: any, newValue: any): TaskChange {
 		let taskChange = new TaskChange();
 		taskChange.userFirstName = this.sharedService.getUserLogged().firstName;
@@ -232,6 +244,7 @@ export class TaskFormComponent implements OnInit {
 		taskChange.newValue = newValue;
 		return taskChange;
 	}
+
 	getTaskTypeDescription(taskType: TaskType): string {
 		switch (taskType) {
 			case TaskType.TESTE: return "Teste";
@@ -244,20 +257,23 @@ export class TaskFormComponent implements OnInit {
 			case TaskType.OUTRO: return "Outro";
 		}
 	}
+
 	resetForm() {
 		this.taskForm.reset();
 		for (let i in this.taskForm.controls) {
 			this.taskForm.controls[i].setErrors(null);
 		}
 	}
+
 	getLookAlikeTasksByTitle(title: string): any {
 		this.taskService.findTasksLookAlikeByTitle(title, true).subscribe(tasks => {
 			this.hasLookAlike = tasks.length > 0;
 			this.lookAlikeTasksByTitle = tasks;
 		});
 	}
+
 	loadUsers(teamId: string) {
-		this.userService.findByTeam(teamId).subscribe(users => { this.possibleTargetUsers = users; console.log(users) });
+		this.userService.findByTeam(teamId).subscribe(users => this.possibleTargetUsers = users);
 	}
 
 	loadProjects(teamId: string) {
@@ -275,20 +291,22 @@ export class TaskFormComponent implements OnInit {
 		taskComment.date = dateNow.getTime().toString();
 		this.taskComments.push(taskComment);
 		this.taskCommentsService.setUpdatedComments(this.taskComments);
-		if (this.task.id !== undefined) {
+		if (this.task._id !== undefined) {
 			taskComment.date = dateNow.toISOString();
-			this.taskService.saveTaskComment(this.task.id, taskComment, true).subscribe(t => { });
+			this.taskService.saveTaskComment(this.task._id, taskComment, true).subscribe(t => { });
 		}
 		this.textCommentEl.nativeElement.value = '';
 	}
-	atribuirParaMim() {
+
+	assignToMe() {
 		this.taskForm.patchValue({
 			'targetUser': this.sharedService.getUserLogged()
 		});
 	}
+
 	openBottomSheetTimeSpent() {
 		const bottomSheetRef = this.bottomSheet.open(TaskTimeSpentComponent, {
-			data: { taskId: this.task.id },
+			data: { taskId: this.task._id },
 			panelClass: 'mat-bottom-sheet-container-time-spent'
 		});
 		bottomSheetRef.afterDismissed().subscribe(() => {
@@ -296,6 +314,7 @@ export class TaskFormComponent implements OnInit {
 			this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
 		})
 	}
+
 	openNewProjectDialog() {
 		let dialogRef = this.matDialog.open(QuickProjectFormComponent, {
 			width: '400px',
@@ -307,9 +326,11 @@ export class TaskFormComponent implements OnInit {
 			}
 		});
 	}
+
 	isDirty(): boolean {
 		return this.taskForm.dirty;
 	}
+
 	getEnum(status: string) {
 		return getStatusFromEnum(status);
 	}

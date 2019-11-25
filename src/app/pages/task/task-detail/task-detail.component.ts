@@ -42,11 +42,11 @@ export class TaskDetailComponent implements OnInit {
 	}
 
 	canChangeStatus() {
-		return this.sharedService.getUserLogged().id === this.task.creatorUser.id ||
-			this.sharedService.getUserLogged().id === this.task.targetUser.id;
+		return this.sharedService.getUserLogged()._id === this.task.creatorUser._id ||
+			this.sharedService.getUserLogged()._id === this.task.targetUser._id;
 	}
 
 	canRemoveTask() {
-		return this.sharedService.getUserLogged().id === this.task.creatorUser.id;
+		return this.sharedService.getUserLogged()._id === this.task.creatorUser._id;
 	}
 }

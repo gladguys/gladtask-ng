@@ -54,9 +54,9 @@
 		<mat-form-field fxFlex="150px" appearance="outline">
 			<mat-label>Prioridade</mat-label>
 			<mat-select formControlName="priority" required>
-				<mat-option value="2"> Baixa </mat-option>
-				<mat-option value="1"> Média </mat-option>
-				<mat-option value="0"> Alta </mat-option>
+				<mat-option value="Baixa"> Baixa </mat-option>
+				<mat-option value="Normal"> Normal </mat-option>
+				<mat-option value="Alta"> Alta </mat-option>
 			</mat-select>
 			<gt-form-error
 				*ngIf="taskForm.controls['priority'].errors?.required && !taskForm.controls['priority'].pristine">
@@ -116,7 +116,7 @@
 					{{ user.username }}
 				</mat-option>
 			</mat-select>
-			<mat-hint class="label-atribuir-para-mim" (click)="atribuirParaMim()">Atribuir para mim</mat-hint>
+			<mat-hint class="label-atribuir-para-mim" (click)="assignToMe()">Atribuir para mim</mat-hint>
 			<gt-form-error
 				*ngIf="taskForm.controls['targetUser'].errors?.required && !taskForm.controls['targetUser'].pristine">
 			</gt-form-error>
@@ -155,7 +155,7 @@
 		class="block-side-right">
 
 		<div class="activities-panel">
-			<button *ngIf="task.id !== undefined" mat-raised-button type="button" class="btn-orange btn-open-time-spent"
+			<button *ngIf="task._id !== undefined" mat-raised-button type="button" class="btn-orange btn-open-time-spent"
 				(click)="openBottomSheetTimeSpent()">
 				<fa-icon icon="clock"></fa-icon>
 				Registrar horas
