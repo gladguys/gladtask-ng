@@ -47,6 +47,7 @@ export class InvitationComponent implements OnInit {
 
     denyInvitation(invitation: Invitation) {
         this.invitationService.delete(invitation._id).subscribe(() => {
+            this.getInvitationsAsObservable();
             this.notificationService.notificateSuccess("Convite negado.");
         })
     }

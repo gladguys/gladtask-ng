@@ -26,6 +26,8 @@ export class InvitationService extends BaseService<Invitation> {
 	}
 
 	findAllByUser(userId: string): Observable<Invitation[]> {
+		console.log("teste");
 		return this.http.get<Invitation[]>(`${environment.API}/invitations/user-receiver/${userId}`);
+		
     }
 }
