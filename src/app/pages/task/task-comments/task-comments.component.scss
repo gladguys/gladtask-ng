@@ -1,19 +1,19 @@
 .task-comments {
-	max-height: 300px;
-	overflow: auto;
+  max-height: 300px;
+  overflow: auto;
 
-	.date-comment {
-		font-size: .8rem;
-		color: rgba(0, 0, 0, 0.54);
+  .date-comment {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.54);
 
-		strong {
-			color: rgba(0, 0, 0, 0.74);
-		}
-	}
+    strong {
+      color: rgba(0, 0, 0, 0.74);
+    }
+  }
 
-	[markdown] {
-		::ng-deep p:first-child {
-			margin-top: 3px;
-		}
-	}
+  [markdown] {
+    ::ng-deep p:first-child {
+      margin-top: 3px;
+    }
+  }
 }

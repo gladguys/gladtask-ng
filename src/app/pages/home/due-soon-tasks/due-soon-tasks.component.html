@@ -1,43 +1,61 @@
 <div class="container">
+  <div *ngIf="dueSoonTasks$ | async as dueSoonTasks; else loadingTasks">
+    <h1>Tasks em Alerta</h1>
 
-	<div *ngIf="(dueSoonTasks$ | async) as dueSoonTasks; else loadingTasks">
+    <div
+      *ngIf="dueSoonTasks.length == 0; else showTasks"
+      class="no-tasks-content scrollbar-thin"
+    >
+      <span class="empty-msg">Não há tasks para os próximos dias.</span>
+    </div>
 
-		<h1>Tasks em Alerta</h1>
+    <ng-template #showTasks>
+      <div class="tasks-content scrollbar-thin">
+        <div
+          *ngFor="let task of dueSoonTasks"
+          fxLayout="row wrap"
+          fxLayoutGap="5px"
+          fxLayoutAlign="start center"
+          class="due-task"
+          (click)="showTaskDetail(task)"
+        >
+          <span class="task-title">{{ task.title }}</span>
+          <span fxShow.gt-xs="true" class="fill-remaining-space"></span>
+          <span fxShow.gt-xs="false" class="line-break"></span>
+          <span *ngIf="task.project" class="task-project">{{
+            task.project?.name
+          }}</span>
+          <span
+            class="task-status-label task-status-label--{{
+              task.status | statusColor
+            }}"
+            >{{ task.status }}</span
+          >
+          <div *ngIf="task.dueDate | dateProximity">
+            <div [ngSwitch]="getDateProximityDescription(task)">
+              <span
+                *ngSwitchCase="proximityDate.HOJE"
+                class="task-due-days-hoje"
+                >{{ task.dueDate | dateProximity }}</span
+              >
+              <span
+                *ngSwitchCase="proximityDate.AMANHA"
+                class="task-due-days-amanha"
+                >{{ task.dueDate | dateProximity }}</span
+              >
+              <span *ngSwitchDefault class="task-due-days-depois">{{
+                task.dueDate | dateProximity
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 
-		<div *ngIf="dueSoonTasks.length == 0; else showTasks" class="no-tasks-content scrollbar-thin">
-			<span class="empty-msg">Não há tasks para os próximos dias.</span>
-		</div>
-
-		<ng-template #showTasks>
-			<div class="tasks-content scrollbar-thin">
-				<div
-					*ngFor="let task of dueSoonTasks"
-					fxLayout="row wrap"
-					fxLayoutGap="5px"
-					fxLayoutAlign="start center"
-					class="due-task"
-					(click)="showTaskDetail(task)">
-
-					<span class="task-title">{{ task.title }}</span>
-					<span fxShow.gt-xs="true" class="fill-remaining-space"></span>
-					<span fxShow.gt-xs="false" class="line-break"></span>
-					<span *ngIf="task.project" class="task-project">{{ task.project?.name }}</span>
-					<span class="task-status-label task-status-label--{{ task.status | statusColor }}">{{ task.status }}</span>
-					<div *ngIf="task.dueDate | dateProximity">
-						<div [ngSwitch]="getDateProximityDescription(task)">
-							<span *ngSwitchCase="proximityDate.HOJE" class="task-due-days-hoje">{{ task.dueDate | dateProximity }}</span>
-							<span *ngSwitchCase="proximityDate.AMANHA" class="task-due-days-amanha">{{ task.dueDate | dateProximity }}</span>
-							<span *ngSwitchDefault class="task-due-days-depois">{{ task.dueDate | dateProximity }}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</ng-template>
-	</div>
-
-	<ng-template #loadingTasks>
-		<div class="skeleton-loading">
-			<mat-spinner [diameter]="25"></mat-spinner>
-		</div>
-	</ng-template>
+  <ng-template #loadingTasks>
+    <div class="skeleton-loading">
+      <mat-spinner [diameter]="25"></mat-spinner>
+    </div>
+  </ng-template>
 </div>

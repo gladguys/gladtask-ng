@@ -18,25 +18,25 @@ import { DueSoonTasksComponent } from './due-soon-tasks/due-soon-tasks.component
 import { InvitationComponent } from './invitation/invitation.component';
 
 @NgModule({
-	declarations: [
-		HomeComponent,
-		ProjectsHomeComponent,
-		TasksPerStatusChartComponent,
-		DueSoonTasksComponent,
-		InvitationComponent
-	],
-	imports: [
-		FormsModule,
-		FlexLayoutModule,
-		SidebarModule.forRoot(),
-		TaskModule,
-		UserModule,
-		InboxModule,
-		RouterModule,
-		ProjectModule,
-		CoreModule,
-		SharedModule
-	],
-	exports: [ProjectsHomeComponent]
+  declarations: [
+    HomeComponent,
+    ProjectsHomeComponent,
+    TasksPerStatusChartComponent,
+    DueSoonTasksComponent,
+    InvitationComponent,
+  ],
+  imports: [
+    FormsModule,
+    FlexLayoutModule,
+    SidebarModule.forRoot(),
+    TaskModule,
+    UserModule,
+    InboxModule,
+    RouterModule,
+    ProjectModule,
+    CoreModule,
+    SharedModule,
+  ],
+  exports: [ProjectsHomeComponent],
 })
-export class HomeModule { }
+export class HomeModule {}

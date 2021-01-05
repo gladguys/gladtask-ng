@@ -4,25 +4,19 @@ import { MatGridListModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { InboxComponent, DialogJustMockup } from './inbox.component';
-import { CoreModule } from "../../core/core.module";
-import { SharedModule } from "../../shared/shared.module";
+import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-	declarations: [
-        InboxComponent,
-        DialogJustMockup
-	],
-	imports: [
-		NgSelectModule,
-		MatGridListModule,
-		FlexLayoutModule,
-		CoreModule,
-		SharedModule
-	],
-	exports: [
-    	InboxComponent,
-    	DialogJustMockup
-	],
-	entryComponents: [DialogJustMockup]
+  declarations: [InboxComponent, DialogJustMockup],
+  imports: [
+    NgSelectModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    CoreModule,
+    SharedModule,
+  ],
+  exports: [InboxComponent, DialogJustMockup],
+  entryComponents: [DialogJustMockup],
 })
-export class InboxModule { }
+export class InboxModule {}

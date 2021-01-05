@@ -1,19 +1,19 @@
 <div *ngIf="tasksDueToday.length">
-	<h2>Encerram hoje</h2>
-	<task-grid [rowData]="tasksDueToday"></task-grid>
+  <h2>Encerram hoje</h2>
+  <task-grid [rowData]="tasksDueToday"></task-grid>
 </div>
 
 <div *ngIf="tasksNotDueToday.length">
-	<h2>Proximas a encerrar</h2>
-	<task-grid [rowData]="tasksNotDueToday"></task-grid>
+  <h2>Proximas a encerrar</h2>
+  <task-grid [rowData]="tasksNotDueToday"></task-grid>
 </div>
 
 <div *ngIf="tasksDelayed.length">
-	<h2>Atrasadas</h2>
-	<task-grid [rowData]="tasksDelayed"></task-grid>
+  <h2>Atrasadas</h2>
+  <task-grid [rowData]="tasksDelayed"></task-grid>
 </div>
 
 <div *ngIf="tasksFinished.length">
-	<h2>Últimas Concluídas</h2>
-	<task-grid [rowData]="tasksFinished"></task-grid>
+  <h2>Últimas Concluídas</h2>
+  <task-grid [rowData]="tasksFinished"></task-grid>
 </div>

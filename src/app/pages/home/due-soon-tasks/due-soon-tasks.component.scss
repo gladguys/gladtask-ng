@@ -1,107 +1,105 @@
-@import "../../../../variables";
+@import '../../../../variables';
 
 .container {
+  h1 {
+    margin-top: 0;
+  }
 
-	h1 {
-		margin-top: 0;
-	}
+  .tasks-content {
+    margin-top: 10px;
+    max-height: 163px;
+    padding: 4px 8px;
+    overflow: auto;
+    border: 1px solid $border;
+    border-radius: 8px;
 
-	.tasks-content {
-	  	margin-top: 10px;
-		max-height: 163px;
-		padding: 4px 8px;
-		overflow: auto;
-		border: 1px solid $border;
-		border-radius: 8px;
+    .due-task:hover {
+      cursor: pointer;
+    }
 
-		.due-task:hover {
-			cursor: pointer;
-		}
+    .due-task {
+      padding: 10px;
+      border-bottom: 1px solid $border-light;
 
-		.due-task {
-			padding: 10px;
-			border-bottom: 1px solid $border-light;
-			
+      &:last-child {
+        border-bottom: 0;
+      }
 
-			&:last-child {
-				border-bottom: 0;
-			}
+      .task-project,
+      .task-status-label {
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        color: $accent-darker;
+        border: 1px solid $accent-darker;
+        border-radius: 4px;
+      }
 
-			.task-project, .task-status-label {
-				padding: 2px 8px;
-				font-size: .8rem;
-				color: $accent-darker;
-				border: 1px solid $accent-darker;
-				border-radius: 4px;
-			}
+      .task-due-days-hoje {
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        color: red;
+        border: 1px solid red;
+        border-radius: 4px;
+      }
+      .task-due-days-amanha {
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        color: yellow;
+        border: 1px solid yellow;
+        border-radius: 4px;
+      }
+      .task-due-days-depois {
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        color: blue;
+        border: 1px solid blue;
+        border-radius: 4px;
+      }
 
-			.task-due-days-hoje {
-				padding: 2px 8px;
-				font-size: .8rem;
-				color: red;
-				border: 1px solid red;
-				border-radius: 4px;
-			}
-			.task-due-days-amanha {
-				padding: 2px 8px;
-				font-size: .8rem;
-				color: yellow;
-				border: 1px solid yellow;
-				border-radius: 4px;
-			}
-			.task-due-days-depois {
-				padding: 2px 8px;
-				font-size: .8rem;
-				color: blue;
-				border: 1px solid blue;
-				border-radius: 4px;
-			}
+      .task-status-label {
+        &.task-status-label--red {
+          color: red;
+          border-color: red;
+        }
 
-			.task-status-label {
-				&.task-status-label--red {
-					color: red;
-					border-color: red;
-				}
+        &.task-status-labelr--green {
+          color: green;
+          border-color: green;
+        }
 
-				&.task-status-labelr--green {
-					color: green;
-					border-color: green;
-				}
+        &.task-status-label--blue {
+          color: blue;
+          border-color: blue;
+        }
 
-				&.task-status-label--blue {
-					color: blue;
-					border-color: blue;
-				}
+        &.task-status-label--grey {
+          color: grey;
+          border-color: grey;
+        }
 
-				&.task-status-label--grey {
-					color: grey;
-					border-color: grey;
-				}
+        &.task-status-label--yellow {
+          color: yellow;
+          border-color: yellow;
+        }
 
-				&.task-status-label--yellow {
-					color: yellow;
-					border-color: yellow;
-				}
+        &.task-status-label--orange {
+          color: orange;
+          border-color: orange;
+        }
+      }
+    }
+  }
 
-				&.task-status-label--orange {
-					color: orange;
-					border-color: orange;
-				}
-			}
-		}
-	}
-
-	.skeleton-loading {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 160px;
-	}
+  .skeleton-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+  }
 }
 
 @media (max-width: 599px) {
-
-	.task-title {
-		margin-bottom: 8px;
-	}
+  .task-title {
+    margin-bottom: 8px;
+  }
 }

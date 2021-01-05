@@ -1,22 +1,21 @@
 .time-spent-container {
-	padding: 8px 0;
-	
-	mat-form-field {
-		::ng-deep .mat-form-field-wrapper {
-			padding-bottom: 0;
-		}
-	}
+  padding: 8px 0;
+
+  mat-form-field {
+    ::ng-deep .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
 }
 
 .fake-component {
-	display: none;
+  display: none;
 }
 
 @media (max-width: 320px) {
-
-	.fake-component {
-		display: flex;
-		flex: 0 0 60px;
-		margin-right: 0 !important;
-	}
+  .fake-component {
+    display: flex;
+    flex: 0 0 60px;
+    margin-right: 0 !important;
+  }
 }

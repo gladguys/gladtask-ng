@@ -1,35 +1,35 @@
 <div class="dropdown">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="dropdown__content"
+  >
+    <div
+      [style.background-image]="
+        userLogged.profilePhoto | makeTrustedImage: 'style'
+      "
+      class="image-rounded profile-photo"
+    ></div>
+    <span>{{ userLogged.username }}</span>
+    <span class="user-email">{{ userLogged.email }}</span>
+  </div>
 
-	<div
-		fxLayout="column"
-		fxLayoutAlign="center center"
-		class="dropdown__content">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    class="dropdown__button-container"
+  >
+    <button mat-stroked-button routerLink="{{ goToUserInfo(userLogged._id) }}">
+      Minha Conta
+    </button>
 
-		<div
-			[style.background-image]="userLogged.profilePhoto | makeTrustedImage: 'style'"
-			class="image-rounded profile-photo">
-		</div>
-		<span>{{ userLogged.username }}</span>
-		<span class="user-email">{{ userLogged.email }}</span>
-	</div>
-
-	<div
-		fxLayout="row"
-		fxLayoutAlign="space-between center"
-		class="dropdown__button-container">
-
-		<button
-			mat-stroked-button
-			routerLink="{{goToUserInfo(userLogged._id)}}">
-			Minha Conta
-		</button>
-
-		<button
-			mat-stroked-button
-			class="button-logout"
-			aria-label="logout"
-			(click)="logout()">
-			Sair
-		</button>
-	</div>
+    <button
+      mat-stroked-button
+      class="button-logout"
+      aria-label="logout"
+      (click)="logout()"
+    >
+      Sair
+    </button>
+  </div>
 </div>

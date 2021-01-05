@@ -1,12 +1,19 @@
-<mat-list *ngIf="taskChanges && taskChanges.length > 0" class="mat-list-task-changes">
-	<h4>Histórico</h4>
-	<div class="mat-list-task-changes__content scrollbar-thin">
-		<div *ngFor="let taskChanges of taskChangesGroupedBy">
-			<h3 mat-subheader>{{ taskChanges.key | date: 'dd/MM/yyyy HH:mm:ss' }}</h3>
-			<mat-list-item *ngFor="let taskChange of taskChanges.value">
-				<span><strong>{{ taskChange.userFirstName }}</strong> modificou <strong>{{ taskChange.whatHasChanged }}</strong> de {{ taskChange.oldValue }} para {{ taskChange.newValue }}</span>
-			</mat-list-item>
-			<mat-divider></mat-divider>
-		</div>
-	</div>
+<mat-list
+  *ngIf="taskChanges && taskChanges.length > 0"
+  class="mat-list-task-changes"
+>
+  <h4>Histórico</h4>
+  <div class="mat-list-task-changes__content scrollbar-thin">
+    <div *ngFor="let taskChanges of taskChangesGroupedBy">
+      <h3 mat-subheader>{{ taskChanges.key | date: 'dd/MM/yyyy HH:mm:ss' }}</h3>
+      <mat-list-item *ngFor="let taskChange of taskChanges.value">
+        <span
+          ><strong>{{ taskChange.userFirstName }}</strong> modificou
+          <strong>{{ taskChange.whatHasChanged }}</strong> de
+          {{ taskChange.oldValue }} para {{ taskChange.newValue }}</span
+        >
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
 </mat-list>

@@ -1,58 +1,52 @@
-<div
-	fxLayout="row wrap" 
-	fxLayout.lt-sm="column"
-	fxLayoutGap.lt-sm="10px">
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
+  <mat-form-field
+    fxFlex="1 1 30%"
+    fxFlex.lt-sm="1 1 100%"
+    appearance="outline"
+    class="form-field-search-table mat-form-field--without-label"
+  >
+    <fa-icon icon="search" matPrefix></fa-icon>
+    <input
+      matInput
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Filtrar..."
+    />
+  </mat-form-field>
 
-	<mat-form-field
-		fxFlex="1 1 30%"
-		fxFlex.lt-sm="1 1 100%"
-		appearance="outline"
-		class="form-field-search-table mat-form-field--without-label">
+  <mat-paginator
+    fxFlex="1 1 70%"
+    fxFlex.lt-sm="1 1 100%"
+    [length]="5"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25]"
+  >
+  </mat-paginator>
 
-		<fa-icon icon="search" matPrefix></fa-icon>
-		<input
-			matInput
-			(keyup)="applyFilter($event.target.value)"
-			placeholder="Filtrar...">
-	</mat-form-field>
+  <mat-table fxFlex="1 0 100%" [dataSource]="dataSource" matSort>
+    <ng-container
+      *ngFor="let col of columnDefinitions"
+      [matColumnDef]="col.name"
+    >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ col.title }}
+      </mat-header-cell>
 
-	<mat-paginator
-		fxFlex="1 1 70%"
-		fxFlex.lt-sm="1 1 100%"
-		[length]="5"
-		[pageSize]="5"
-		[pageSizeOptions]="[5, 10, 25]">
-	</mat-paginator>
+      <mat-cell
+        *matCellDef="let row"
+        ng-style
+        [ngClass]="{
+          novo: row.status == 'Novo' && col.name == 'status',
+          aprovado: row.status == 'Aprovado' && col.name == 'status',
+          desaprovado: row.status == 'Desaprovado' && col.name == 'status',
+          atribuido: row.status == 'Atribuido' && col.name == 'status',
+          resolvido: row.status == 'Resolvido' && col.name == 'status'
+        }"
+      >
+        {{ getProperty(row, col.name) }}
+      </mat-cell>
+    </ng-container>
 
-	<mat-table 
-		fxFlex="1 0 100%"
-		[dataSource]="dataSource"
-		matSort>
-
-		<ng-container
-			*ngFor="let col of columnDefinitions"
-			[matColumnDef]="col.name">
-
-			<mat-header-cell 
-				*matHeaderCellDef 
-				mat-sort-header>
-				{{ col.title }}
-			</mat-header-cell>
-
-			<mat-cell *matCellDef="let row" ng-style
-			[ngClass]="{
-				'novo' : row.status == 'Novo' && col.name == 'status',
-				'aprovado' : row.status == 'Aprovado' && col.name == 'status',
-				'desaprovado' : row.status == 'Desaprovado' && col.name == 'status',
-				'atribuido' : row.status == 'Atribuido' && col.name == 'status',
-				'resolvido' : row.status == 'Resolvido' && col.name == 'status'
-
-			 }">
-				{{ getProperty(row, col.name) }}
-			</mat-cell>
-		</ng-container>
-
-		<!--TODO Decidir onde isso vai ficar
+    <!--TODO Decidir onde isso vai ficar
 		<ng-container matColumnDef="edit">
 			<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
 			<mat-cell *matCellDef="let row" >
@@ -66,7 +60,10 @@
 			</mat-cell>
 		</ng-container>!-->
 
-		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-		<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClick(row)"></mat-row>
-	</mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="onClick(row)"
+    ></mat-row>
+  </mat-table>
 </div>

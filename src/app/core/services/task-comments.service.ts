@@ -1,19 +1,21 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { TaskComment } from "../../shared/models/task-comment.model";
+import { TaskComment } from '../../shared/models/task-comment.model';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskCommentsService {
-	commentsSubject: BehaviorSubject<TaskComment[]> = new BehaviorSubject<TaskComment[]>(null);
-	
-	getUpdatedComments(): Observable<TaskComment[]> {
-		return this.commentsSubject.asObservable();
-	}
+  commentsSubject: BehaviorSubject<TaskComment[]> = new BehaviorSubject<
+    TaskComment[]
+  >(null);
 
-	setUpdatedComments(taskComments: TaskComment[]) {
-		this.commentsSubject.next(taskComments);
-	}
+  getUpdatedComments(): Observable<TaskComment[]> {
+    return this.commentsSubject.asObservable();
+  }
+
+  setUpdatedComments(taskComments: TaskComment[]) {
+    this.commentsSubject.next(taskComments);
+  }
 }

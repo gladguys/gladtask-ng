@@ -3,8 +3,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-	faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip,
-	faPause, faPlay, faPlus, faThLarge
+  faBars,
+  faCircle,
+  faCheck,
+  faExpand,
+  faInfo,
+  faPaperclip,
+  faPause,
+  faPlay,
+  faPlus,
+  faThLarge,
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -18,25 +26,36 @@ import { SharedModule } from '../../shared/shared.module';
 import { TeamListSidenavComponent } from './team-list-sidenav/team-list-sidenav.component';
 
 @NgModule({
-	declarations: [
-		TeamFormComponent,
-		TeamDetailComponent,
-		TeamListSidenavComponent
-	],
-	imports: [
-		TeamRoutingModule,
-		FlexLayoutModule,
-		GTDatatableModule,
-		GTFormsModule,
-		FontAwesomeModule,
-		NgSelectModule,
-		CoreModule,
-		SharedModule
-	],
-	exports: [TeamListSidenavComponent]
+  declarations: [
+    TeamFormComponent,
+    TeamDetailComponent,
+    TeamListSidenavComponent,
+  ],
+  imports: [
+    TeamRoutingModule,
+    FlexLayoutModule,
+    GTDatatableModule,
+    GTFormsModule,
+    FontAwesomeModule,
+    NgSelectModule,
+    CoreModule,
+    SharedModule,
+  ],
+  exports: [TeamListSidenavComponent],
 })
 export class TeamModule {
-	constructor() {
-		library.add(faBars, faCircle, faCheck, faExpand, faInfo, faPaperclip, faPause, faPlay, faPlus, faThLarge);
-	}
+  constructor() {
+    library.add(
+      faBars,
+      faCircle,
+      faCheck,
+      faExpand,
+      faInfo,
+      faPaperclip,
+      faPause,
+      faPlay,
+      faPlus,
+      faThLarge
+    );
+  }
 }

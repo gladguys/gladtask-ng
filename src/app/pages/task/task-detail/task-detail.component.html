@@ -1,31 +1,56 @@
 <div class="col-md-10">
-	<div class="box box-info">
-    	<div class="box-header with-border">
-			<h3>Detalhes da task: {{task.title}}</h3>
-		</div>
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3>Detalhes da task: {{ task.title }}</h3>
+    </div>
 
-		<form class="form-horizontal">
-			<div class="box-body">
-				<ul>
-					<li>
-						<b>Prioridade: </b> <span>{{ task.priority }}</span>
-						<span><b>Criado por: </b><span>{{task.creatorUser?.email}}</span></span>
-					</li>
-					<li>
-						<b>Situação: </b> <span>{{ task.status }}</span>
-						<span><b>Atribuido ao: </b><span>{{task.targetUser?.email}}</span></span>
-					</li>
-					<li>
-						<b>Data de Criação: </b> <span>{{ task.creationDate |  date:'dd/MM/yyyy' }}</span>
-						<span><b>Descrição: </b><span>{{task.description }}</span></span>
-					</li>
-				</ul>
+    <form class="form-horizontal">
+      <div class="box-body">
+        <ul>
+          <li>
+            <b>Prioridade: </b> <span>{{ task.priority }}</span>
+            <span
+              ><b>Criado por: </b
+              ><span>{{ task.creatorUser?.email }}</span></span
+            >
+          </li>
+          <li>
+            <b>Situação: </b> <span>{{ task.status }}</span>
+            <span
+              ><b>Atribuido ao: </b
+              ><span>{{ task.targetUser?.email }}</span></span
+            >
+          </li>
+          <li>
+            <b>Data de Criação: </b>
+            <span>{{ task.creationDate | date: 'dd/MM/yyyy' }}</span>
+            <span
+              ><b>Descrição: </b><span>{{ task.description }}</span></span
+            >
+          </li>
+        </ul>
 
-				<gt-task-changes></gt-task-changes>
+        <gt-task-changes></gt-task-changes>
 
-				<td><button  *ngIf="canChangeStatus()" class="btn btn-primary" (click)="edit(task.number)">Editar</button></td>
-				<td><button *ngIf="canRemoveTask()" class="btn btn-danger" (click)="remover(task._id)">Remover</button></td>
-			</div>
-		</form>
-	</div>
+        <td>
+          <button
+            *ngIf="canChangeStatus()"
+            class="btn btn-primary"
+            (click)="edit(task.number)"
+          >
+            Editar
+          </button>
+        </td>
+        <td>
+          <button
+            *ngIf="canRemoveTask()"
+            class="btn btn-danger"
+            (click)="remover(task._id)"
+          >
+            Remover
+          </button>
+        </td>
+      </div>
+    </form>
+  </div>
 </div>

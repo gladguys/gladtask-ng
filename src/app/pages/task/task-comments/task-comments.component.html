@@ -1,6 +1,9 @@
 <div class="task-comments">
-	<div *ngFor="let comment of (taskComments$ | async)">
-		<span class="date-comment">Em {{ comment.date | date: 'd MMM y H:mm:ss' }}, <strong>{{ comment.user.firstName }}</strong> comentou:</span>
-		<div markdown ngPreserveWhitespaces>{{ comment.text }}</div>
-	</div>
+  <div *ngFor="let comment of taskComments$ | async">
+    <span class="date-comment"
+      >Em {{ comment.date | date: 'd MMM y H:mm:ss' }},
+      <strong>{{ comment.user.firstName }}</strong> comentou:</span
+    >
+    <div markdown ngPreserveWhitespaces>{{ comment.text }}</div>
+  </div>
 </div>

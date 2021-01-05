@@ -1,81 +1,83 @@
 <form
-	fxLayout="row wrap"
-	fxLayoutGap="20px"
-	[formGroup]="projectForm"
-	role="form"
-	(submit)="onSubmit()">
+  fxLayout="row wrap"
+  fxLayoutGap="20px"
+  [formGroup]="projectForm"
+  role="form"
+  (submit)="onSubmit()"
+>
+  <div fxFlex="0 0 150px" class="img-project-container">
+    <input
+      #fileInput
+      hidden
+      type="file"
+      accept="image/*"
+      (change)="showPreviewImage(fileInput.files)"
+    />
+    <div
+      class="image-rounded image--with-hover-msg"
+      [ngClass]="{ 'image-empty': fileInput.files.length === 0 }"
+      (click)="fileInput.click()"
+      [ngStyle]="{ 'background-image': 'url(' + previewImage + ')' }"
+    >
+      <fa-icon icon="camera"></fa-icon>
+    </div>
+  </div>
 
-	<div fxFlex="0 0 150px" class="img-project-container">
-		<input #fileInput hidden type="file" accept='image/*' (change)="showPreviewImage(fileInput.files)">
-		<div
-			class="image-rounded image--with-hover-msg"
-			[ngClass]="{'image-empty': fileInput.files.length === 0}"
-			(click)="fileInput.click()"
-			[ngStyle]="{'background-image': 'url('+ previewImage +')'}">
+  <div
+    fxLayout="row wrap"
+    fxFlex="1 0 calc(100% - 170px)"
+    fxFlex.lt-sm="0 1 290px"
+  >
+    <mat-form-field
+      fxFlex="0 1 400px"
+      fxFlex.lt-sm="0 1 290px"
+      appearance="outline"
+    >
+      <mat-label>Nome do Projeto</mat-label>
+      <input matInput formControlName="name" required />
+      <gt-form-error
+        *ngIf="
+          projectForm.controls['name'].errors?.required &&
+          !projectForm.controls['name'].pristine
+        "
+      ></gt-form-error>
+    </mat-form-field>
 
-			<fa-icon icon="camera"></fa-icon>
-		</div>
-	</div>
+    <span class="line-break"></span>
 
-	<div
-		fxLayout="row wrap"
-		fxFlex="1 0 calc(100% - 170px)"
-		fxFlex.lt-sm="0 1 290px">
+    <mat-form-field
+      fxFlex="0 1 500px"
+      fxFlex.lt-sm="1 1 290px"
+      appearance="outline"
+    >
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="description" required> </textarea>
+    </mat-form-field>
 
-		<mat-form-field
-			fxFlex="0 1 400px"
-			fxFlex.lt-sm="0 1 290px"
-			appearance="outline">
+    <span class="line-break"></span>
 
-			<mat-label>Nome do Projeto</mat-label>
-			<input
-				matInput
-				formControlName="name"
-				required>
-			<gt-form-error *ngIf="projectForm.controls['name'].errors?.required && !projectForm.controls['name'].pristine"></gt-form-error>
-		</mat-form-field>
+    <mat-form-field
+      fxFlex="0 1 300px"
+      fxFlex.lt-sm="0 1 290px"
+      appearance="outline"
+    >
+      <mat-label>Equipe</mat-label>
+      <mat-select formControlName="team" [compareWith]="compareFn">
+        <mat-option *ngFor="let team of possibleTeams$ | async" [value]="team">
+          {{ team.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-		<span class="line-break"></span>
-
-		<mat-form-field
-			fxFlex="0 1 500px"
-			fxFlex.lt-sm="1 1 290px"
-			appearance="outline">
-
-			<mat-label>Descrição</mat-label>
-			<textarea
-				matInput
-				formControlName="description"
-				required>
-			</textarea>
-		</mat-form-field>
-
-		<span class="line-break"></span>
-
-		<mat-form-field
-			fxFlex="0 1 300px"
-			fxFlex.lt-sm="0 1 290px"
-			appearance="outline">
-
-			<mat-label>Equipe</mat-label>
-			<mat-select
-				formControlName="team"
-				[compareWith]="compareFn">
-
-				<mat-option *ngFor="let team of (possibleTeams$ | async)" [value]="team">
-					{{team.name}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-
-		<div fxFlex="1 1 100%">
-			<button
-				mat-flat-button
-				type="submit"
-				class="btn-green"
-				[disabled]="!projectForm.valid">
-				Salvar
-			</button>
-		</div>
-	</div>
+    <div fxFlex="1 1 100%">
+      <button
+        mat-flat-button
+        type="submit"
+        class="btn-green"
+        [disabled]="!projectForm.valid"
+      >
+        Salvar
+      </button>
+    </div>
+  </div>
 </form>

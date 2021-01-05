@@ -1,186 +1,187 @@
-@import "../../../variables";
+@import '../../../variables';
 
 .kanban {
-	max-height: calc(100vh - 94px);
-	overflow: auto;
+  max-height: calc(100vh - 94px);
+  overflow: auto;
 
-	.kanban__card {
-		padding: 12px;
-		background-color: rgb(252, 252, 252);
-		border: 1px solid rgb(242, 242, 242);
-		border-radius: 8px;
+  .kanban__card {
+    padding: 12px;
+    background-color: rgb(252, 252, 252);
+    border: 1px solid rgb(242, 242, 242);
+    border-radius: 8px;
 
-		h3 {
-			margin-bottom: 8px;
-		}
+    h3 {
+      margin-bottom: 8px;
+    }
 
-		.kanban__card__list {
-			padding: 4px 4px 0 4px;
-			min-height: 185px;
-    		max-height: calc(100% - 30px);
-			overflow: auto;
-			border: 1px solid rgba(0, 0, 0, .06);
-			border-radius: 16px;
-		}
+    .kanban__card__list {
+      padding: 4px 4px 0 4px;
+      min-height: 185px;
+      max-height: calc(100% - 30px);
+      overflow: auto;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+    }
 
-		.kanban__card__list__box {
-			display: flex;
-			margin-bottom: 4px;
-			padding: 8px;
-			cursor: grab;
-			background-color: rgb(232, 232, 232);
-			border-radius: 12px;
+    .kanban__card__list__box {
+      display: flex;
+      margin-bottom: 4px;
+      padding: 8px;
+      cursor: grab;
+      background-color: rgb(232, 232, 232);
+      border-radius: 12px;
 
-			> label {
-				font-size: .8rem;
-				cursor: grab;
-			}
+      > label {
+        font-size: 0.8rem;
+        cursor: grab;
+      }
 
-			> button {
-				height: 30px;
-				line-height: 1;
-				background-color: rgb(252, 252, 252);
+      > button {
+        height: 30px;
+        line-height: 1;
+        background-color: rgb(252, 252, 252);
 
-				::ng-deep .mat-button-wrapper {
-					padding: 2px 0;
-				}
-			}
+        ::ng-deep .mat-button-wrapper {
+          padding: 2px 0;
+        }
+      }
 
-			&.cdk-drag-placeholder {
-				opacity: 0;
-				cursor: grabbing;
-			}
-		}
+      &.cdk-drag-placeholder {
+        opacity: 0;
+        cursor: grabbing;
+      }
+    }
 
-		&.kanban__card--waiting {
-			background-color: rgb(255, 245, 180);
-			border-color: rgb(245, 235, 170);
+    &.kanban__card--waiting {
+      background-color: rgb(255, 245, 180);
+      border-color: rgb(245, 235, 170);
 
-			.kanban__card__list__box {
-				background-color: rgb(225, 225, 175);
+      .kanban__card__list__box {
+        background-color: rgb(225, 225, 175);
 
-				> button {
-					background-color: rgb(255, 245, 180);
-				}
-			}
-		}
+        > button {
+          background-color: rgb(255, 245, 180);
+        }
+      }
+    }
 
-		&.kanban__card--doing {
-			background-color: rgb(185, 215, 255);
-			border-color: rgb(175, 205, 245);
+    &.kanban__card--doing {
+      background-color: rgb(185, 215, 255);
+      border-color: rgb(175, 205, 245);
 
-			.kanban__card__list__box {
-				background-color: rgb(165, 195, 235);
+      .kanban__card__list__box {
+        background-color: rgb(165, 195, 235);
 
-				> button {
-					background-color: rgb(185, 215, 255);
-				}
-			}
-		}
+        > button {
+          background-color: rgb(185, 215, 255);
+        }
+      }
+    }
 
-		&.kanban__card--done {
-			background-color: rgb(195, 245, 195);
-			border-color: rgb(185, 235, 185);
+    &.kanban__card--done {
+      background-color: rgb(195, 245, 195);
+      border-color: rgb(185, 235, 185);
 
-			.kanban__card__list__box {
-				background-color: rgb(175, 225, 175);
+      .kanban__card__list__box {
+        background-color: rgb(175, 225, 175);
 
-				> button {
-					background-color: rgb(195, 245, 195);
-				}
-			}
-		}
-	}
+        > button {
+          background-color: rgb(195, 245, 195);
+        }
+      }
+    }
+  }
 }
 
-.task-project, .task-status-label {
-	padding: 2px 8px;
-	font-size: .8rem;
-	color: $accent-darker;
-	border: 1px solid $accent-darker;
-	border-radius: 4px;
+.task-project,
+.task-status-label {
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  color: $accent-darker;
+  border: 1px solid $accent-darker;
+  border-radius: 4px;
 }
 
 .task-due-days-hoje {
-	padding: 2px 8px;
-	font-size: .8rem;
-	color: red;
-	border: 1px solid red;
-	border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  color: red;
+  border: 1px solid red;
+  border-radius: 4px;
 }
 .task-due-days-amanha {
-	padding: 2px 8px;
-	font-size: .8rem;
-	color: yellow;
-	border: 1px solid yellow;
-	border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  color: yellow;
+  border: 1px solid yellow;
+  border-radius: 4px;
 }
 .task-due-days-depois {
-	padding: 2px 8px;
-	font-size: .8rem;
-	color: blue;
-	border: 1px solid blue;
-	border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  color: blue;
+  border: 1px solid blue;
+  border-radius: 4px;
 }
 
 .task-status-label {
-	&.task-status-label--red {
-		color: red;
-		border-color: red;
-	}
+  &.task-status-label--red {
+    color: red;
+    border-color: red;
+  }
 
-	&.task-status-labelr--green {
-		color: green;
-		border-color: green;
-	}
+  &.task-status-labelr--green {
+    color: green;
+    border-color: green;
+  }
 
-	&.task-status-label--blue {
-		color: blue;
-		border-color: blue;
-	}
+  &.task-status-label--blue {
+    color: blue;
+    border-color: blue;
+  }
 
-	&.task-status-label--grey {
-		color: grey;
-		border-color: grey;
-	}
+  &.task-status-label--grey {
+    color: grey;
+    border-color: grey;
+  }
 
-	&.task-status-label--yellow {
-		color: yellow;
-		border-color: yellow;
-	}
+  &.task-status-label--yellow {
+    color: yellow;
+    border-color: yellow;
+  }
 
-	&.task-status-label--orange {
-		color: orange;
-		border-color: orange;
-	}
+  &.task-status-label--orange {
+    color: orange;
+    border-color: orange;
+  }
 }
 
 .participant__image {
-	margin-bottom: 8px;
-	height: 30px;
-	width: 30px;
-	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+  height: 30px;
+  width: 30px;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .profile-photo {
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .cdk-drag-preview {
-	overflow: hidden;
-	box-sizing: border-box;
-	border-radius: 16px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .cdk-drag-animating {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .kanban__card__list.cdk-drop-list-dragging {
-	cursor: grabbing;
-	box-shadow: inset 0 0 12px rgba(0, 0, 0, .1);
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  cursor: grabbing;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

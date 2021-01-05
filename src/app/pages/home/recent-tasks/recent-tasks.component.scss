@@ -1,16 +1,16 @@
-@import "../../../../variables";
+@import '../../../../variables';
 
 .container {
-	padding-top: 10px;
+  padding-top: 10px;
 
-	.flowable {
-		overflow: auto;
-	}
+  .flowable {
+    overflow: auto;
+  }
 
-	.skeleton-loading {
-		display: flex;
-		justify-content: center;
-		height: 160px;
-		align-items: center;
-	}
+  .skeleton-loading {
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    align-items: center;
+  }
 }

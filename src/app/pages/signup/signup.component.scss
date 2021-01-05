@@ -1,28 +1,28 @@
-@import "../../../variables";
+@import '../../../variables';
 
 .signup-container {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 
-	form {
-		padding: 15px;
-		border: 1px solid $border;
-		border-radius: 10px;
+  form {
+    padding: 15px;
+    border: 1px solid $border;
+    border-radius: 10px;
 
-		h2 {
-			margin-top: 0;
-			text-align: center;
-		}
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
 
-		.image-container {
-			margin-bottom: 10px;
-		}
+    .image-container {
+      margin-bottom: 10px;
+    }
 
-		.icon-success {
-			color: $green;
-		}
+    .icon-success {
+      color: $green;
+    }
 
-		.btn-salvar-signup {
-			width: 100px;
-		}
-	}
+    .btn-salvar-signup {
+      width: 100px;
+    }
+  }
 }

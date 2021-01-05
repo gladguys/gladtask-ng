@@ -11,28 +11,24 @@ import { GTFormErrorComponent } from './gt-form-error/gt-form-error.component';
 import { GTFormSuccessComponent } from './gt-form-success/gt-form-success.component';
 
 @NgModule({
-	declarations: [
-		GTFormErrorComponent,
-		GTFormSuccessComponent
-	],
-	imports: [
-		CommonModule,
-		MaterialModule,
-		FormsModule,
-		ReactiveFormsModule,
-		FontAwesomeModule
-    ],
-	exports: [
-		ReactiveFormsModule,
-		FormsModule,
-		MaterialModule,
-		GTFormErrorComponent,
-		GTFormSuccessComponent
-    ]
+  declarations: [GTFormErrorComponent, GTFormSuccessComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
+  exports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule,
+    GTFormErrorComponent,
+    GTFormSuccessComponent,
+  ],
 })
 export class GTFormsModule {
-
-	constructor() {
-		library.add(faCheckDouble);
-	}
+  constructor() {
+    library.add(faCheckDouble);
+  }
 }
