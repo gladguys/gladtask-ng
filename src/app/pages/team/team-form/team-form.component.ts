@@ -75,7 +75,7 @@ export class TeamFormComponent implements OnInit {
 			}
 			this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
 			this.router.navigate(['/teams', team._id]);
-		}, e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+		}, e => this.notificationService.notificateFailure("Falha ao criar equipe"));
 	}
 
 	private populateForm(team: Team) {

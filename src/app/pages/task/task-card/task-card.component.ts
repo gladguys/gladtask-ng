@@ -83,7 +83,7 @@ export class TaskCardComponent implements OnInit {
 					this.task.taskChanges.push(this.buildTaskChange("Título", this.task.title, value));
 					this.task.title = value;
 					this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-						e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+						e => this.notificationService.notificateFailure("Falha ao criar equipe"));
 				});
 			
 			this.taskForm.controls['description'].valueChanges
@@ -92,14 +92,14 @@ export class TaskCardComponent implements OnInit {
 					this.task.taskChanges.push(this.buildTaskChange("Descrição", this.task.description, value));
 					this.task.description = value;
 					this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-						e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+						e => this.notificationService.notificateFailure("Falha ao criar equipe"));
 				});
 			
 			this.taskForm.controls['status'].valueChanges.subscribe(value => {
 				this.task.taskChanges.push(this.buildTaskChange("Situação", this.task.status, value));
 				this.task.status= value;
 				this.taskService.createOrUpdate(this.task).subscribe(() => this.gladService.openSnack("task editada"),
-					e => this.notificationService.notificateFailure("Falha ao criar equpe"));
+					e => this.notificationService.notificateFailure("Falha ao criar equipe"));
 			});
 		}
 	}
