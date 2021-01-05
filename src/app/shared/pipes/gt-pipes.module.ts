@@ -6,6 +6,7 @@ import { GroupByPipe } from "./group-by.pipe";
 import { StatusColorPipe } from "./status-color.pipe";
 import { MakeTrustedImage } from "./make-trusted-image.pipe";
 import { HourMinutePipe } from "./hour-minute.pipe";
+import { TruncEllipsesTextPipe } from './trunc-ellipses-text.pipe';
 
 @NgModule({
 	declarations: [
@@ -13,14 +14,16 @@ import { HourMinutePipe } from "./hour-minute.pipe";
 		HourMinutePipe,
 		GroupByPipe,
 		StatusColorPipe,
-		MakeTrustedImage
+		MakeTrustedImage,
+		TruncEllipsesTextPipe
 	],
 	exports: [
 		DateProximityPipe,
 		HourMinutePipe,
 		GroupByPipe,
 		StatusColorPipe,
-		MakeTrustedImage
+		MakeTrustedImage,
+		TruncEllipsesTextPipe
 	],
 	providers: [
 		DatePipe,
