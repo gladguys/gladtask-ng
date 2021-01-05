@@ -40,6 +40,8 @@ export class TaskTimeSpentComponent implements OnInit {
 		let timeSpent = new TimeSpent();
 
 		timeSpent.gladname = this.sharedService.getUserLogged().username;
+		timeSpent.firstName = this.sharedService.getUserLogged().firstName;
+		timeSpent.lastName = this.sharedService.getUserLogged().lastName;
 		timeSpent.minutesSpent = this.calculateMinutes(formValues.timeSpent);
 		timeSpent.date = formValues.date;
 		
