@@ -3,7 +3,7 @@
 	color="primary"
 	*ngFor="let team of myTeams | async"
 	(click)="goToTeamInfo(team)">
-	{{team.name}}
+	{{team.name | truncEllipsesText:15}}
 </button>
 
 <button
