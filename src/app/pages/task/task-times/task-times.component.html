@@ -2,7 +2,7 @@
 	<h4>Histórico de Tempo</h4>
 	<div class="mat-list-task-times__content scrollbar-thin">
 		<mat-list-item *ngFor="let taskTime of taskTimes">
-			<span><strong>{{ taskTime.gladname }}</strong> trabalhou <strong>{{ taskTime.minutesSpent | hourMinute }}</strong> em <strong>{{ taskTime.date | date: 'dd/MM/yyyy' }}</strong></span>
+			<span><strong>{{ taskTime.firstName }}</strong> trabalhou <strong>{{ taskTime.minutesSpent | hourMinute }}</strong> em <strong>{{ taskTime.date | date: 'dd/MM/yyyy' }}</strong></span>
 		</mat-list-item>
 		<mat-divider></mat-divider>
 	</div>
