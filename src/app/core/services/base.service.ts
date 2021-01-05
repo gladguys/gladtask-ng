@@ -6,34 +6,38 @@ import { BaseModel } from 'src/app/shared/models/base.model';
 import { User } from 'src/app/shared/models/user.model';
 
 export abstract class BaseService<T extends BaseModel> {
+  protected http: HttpClient;
 
-    protected http: HttpClient;
+  protected constructor(
+    protected injector: Injector,
+    protected pathToApi: string
+  ) {
+    this.http = this.injector.get(HttpClient);
+  }
 
-    protected constructor(protected injector: Injector, protected pathToApi: string) {
-        this.http = this.injector.get(HttpClient);
-    }
+  findById(id: string): Observable<T> {
+    return this.http.get<T>(environment.API + this.pathToApi + `/${id}`);
+  }
 
-    findById(id: string): Observable<T> {
-		return this.http.get<T>(environment.API + this.pathToApi + `/${id}`);
+  createOrUpdate(t: T): Observable<T> {
+    if (t._id != null && t._id != '') {
+      return this.http.put<T>(environment.API + this.pathToApi, t);
+    } else {
+      return this.http.post<T>(environment.API + this.pathToApi, t);
     }
-    
-    createOrUpdate(t: T): Observable<T> {
-		if(t._id != null && t._id != '') {
-			return this.http.put<T>(environment.API + this.pathToApi, t);
-		} else {
-			return this.http.post<T>(environment.API + this.pathToApi, t);
-		}
-    }
-    
-    findAll() {
-		return this.http.get<T[]>(environment.API + this.pathToApi);
-    }
+  }
 
-    findByTeam(teamId: string): Observable<User[]> {
-      return this.http.get<User[]>(environment.API + this.pathToApi + `/team/${teamId}`);
-    }
-    
-    delete(id: string) {
-		return this.http.delete(environment.API + this.pathToApi + `/${id}`);
-	}
+  findAll() {
+    return this.http.get<T[]>(environment.API + this.pathToApi);
+  }
+
+  findByTeam(teamId: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      environment.API + this.pathToApi + `/team/${teamId}`
+    );
+  }
+
+  delete(id: string) {
+    return this.http.delete(environment.API + this.pathToApi + `/${id}`);
+  }
 }

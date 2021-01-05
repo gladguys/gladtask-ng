@@ -1,78 +1,85 @@
 <div fxLayout="row wrap">
-	<h1 fxFlex="1 1 100%">{{team.name}}</h1>
+  <h1 fxFlex="1 1 100%">{{ team.name }}</h1>
 
-	<div class="gerente-container">
-		<div>
-			<h4>Gerente: </h4>
-			<label>{{team.manager?.email}}</label>
-		</div>
+  <div class="gerente-container">
+    <div>
+      <h4>Gerente:</h4>
+      <label>{{ team.manager?.email }}</label>
+    </div>
 
-		<div>
-			<h4>Convidar pessoas para se tornarem Glad: </h4>
-			<mat-form-field>
-				<input matInput #email placeholder="Email do convidado">
-			</mat-form-field>
-			<button mat-button class="invite-btn" type="button" (click)="handleInviteEmail()">Convidar</button>
-		</div>
-	</div>
+    <div>
+      <h4>Convidar pessoas para se tornarem Glad:</h4>
+      <mat-form-field>
+        <input matInput #email placeholder="Email do convidado" />
+      </mat-form-field>
+      <button
+        mat-button
+        class="invite-btn"
+        type="button"
+        (click)="handleInviteEmail()"
+      >
+        Convidar
+      </button>
+    </div>
+  </div>
 
-	<div
-		fxLayout="row wrap"
-		fxFlex="1 1 100%"
-		class="participants-container">
-		
-		<h4 fxFlex="1 1 100%">Participantes</h4>
+  <div fxLayout="row wrap" fxFlex="1 1 100%" class="participants-container">
+    <h4 fxFlex="1 1 100%">Participantes</h4>
 
-		<mat-chip-list *ngIf="team.participants; else messageNoParticipantes">
-			<mat-chip *ngFor="let user of team.participants">
-				{{user.firstName}} {{user.lastName}}
-			</mat-chip>
+    <mat-chip-list *ngIf="team.participants; else messageNoParticipantes">
+      <mat-chip *ngFor="let user of team.participants">
+        {{ user.firstName }} {{ user.lastName }}
+      </mat-chip>
 
-			<mat-chip
-				class="chip-add-participant"
-				(click)="showAddParticipant = !showAddParticipant">
+      <mat-chip
+        class="chip-add-participant"
+        (click)="showAddParticipant = !showAddParticipant"
+      >
+        <fa-icon icon="plus"></fa-icon>
+      </mat-chip>
+    </mat-chip-list>
 
-				<fa-icon icon="plus"></fa-icon>
-			</mat-chip>
-		</mat-chip-list>
+    <div
+      fxLayout="row wrap"
+      fxFlex="1 1 100%"
+      class="add-participant-container"
+      *ngIf="showAddParticipant"
+    >
+      <h4 fxFlex="1 1 100%">Adicione participantes</h4>
 
-		<div
-			fxLayout="row wrap"
-			fxFlex="1 1 100%"
-			class="add-participant-container"
-			*ngIf="showAddParticipant">
+      <mat-form-field fxFlex="1 1 290px" appearance="outline">
+        <mat-label>Pesquise por usuário</mat-label>
+        <input
+          matInput
+          [formControl]="textSearchParticipant"
+          (keyup)="search()"
+        />
+      </mat-form-field>
 
-			<h4 fxFlex="1 1 100%">Adicione participantes</h4>
+      <div
+        fxFlex="1 1 100%"
+        class="search-result-container"
+        *ngIf="filteredParticipants.length > 0"
+      >
+        <mat-chip-list>
+          <mat-chip
+            *ngFor="let user of filteredParticipants"
+            (click)="addUserToTeam(user)"
+          >
+            {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
 
-			<mat-form-field
-				fxFlex="1 1 290px"
-				appearance="outline">
-		
-				<mat-label>Pesquise por usuário</mat-label>
-				<input matInput [formControl]="textSearchParticipant" (keyup)="search()">
-			</mat-form-field>
+  <div class="new-team-btn">
+    <button mat-stroked-button routerLink="{{ projectFormLink }}">
+      Criar Projeto
+    </button>
+  </div>
 
-			<div
-				fxFlex="1 1 100%"
-				class="search-result-container"
-				*ngIf="filteredParticipants.length > 0">
-
-				<mat-chip-list>
-					<mat-chip
-						*ngFor="let user of filteredParticipants"
-						(click)="addUserToTeam(user)">
-						{{user.firstName}} {{user.lastName}} ({{ user.email }})
-					</mat-chip>
-				</mat-chip-list>
-			</div>
-		</div>
-	</div>
-
-	<div class="new-team-btn">
-		<button mat-stroked-button routerLink="{{projectFormLink}}">Criar Projeto</button>
-	</div>
-
-	<ng-template #messageNoParticipantes>
-		<label>Não há nenhum usuário participante dessa equipe</label>
-	</ng-template>
+  <ng-template #messageNoParticipantes>
+    <label>Não há nenhum usuário participante dessa equipe</label>
+  </ng-template>
 </div>

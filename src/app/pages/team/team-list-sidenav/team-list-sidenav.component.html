@@ -1,16 +1,13 @@
 <button
-	mat-stroked-button
-	color="primary"
-	*ngFor="let team of myTeams | async"
-	(click)="goToTeamInfo(team)">
-	{{team.name | truncEllipsesText:15}}
+  mat-stroked-button
+  color="primary"
+  *ngFor="let team of myTeams | async"
+  (click)="goToTeamInfo(team)"
+>
+  {{ team.name | truncEllipsesText: 15 }}
 </button>
 
-<button
-	mat-raised-button
-	class="button-add-team"
-	routerLink="/teams/team-form">
-
-	<fa-icon icon="plus"></fa-icon>
-	Criar Equipe
+<button mat-raised-button class="button-add-team" routerLink="/teams/team-form">
+  <fa-icon icon="plus"></fa-icon>
+  Criar Equipe
 </button>

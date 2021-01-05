@@ -1,49 +1,77 @@
-<mat-card
-	fxFlex="0 0 280px"
-	class="card-task"
-	[ngClass]="getColorCard()">
+<mat-card fxFlex="0 0 280px" class="card-task" [ngClass]="getColorCard()">
+  <mat-card-content>
+    <div fxLayout="column" [formGroup]="taskForm">
+      <mat-form-field
+        appearance="outline"
+        class="mat-form-field--appearence-label-smaller input-task-title"
+      >
+        <input matInput formControlName="title" required />
+      </mat-form-field>
 
-	<mat-card-content>
-		<div fxLayout="column" [formGroup]="taskForm">
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller input-task-title">
-				<input matInput formControlName="title" required>
-			</mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="mat-form-field--appearence-label-smaller"
+      >
+        <mat-label>Enviado por</mat-label>
+        <input matInput value="{{ task.senderUser?.username }}" disabled />
+      </mat-form-field>
 
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
-				<mat-label>Enviado por</mat-label>
-				<input matInput value="{{task.senderUser?.username}}" disabled>
-			</mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="mat-form-field--appearence-label-smaller"
+      >
+        <mat-label>Projeto</mat-label>
+        <input matInput value="{{ task.project?.name }}" disabled />
+      </mat-form-field>
 
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller">
-				<mat-label>Projeto</mat-label>
-				<input matInput value="{{task.project?.name}}" disabled>
-			</mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="mat-form-field--appearence-label-smaller select-task-status"
+      >
+        <fa-icon
+          icon="circle"
+          size="sm"
+          matPrefix
+          class="status-indicator status-indicator--{{
+            task.status | statusColor
+          }}"
+        ></fa-icon>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" [disabled]="!canEdit">
+          <mat-option
+            *ngFor="let status of possibleStatus"
+            [value]="getEnum(status)"
+          >
+            <fa-icon
+              icon="circle"
+              size="sm"
+              class="status-indicator status-indicator--{{
+                status | statusColor
+              }}"
+            ></fa-icon>
+            {{ status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+    <button
+      mat-mini-fab
+      class="mat-elevation-z0"
+      (click)="openBottomSheetTimeSpent()"
+    >
+      <fa-icon icon="clock"></fa-icon>
+    </button>
 
-			<mat-form-field appearance="outline" class="mat-form-field--appearence-label-smaller select-task-status">
-				<fa-icon icon="circle" size="sm" matPrefix class="status-indicator status-indicator--{{ task.status | statusColor }}"></fa-icon>
-				<mat-label>Status</mat-label>
-				<mat-select formControlName="status" [disabled]="!canEdit">
-					<mat-option *ngFor="let status of possibleStatus" [value]="getEnum(status)">
-						<fa-icon icon="circle" size="sm" class="status-indicator status-indicator--{{ status | statusColor }}"></fa-icon>
-						{{status}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</div>
-	</mat-card-content>
-	<mat-card-actions
-		fxLayout="row"
-		fxLayoutAlign="end center"
-		fxLayoutGap="5px">
+    <span class="fill-remaining-space"></span>
 
-		<button mat-mini-fab class="mat-elevation-z0" (click)="openBottomSheetTimeSpent()">
-			<fa-icon icon="clock"></fa-icon>
-		</button>
-
-		<span class="fill-remaining-space"></span>
-
-		<button mat-mini-fab class="mat-elevation-z0" (click)="showTaskDetail(task)">
-			<fa-icon icon="expand"></fa-icon>
-		</button>
-	</mat-card-actions>
+    <button
+      mat-mini-fab
+      class="mat-elevation-z0"
+      (click)="showTaskDetail(task)"
+    >
+      <fa-icon icon="expand"></fa-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>

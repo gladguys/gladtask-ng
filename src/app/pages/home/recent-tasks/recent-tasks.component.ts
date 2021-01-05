@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { TaskService } from "../../../core/services/task.service";
-import { Task } from "../../../shared/models/task.model";
-import { SharedService } from "../../../core/services/shared.service";
+import { TaskService } from '../../../core/services/task.service';
+import { Task } from '../../../shared/models/task.model';
+import { SharedService } from '../../../core/services/shared.service';
 
 @Component({
   selector: 'recent-tasks',
   templateUrl: './recent-tasks.component.html',
-  styleUrls: ['./recent-tasks.component.scss']
+  styleUrls: ['./recent-tasks.component.scss'],
 })
 export class RecentTasksComponent implements OnInit {
+  tasks$: Observable<Task[]>;
 
-	tasks$: Observable<Task[]>;
+  constructor(
+    private taskService: TaskService,
+    private sharedService: SharedService
+  ) {}
 
-	constructor(
-		private taskService: TaskService,
-		private sharedService: SharedService) {}
-
-	ngOnInit() {
-		let userId = this.sharedService.getUserLogged()._id;
-		this.tasks$ = this.taskService.findFirst4ByTargetUserIdOrderByLastEdited(userId);
-	}
+  ngOnInit() {
+    let userId = this.sharedService.getUserLogged()._id;
+    this.tasks$ = this.taskService.findFirst4ByTargetUserIdOrderByLastEdited(
+      userId
+    );
+  }
 }

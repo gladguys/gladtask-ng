@@ -1,67 +1,56 @@
 <div fxLayout="row">
-	<div 
-		class="input-search-container"
-		[ngClass]="{'show-search': showSearch}">
+  <div class="input-search-container" [ngClass]="{ 'show-search': showSearch }">
+    <input
+      #searchInput
+      type="text"
+      class="input-search"
+      (keyup)="search($event)"
+      placeholder="Procure por tasks, projetos, users..."
+    />
 
-		<input
-			#searchInput
-			type="text"
-			class="input-search"
-			(keyup)="search($event)"
-			placeholder="Procure por tasks, projetos, users...">
+    <div
+      class="result-search scrollbar-thin"
+      (clickOutside)="resetLists()"
+      *ngIf="tasks.length > 0 || users.length > 0 || projects.length > 0"
+    >
+      <label class="result-search__title-section" *ngIf="tasks.length > 0">
+        Tasks
+      </label>
+      <a
+        class="result-search__item"
+        *ngFor="let task of tasks"
+        (click)="goToTask(task)"
+      >
+        {{ task.title }}
+      </a>
 
-		<div
-			class="result-search scrollbar-thin"
-			(clickOutside)="resetLists()"
-			*ngIf="tasks.length > 0 || users.length > 0 || projects.length > 0">
+      <label class="result-search__title-section" *ngIf="users.length > 0">
+        Usuários
+      </label>
+      <a
+        class="result-search__item"
+        *ngFor="let user of users"
+        (click)="goToUser(user)"
+      >
+        {{ user.firstName }}
+      </a>
 
-			<label
-				class="result-search__title-section"
-				*ngIf="tasks.length > 0">
-				Tasks
-			</label>
-			<a
-				class="result-search__item"
-				*ngFor="let task of tasks"
-				(click)="goToTask(task)">
-				{{ task.title }}
-			</a>
+      <label class="result-search__title-section" *ngIf="projects.length > 0">
+        Projetos
+      </label>
+      <a
+        class="result-search__item"
+        *ngFor="let project of projects"
+        (click)="goToProject(project)"
+      >
+        {{ project.name }}
+      </a>
+    </div>
+  </div>
 
-			<label
-				class="result-search__title-section"
-				*ngIf="users.length > 0">
-				Usuários
-			</label>
-			<a
-				class="result-search__item"
-				*ngFor="let user of users"
-				(click)="goToUser(user)">
-				{{ user.firstName}}
-			</a>
+  <button mat-icon-button (click)="toggleSearch()" class="btn-toggle-search">
+    <fa-icon icon="search" size="lg" *ngIf="!showSearch"></fa-icon>
 
-			<label
-				class="result-search__title-section"
-				*ngIf="projects.length > 0">
-				Projetos
-			</label>
-			<a
-				class="result-search__item"
-				*ngFor="let project of projects"
-				(click)="goToProject(project)">
-				{{ project.name}}
-			</a>
-		</div>
-	</div>
-
-	<button mat-icon-button (click)="toggleSearch()" class="btn-toggle-search">
-		<fa-icon
-			icon="search"
-			size="lg"
-			*ngIf="!showSearch"></fa-icon>
-
-		<fa-icon
-			icon="times"
-			size="lg"
-			*ngIf="showSearch"></fa-icon>
-	</button>
+    <fa-icon icon="times" size="lg" *ngIf="showSearch"></fa-icon>
+  </button>
 </div>

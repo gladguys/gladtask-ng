@@ -1,52 +1,49 @@
 @import '../../../../variables';
 
 h1 {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 h4 {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .gerente-container {
-	width: 70%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .invite-btn {
-	margin-left: 8px;
-	color: white;
-	background-color: $blue;
+  margin-left: 8px;
+  color: white;
+  background-color: $blue;
 }
 
 .participants-container {
-	
-	.chip-add-participant {
-		color: white;
-		background-color: $blue;
-	}
+  .chip-add-participant {
+    color: white;
+    background-color: $blue;
+  }
 
-	.add-participant-container {
-		margin-top: 10px;
-		padding: 10px;
-		border: 1px solid $border;
-		border-radius: 5px;
+  .add-participant-container {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid $border;
+    border-radius: 5px;
 
-		h4 {
-			margin-top: 0;
-		}
-	
-		.mat-form-field {
+    h4 {
+      margin-top: 0;
+    }
 
-			/deep/
-			.mat-form-field-wrapper {
-				margin-bottom: 5px;
-				padding-bottom: 0;
-			}
-		}
-	}
+    .mat-form-field {
+      /deep/ .mat-form-field-wrapper {
+        margin-bottom: 5px;
+        padding-bottom: 0;
+      }
+    }
+  }
 }
 
 .new-team-btn {

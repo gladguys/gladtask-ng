@@ -1,106 +1,124 @@
 <gt-toolbar
-	*ngIf="(userIsLoggedIn$ | async)"
-	(mouseover)="itensMenuViewExtended = itensMenuViewExtendedAlways"></gt-toolbar>
+  *ngIf="userIsLoggedIn$ | async"
+  (mouseover)="itensMenuViewExtended = itensMenuViewExtendedAlways"
+></gt-toolbar>
 
 <div class="app-container">
-	<mat-sidenav-container>
-		<mat-sidenav *ngIf="(userIsLoggedIn$ | async)"
-			#sidenav
-			[mode]="mobileQuery.matches ? 'over' : 'side'"
-			[opened]="!mobileQuery.matches"
-			[ngClass]="{'sidenav--small': !itensMenuViewExtended, 'sidenav--dynamic-mode': !itensMenuViewExtendedAlways}"
-			(mouseover)="itensMenuViewExtended = true"
-			role="navigation">
-
-			<mat-nav-list *ngIf="itensMenuViewExtended; else iconView">
-				<button
-					mat-icon-button
-					class="btn-menu-pin"
-					[ngClass]="{'btn-menu-pin--off': !itensMenuViewExtendedAlways}"
-					(click)="itensMenuViewExtendedAlways = !itensMenuViewExtendedAlways"
-					*ngIf="!mobileQuery.matches">
-
-					<fa-icon icon="thumbtack"></fa-icon>
-				</button>
-				<button class="btn-add-task" mat-raised-button color="primary" routerLink="{{taskFormLink}}">
-					<fa-icon icon="plus" size="lg"></fa-icon>
-					Nova Task
-				</button>
-				<mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-					<fa-icon icon="home" size="lg"></fa-icon>
-					<a [routerLink]="['/']" (click)="setMenuTitle('Home')">Home</a>
-				</mat-list-item>
-				<mat-list-item routerLinkActive="active">
-					<fa-icon icon="tasks" size="lg"></fa-icon>
-					<a routerLink="{{tasksLink}}" (click)="setMenuTitle('Tasks')">Tasks</a>
-				</mat-list-item>
-				<!--<mat-list-item routerLinkActive="active">
+  <mat-sidenav-container>
+    <mat-sidenav
+      *ngIf="userIsLoggedIn$ | async"
+      #sidenav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [opened]="!mobileQuery.matches"
+      [ngClass]="{
+        'sidenav--small': !itensMenuViewExtended,
+        'sidenav--dynamic-mode': !itensMenuViewExtendedAlways
+      }"
+      (mouseover)="itensMenuViewExtended = true"
+      role="navigation"
+    >
+      <mat-nav-list *ngIf="itensMenuViewExtended; else iconView">
+        <button
+          mat-icon-button
+          class="btn-menu-pin"
+          [ngClass]="{ 'btn-menu-pin--off': !itensMenuViewExtendedAlways }"
+          (click)="itensMenuViewExtendedAlways = !itensMenuViewExtendedAlways"
+          *ngIf="!mobileQuery.matches"
+        >
+          <fa-icon icon="thumbtack"></fa-icon>
+        </button>
+        <button
+          class="btn-add-task"
+          mat-raised-button
+          color="primary"
+          routerLink="{{ taskFormLink }}"
+        >
+          <fa-icon icon="plus" size="lg"></fa-icon>
+          Nova Task
+        </button>
+        <mat-list-item
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <fa-icon icon="home" size="lg"></fa-icon>
+          <a [routerLink]="['/']" (click)="setMenuTitle('Home')">Home</a>
+        </mat-list-item>
+        <mat-list-item routerLinkActive="active">
+          <fa-icon icon="tasks" size="lg"></fa-icon>
+          <a routerLink="{{ tasksLink }}" (click)="setMenuTitle('Tasks')"
+            >Tasks</a
+          >
+        </mat-list-item>
+        <!--<mat-list-item routerLinkActive="active">
 					<fa-icon icon="envelope" size="lg"></fa-icon>
 					<a [routerLink]="['inbox']" (click)="setMenuTitle('Mensagens')">Mensagens</a>
 				</mat-list-item>-->
-				<mat-list-item routerLinkActive="active">
-					<fa-icon icon="columns" size="lg"></fa-icon>
-					<a [routerLink]="['kanban']" (click)="setMenuTitle('Kanban')">Kanban</a>
-				</mat-list-item>
+        <mat-list-item routerLinkActive="active">
+          <fa-icon icon="columns" size="lg"></fa-icon>
+          <a [routerLink]="['kanban']" (click)="setMenuTitle('Kanban')"
+            >Kanban</a
+          >
+        </mat-list-item>
 
-				<mat-divider class="line-separator-sidenav"></mat-divider>
+        <mat-divider class="line-separator-sidenav"></mat-divider>
 
-				<team-list-sidenav></team-list-sidenav>
-			</mat-nav-list>
+        <team-list-sidenav></team-list-sidenav>
+      </mat-nav-list>
 
-			<ng-template #iconView>
-				<mat-nav-list>
-					<button
-						class="btn-add-task "
-						mat-mini-fab
-						color="primary"
-						routerLink="{{taskFormLink}}">
-						
-						<fa-icon icon="plus" size="lg"></fa-icon>
-					</button>
-					<mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-						<fa-icon icon="home" size="lg"></fa-icon>
-						<a [routerLink]="['/']" (click)="setMenuTitle('Home')"></a>
-					</mat-list-item>
-					<mat-list-item routerLinkActive="active">
-						<fa-icon icon="tasks" size="lg"></fa-icon>
-						<a routerLink="{{tasksLink}}" (click)="setMenuTitle('Tasks')"></a>
-					</mat-list-item>
-					<!--<mat-list-item routerLinkActive="active">
+      <ng-template #iconView>
+        <mat-nav-list>
+          <button
+            class="btn-add-task"
+            mat-mini-fab
+            color="primary"
+            routerLink="{{ taskFormLink }}"
+          >
+            <fa-icon icon="plus" size="lg"></fa-icon>
+          </button>
+          <mat-list-item
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <fa-icon icon="home" size="lg"></fa-icon>
+            <a [routerLink]="['/']" (click)="setMenuTitle('Home')"></a>
+          </mat-list-item>
+          <mat-list-item routerLinkActive="active">
+            <fa-icon icon="tasks" size="lg"></fa-icon>
+            <a routerLink="{{ tasksLink }}" (click)="setMenuTitle('Tasks')"></a>
+          </mat-list-item>
+          <!--<mat-list-item routerLinkActive="active">
 						<fa-icon icon="envelope" size="lg"></fa-icon>
 						<a [routerLink]="['inbox']" (click)="setMenuTitle('Mensagens')"></a>
 					</mat-list-item>-->
-					<mat-list-item routerLinkActive="active">
-						<fa-icon icon="columns" size="lg"></fa-icon>
-						<a [routerLink]="['kanban']" (click)="setMenuTitle('Kanban')"></a>
-					</mat-list-item>
-				</mat-nav-list>
-			</ng-template>
+          <mat-list-item routerLinkActive="active">
+            <fa-icon icon="columns" size="lg"></fa-icon>
+            <a [routerLink]="['kanban']" (click)="setMenuTitle('Kanban')"></a>
+          </mat-list-item>
+        </mat-nav-list>
+      </ng-template>
 
-			<a
-				[hidden]="!mobileQuery.matches"
-				[routerLink]="['/']"
-				class="gt-logo">
-				Gladtask
-			</a>
-		</mat-sidenav>
-		
-		<mat-sidenav-content
-			role="content"
-			[ngClass]="{'content-expanded': !itensMenuViewExtendedAlways}"
-			(mouseover)="itensMenuViewExtended = itensMenuViewExtendedAlways">
+      <a [hidden]="!mobileQuery.matches" [routerLink]="['/']" class="gt-logo">
+        Gladtask
+      </a>
+    </mat-sidenav>
 
-			<div class="content-wrapper">
-				<section class="content-header"></section>
-				<ngx-spinner
-					bdColor="rgba(255, 255, 255, 0.8)"
-					color="#b71c1c"
-					type="ball-clip-rotate-pulse">
-				</ngx-spinner>
-				<section class="content mat-sidenav-content-outlet">
-					<router-outlet></router-outlet>
-				</section>
-			</div>
-		</mat-sidenav-content>
-	</mat-sidenav-container>
+    <mat-sidenav-content
+      role="content"
+      [ngClass]="{ 'content-expanded': !itensMenuViewExtendedAlways }"
+      (mouseover)="itensMenuViewExtended = itensMenuViewExtendedAlways"
+    >
+      <div class="content-wrapper">
+        <section class="content-header"></section>
+        <ngx-spinner
+          bdColor="rgba(255, 255, 255, 0.8)"
+          color="#b71c1c"
+          type="ball-clip-rotate-pulse"
+        >
+        </ngx-spinner>
+        <section class="content mat-sidenav-content-outlet">
+          <router-outlet></router-outlet>
+        </section>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

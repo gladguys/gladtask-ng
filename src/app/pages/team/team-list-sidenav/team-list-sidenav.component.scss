@@ -1,23 +1,23 @@
 @import '../../../../variables';
 
 button {
-    display: block;
-    margin: 0 auto 8px 14px;
-	width: 90%;
-	font-weight: normal;
-	border-radius: 20px;
+  display: block;
+  margin: 0 auto 8px 14px;
+  width: 90%;
+  font-weight: normal;
+  border-radius: 20px;
 
-	&.button-add-team {
-		width: auto;
-		margin: 15px auto 0 30px;
-		line-height: 28px;
-		font-size: 12px;
-		font-weight: 500;
-		background-color: $accent-background;
-				
-		fa-icon {
-			margin-right: 2px;
-			vertical-align: top;
-		}
-	}
+  &.button-add-team {
+    width: auto;
+    margin: 15px auto 0 30px;
+    line-height: 28px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: $accent-background;
+
+    fa-icon {
+      margin-right: 2px;
+      vertical-align: top;
+    }
+  }
 }

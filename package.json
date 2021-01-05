@@ -76,13 +76,16 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
+    "node-sass": "^4.0.0",
+    "prettier": "^2.2.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.1.6"
   },
   "engines": {
-    "node": "8.16.0",
+    "node": "12.18.4",
     "npm": "6.4.1"
   }
 }

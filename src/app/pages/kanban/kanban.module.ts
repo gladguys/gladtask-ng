@@ -11,21 +11,19 @@ import { SharedModule } from '../../shared/shared.module';
 import { TaskModule } from '../task/task.module';
 
 @NgModule({
-	declarations: [KanbanComponent],
-	imports: [
-		FlexLayoutModule,
-		FontAwesomeModule,
-		CoreModule,
-		SharedModule,
-		TaskModule,
-		DragDropModule
-	],
-	exports: [
-		KanbanComponent
-	]
+  declarations: [KanbanComponent],
+  imports: [
+    FlexLayoutModule,
+    FontAwesomeModule,
+    CoreModule,
+    SharedModule,
+    TaskModule,
+    DragDropModule,
+  ],
+  exports: [KanbanComponent],
 })
 export class KanbanModule {
-	constructor() {
-		library.add(faExpand);
-	}
+  constructor() {
+    library.add(faExpand);
+  }
 }

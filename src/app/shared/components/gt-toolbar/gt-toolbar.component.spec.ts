@@ -5,25 +5,22 @@ import { SharedModule } from '../../shared.module';
 import { CoreModule } from '../../../core/core.module';
 
 describe('GTToolbarComponent', () => {
-	let component: GTToolbarComponent;
-	let fixture: ComponentFixture<GTToolbarComponent>;
+  let component: GTToolbarComponent;
+  let fixture: ComponentFixture<GTToolbarComponent>;
 
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
-			imports: [
-				SharedModule,
-				CoreModule
-			]
-		}).compileComponents();
-	}));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [SharedModule, CoreModule],
+    }).compileComponents();
+  }));
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(GTToolbarComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
-	});
+  beforeEach(() => {
+    fixture = TestBed.createComponent(GTToolbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

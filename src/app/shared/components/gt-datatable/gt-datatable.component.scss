@@ -1,89 +1,84 @@
 .form-field-search-table {
-
-	/deep/ .mat-form-field-wrapper {
-		margin: 0;
-		padding-bottom: 0;
-	}
+  /deep/ .mat-form-field-wrapper {
+    margin: 0;
+    padding-bottom: 0;
+  }
 }
 
 .mat-paginator {
+  /deep/ {
+    .mat-paginator-container {
+      min-height: unset;
+      flex-wrap: wrap;
+    }
 
-	/deep/ {
+    .mat-paginator-page-size-select {
+      margin-top: 0;
 
-		.mat-paginator-container {
-			min-height: unset;
-			flex-wrap: wrap;
-		}
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
 
-		.mat-paginator-page-size-select {
-			margin-top: 0;
+        .mat-form-field-infix {
+          padding: 10px;
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          border-radius: 5px;
 
-			.mat-form-field-wrapper {
-				padding-bottom: 0;
+          .mat-form-field-label-wrapper {
+            top: 0;
+            padding-top: 0;
+          }
+        }
 
-				.mat-form-field-infix {
-					padding: 10px;
-					border: 1px solid rgba(0, 0, 0, 0.12);
-					border-radius: 5px;
+        .mat-form-field-underline {
+          display: none;
+        }
+      }
+    }
 
-					.mat-form-field-label-wrapper {
-						top: 0;
-						padding-top: 0;
-					}
-				}
+    .mat-paginator-range-actions {
+      .mat-paginator-range-label {
+        margin-right: 0;
+      }
 
-				.mat-form-field-underline {
-					display: none;
-				}
-			}
-		}
+      .mat-icon-button {
+        width: 30px;
+        height: 30px;
+        line-height: 29px;
+      }
+    }
+  }
 
-		.mat-paginator-range-actions {
-			
-			.mat-paginator-range-label {
-				margin-right: 0;
-			}
-
-			.mat-icon-button {
-				width: 30px;
-				height: 30px;
-				line-height: 29px;
-			}
-		}
-	}
-
-	~ .mat-table {
-		margin-top: 10px;
-	}
+  ~ .mat-table {
+    margin-top: 10px;
+  }
 }
 
 .mat-table {
+  mat-header-row {
+    min-height: 40px;
 
-	mat-header-row {
-		min-height: 40px;
-
-		/deep/ .mat-sort-header-button {
-			font-weight: bold;
-		}
-	}
+    /deep/ .mat-sort-header-button {
+      font-weight: bold;
+    }
+  }
 }
 
 .novo {
-	color:darkgoldenrod;
+  color: darkgoldenrod;
 }
 
 .aprovado {
-	color:green;
+  color: green;
 }
 
 .desaprovado {
-	color:red;
+  color: red;
 }
 
 .resolvido {
-	color:darkblue;
+  color: darkblue;
 }
 
 .atribuido {
-	color:darkmagenta;
+  color: darkmagenta;
 }

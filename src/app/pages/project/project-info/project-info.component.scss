@@ -1,65 +1,65 @@
 @import '../../../../variables';
 
 .card-project {
-	border: 1px solid $border;
-    border-radius: 10px;
-	box-shadow: none;
-	
-	mat-card-title {
-		font-size: 16px;
-	}
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: none;
 
-	&.card-project-info {
-		margin-bottom: 16px;
+  mat-card-title {
+    font-size: 16px;
+  }
 
-		.project-image {
-			margin-top: 8px;
-			margin-bottom: 8px;
-			width: 120px;
-			height: 120px;
-		}
+  &.card-project-info {
+    margin-bottom: 16px;
 
-		.generic-project-info .project-info-wrapper {
-			padding: 4px 0;
-		}
-	}
+    .project-image {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      width: 120px;
+      height: 120px;
+    }
 
-	&.card-project-participants {
-		margin-right: 0 !important;
-		margin-bottom: 16px;
+    .generic-project-info .project-info-wrapper {
+      padding: 4px 0;
+    }
+  }
 
-		.participants-container {
-			margin-top: 16px;
-			overflow: auto;
-			
-			.participant {
-				margin-bottom: 8px;
-				padding: 8px 4px;
-				border: 1px solid $border;
-				border-radius: 8px;
+  &.card-project-participants {
+    margin-right: 0 !important;
+    margin-bottom: 16px;
 
-				.participant__image {
-					margin-bottom: 8px;
-					height: 72px;
-					width: 72px;
-					box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
-				}
+    .participants-container {
+      margin-top: 16px;
+      overflow: auto;
 
-				> label {
-					font-size: 12px;
-				}
-			}
-		}
-	}
+      .participant {
+        margin-bottom: 8px;
+        padding: 8px 4px;
+        border: 1px solid $border;
+        border-radius: 8px;
+
+        .participant__image {
+          margin-bottom: 8px;
+          height: 72px;
+          width: 72px;
+          box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        > label {
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 .card-project-kanban {
-	margin-top: 15px;
-	border: 1px solid $border;
-    border-radius: 10px;
-	box-shadow: none;
+  margin-top: 15px;
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: none;
 
-	mat-card-title {
-		font-size: 16px;
-	}
+  mat-card-title {
+    font-size: 16px;
+  }
 }

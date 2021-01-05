@@ -1,44 +1,44 @@
 <mat-toolbar class="gt-toolbar">
-	<button
-		mat-icon-button
-		fxHide.gt-sm="true"
-		(click)="toggleSidenav()"
-		class="btn-menu">
-		
-		<fa-icon icon="bars" size="lg"></fa-icon>
-	</button>
+  <button
+    mat-icon-button
+    fxHide.gt-sm="true"
+    (click)="toggleSidenav()"
+    class="btn-menu"
+  >
+    <fa-icon icon="bars" size="lg"></fa-icon>
+  </button>
 
-	<a
-		fxHide.lt-md="true"
-		[routerLink]="['/']"
-		title="Versão: {{ version }}"
-		class="gt-logo">
-		Gladtask
-	</a>
+  <a
+    fxHide.lt-md="true"
+    [routerLink]="['/']"
+    title="Versão: {{ version }}"
+    class="gt-logo"
+  >
+    Gladtask
+  </a>
 
-	<label
-		fxHide.gt-sm="true"
-		class="gt-logo title-menu">
-		{{titleMenu}}
-	</label>
+  <label fxHide.gt-sm="true" class="gt-logo title-menu">
+    {{ titleMenu }}
+  </label>
 
-	<span class="fill-remaining-space"></span>
+  <span class="fill-remaining-space"></span>
 
-	<gt-search></gt-search>
+  <gt-search></gt-search>
 
-	<a
-		class="profile-photo image-rounded"
-		[style.background-image]="profileImg | makeTrustedImage: 'style'"
-		[satPopoverAnchorFor]="userLoggedPopover" (click)="userLoggedPopover.toggle()">
-	</a>
+  <a
+    class="profile-photo image-rounded"
+    [style.background-image]="profileImg | makeTrustedImage: 'style'"
+    [satPopoverAnchorFor]="userLoggedPopover"
+    (click)="userLoggedPopover.toggle()"
+  >
+  </a>
 
-	<sat-popover
-		#userLoggedPopover
-		hasBackdrop
-		verticalAlign="below"
-		[autoFocus]="false">
-
-		<gt-user-logged-info></gt-user-logged-info>
-	</sat-popover>
-
+  <sat-popover
+    #userLoggedPopover
+    hasBackdrop
+    verticalAlign="below"
+    [autoFocus]="false"
+  >
+    <gt-user-logged-info></gt-user-logged-info>
+  </sat-popover>
 </mat-toolbar>

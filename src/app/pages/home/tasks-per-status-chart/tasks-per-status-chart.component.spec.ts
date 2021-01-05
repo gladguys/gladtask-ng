@@ -8,7 +8,7 @@ describe('TasksPerStatusChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasksPerStatusChartComponent ]
+      declarations: [TasksPerStatusChartComponent],
     }).compileComponents();
   }));
 

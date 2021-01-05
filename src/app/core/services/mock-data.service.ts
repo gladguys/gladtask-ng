@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MockDataService {
+  constructor(private http: HttpClient) {}
 
-	constructor(private http: HttpClient) {}
-
-	getMockData() {
-		return this.http.get('../assets/mock.json');
-	}
+  getMockData() {
+    return this.http.get('../assets/mock.json');
+  }
 }

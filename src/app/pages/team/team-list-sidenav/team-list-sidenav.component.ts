@@ -7,25 +7,25 @@ import { Observable } from 'rxjs';
 import { TeamRoutingNames } from '../team-routing-names';
 
 @Component({
-    selector: 'team-list-sidenav',
-    templateUrl: './team-list-sidenav.component.html',
-    styleUrls: ['./team-list-sidenav.component.scss']
+  selector: 'team-list-sidenav',
+  templateUrl: './team-list-sidenav.component.html',
+  styleUrls: ['./team-list-sidenav.component.scss'],
 })
 export class TeamListSidenavComponent implements OnInit {
+  myTeams: Observable<Array<Team>> = new Observable();
 
-    myTeams: Observable<Array<Team>> = new Observable();
+  constructor(
+    private teamService: TeamService,
+    private sharedService: SharedService,
+    public router: Router
+  ) {}
 
-    constructor(
-    	private teamService: TeamService,
-        private sharedService: SharedService,
-        public router: Router) { }
+  ngOnInit(): void {
+    this.myTeams = this.teamService.myTeams;
+    this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
+  }
 
-    ngOnInit(): void {
-        this.myTeams = this.teamService.myTeams;
-        this.teamService.updateMyTeams(this.sharedService.getUserLogged()._id);
-    }
-
-    goToTeamInfo(team) {
-        this.router.navigate([TeamRoutingNames.TEAMS, team._id]);
-    }
+  goToTeamInfo(team) {
+    this.router.navigate([TeamRoutingNames.TEAMS, team._id]);
+  }
 }
