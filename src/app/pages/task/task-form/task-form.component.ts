@@ -266,7 +266,7 @@ export class TaskFormComponent implements OnInit {
 
   onSubmit() {
     let isEdit = this.task._id != undefined;
-    let submittedTask = this.taskForm.getRawValue() as Task;
+    const submittedTask = this.taskForm.getRawValue() as Task;
     submittedTask.taskComments = this.taskComments;
     if (isEdit) {
       submittedTask._id = this.task._id;
