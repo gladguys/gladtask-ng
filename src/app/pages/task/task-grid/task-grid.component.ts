@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../../../shared/models/task.model';
 import { Router } from '@angular/router';
 import { TaskRoutingNames } from '../task-routing-names';
+import { PriorityEnum } from 'src/app/shared/enums/PriorityEnum';
 
 @Component({
   selector: 'task-grid',
@@ -60,9 +61,9 @@ export class TaskGridComponent implements OnInit {
 
   configureGridRowStyle(): void {
     this.gridOptions.getRowStyle = (params) => {
-      if (params.data.priority === 'Baixo') {
+      if (params.data.priority === PriorityEnum.BAIXA) {
         return null;
-      } else if (params.data.priority === 'Normal') {
+      } else if (params.data.priority === PriorityEnum.NORMAL) {
         return { background: 'rgb(255, 255, 225)' };
       } else {
         return { background: 'rgb(255, 230, 230)' };
