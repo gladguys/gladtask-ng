@@ -265,6 +265,7 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.task);
     let isEdit = this.task._id != undefined;
     const submittedTask = this.taskForm.getRawValue() as Task;
     submittedTask.taskComments = this.taskComments;
@@ -396,9 +397,11 @@ export class TaskFormComponent implements OnInit {
       data: { taskId: this.task._id },
       panelClass: 'mat-bottom-sheet-container-time-spent',
     });
-    bottomSheetRef.afterDismissed().subscribe(() => {
-      this.task.timeSpentValues.push(this.timeSpent$.getValue());
-      this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+    bottomSheetRef.afterDismissed().subscribe((added) => {
+      if (added) {
+        this.task.timeSpentValues.push(this.timeSpent$.getValue());
+        this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+      }
     });
   }
 

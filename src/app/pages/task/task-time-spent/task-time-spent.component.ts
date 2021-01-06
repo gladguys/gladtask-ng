@@ -48,7 +48,7 @@ export class TaskTimeSpentComponent implements OnInit {
 
     this.taskService.saveTimeSpent(taskId, timeSpent, true).subscribe(() => {
       this.timeSpentService.emitTimeSpent(timeSpent);
-      this.bottomSheetRef.dismiss();
+      this.bottomSheetRef.dismiss(true);
     });
   }
 
