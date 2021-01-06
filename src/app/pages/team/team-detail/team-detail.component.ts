@@ -97,7 +97,7 @@ export class TeamDetailComponent implements OnInit {
           this.gladService.openSnack(`Convite enviado!`);
         },
         (error) => {
-          console.log('errrrror');
+          console.error('error trying to invite.');
         }
       );
     }
