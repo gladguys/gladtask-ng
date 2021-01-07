@@ -396,9 +396,11 @@ export class TaskFormComponent implements OnInit {
       data: { taskId: this.task._id },
       panelClass: 'mat-bottom-sheet-container-time-spent',
     });
-    bottomSheetRef.afterDismissed().subscribe(() => {
-      this.task.timeSpentValues.push(this.timeSpent$.getValue());
-      this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+    bottomSheetRef.afterDismissed().subscribe((added) => {
+      if (added) {
+        this.task.timeSpentValues.push(this.timeSpent$.getValue());
+        this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+      }
     });
   }
 
