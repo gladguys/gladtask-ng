@@ -140,9 +140,9 @@ export class TaskFormComponent implements OnInit {
         status: ['', Validators.required],
         taskType: ['', Validators.required],
         dueDate: [''],
-        team: [null],
+        team: [null, Validators.required],
         estimatedTime: [''],
-        project: [{ value: null, disabled: true }],
+        project: [{ value: null, disabled: true }, Validators.required],
       },
       { validator: ValidateTitleEqualDesc }
     );
