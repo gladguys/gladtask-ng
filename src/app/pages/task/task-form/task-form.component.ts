@@ -255,8 +255,8 @@ export class TaskFormComponent implements OnInit {
     if (submittedTask.targetUser !== this.task.targetUser) {
       let taskChangeTargetUser = this.buildTaskChange(
         'Atribuir para',
-        this.task.targetUser,
-        submittedTask.targetUser
+        this.task.targetUser.firstName,
+        submittedTask.targetUser.firstName
       );
       this.taskService
         .saveTaskChange(submittedTask._id, taskChangeTargetUser)
