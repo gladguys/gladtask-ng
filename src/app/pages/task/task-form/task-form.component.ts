@@ -182,6 +182,7 @@ export class TaskFormComponent implements OnInit {
 
   populateForm(task: Task): void {
     this.loadProjects(task.project.team._id);
+    this.loadUsers(task.project.team._id);
     this.taskForm.patchValue({
       title: task.title,
       priority: task.priority,

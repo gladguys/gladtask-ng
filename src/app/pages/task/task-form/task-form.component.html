@@ -213,7 +213,6 @@
       <mat-select
         formControlName="targetUser"
         [compareWith]="compareUser"
-        required
       >
         <mat-option *ngFor="let user of possibleTargetUsers" [value]="user">
           {{ user.username }}
