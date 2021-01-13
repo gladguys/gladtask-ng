@@ -55,38 +55,6 @@
         border: 1px solid lightgray;
         border-radius: 4px;
       }
-
-      .task-status-label {
-        &.task-status-label--red {
-          color: red;
-          border-color: red;
-        }
-
-        &.task-status-label--green {
-          color: green;
-          border-color: green;
-        }
-
-        &.task-status-label--blue {
-          color: blue;
-          border-color: blue;
-        }
-
-        &.task-status-label--grey {
-          color: grey;
-          border-color: grey;
-        }
-
-        &.task-status-label--yellow {
-          color: yellow;
-          border-color: yellow;
-        }
-
-        &.task-status-label--orange {
-          color: orange;
-          border-color: orange;
-        }
-      }
     }
   }
 
@@ -101,5 +69,33 @@
 @media (max-width: 599px) {
   .task-title {
     margin-bottom: 8px;
+  }
+}
+
+.status-indicator {
+  margin-right: 5px;
+
+  &.status-indicator--red {
+    color: red;
+  }
+
+  &.status-indicator--green {
+    color: green;
+  }
+
+  &.status-indicator--blue {
+    color: blue;
+  }
+
+  &.status-indicator--grey {
+    color: grey;
+  }
+
+  &.status-indicator--yellow {
+    color: yellow;
+  }
+
+  &.status-indicator--orange {
+    color: orange;
   }
 }

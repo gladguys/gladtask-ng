@@ -16,6 +16,7 @@ import { GTDatatableModule } from './components/gt-datatable/gt-datatable.module
 import { GTPipesModule } from './pipes/gt-pipes.module';
 import { GTConfirmationDialogModule } from './components/gt-confirmation-dialog/gt-confirmation-dialog.module';
 import { IfCreatorOrTargetOrManagerDirective } from './directives/if-creator-or-target-or-manager.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { IfCreatorOrTargetOrManagerDirective } from './directives/if-creator-or-
     GTConfirmationDialogModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    FontAwesomeModule
   ],
   exports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { IfCreatorOrTargetOrManagerDirective } from './directives/if-creator-or-
     AdminOnlyDirective,
     LoggedOnlyDirective,
     IfCreatorOrTargetOrManagerDirective,
+    FontAwesomeModule
   ],
 })
 export class SharedModule {}

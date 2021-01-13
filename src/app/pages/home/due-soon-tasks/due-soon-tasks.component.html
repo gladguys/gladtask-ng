@@ -20,17 +20,19 @@
           (click)="showTaskDetail(task)"
         >
           <span class="task-title">{{ task.title }}</span>
+          <fa-icon
+            icon="circle"
+            size="sm"
+            matPrefix
+            class="status-indicator status-indicator--{{
+              task.status | statusColor
+            }}"
+          ></fa-icon>
           <span fxShow.gt-xs="true" class="fill-remaining-space"></span>
           <span fxShow.gt-xs="false" class="line-break"></span>
           <span *ngIf="task.project" class="task-project">{{
             task.project?.name
           }}</span>
-          <span
-            class="task-status-label task-status-label--{{
-              task.status | statusColor
-            }}"
-            >{{ task.status }}</span
-          >
           <div *ngIf="task.dueDate | dateProximity">
             <div [ngSwitch]="getDateProximityDescription(task)">
               <span
