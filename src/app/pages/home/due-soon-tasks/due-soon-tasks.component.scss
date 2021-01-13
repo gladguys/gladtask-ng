@@ -1,4 +1,4 @@
-@import '../../../../variables';
+@import 'src/variables';
 
 .container {
   h1 {
@@ -37,22 +37,22 @@
       .task-due-days-hoje {
         padding: 2px 8px;
         font-size: 0.8rem;
-        color: lightcoral;
-        border: 1px solid lightcoral;
+        color: $color-date-today;
+        border: 1px solid $color-date-today;
         border-radius: 4px;
       }
       .task-due-days-amanha {
         padding: 2px 8px;
         font-size: 0.8rem;
-        color: orange;
-        border: 1px solid orange;
+        color: $color-date-tomorrow;
+        border: 1px solid $color-date-tomorrow;
         border-radius: 4px;
       }
       .task-due-days-depois {
         padding: 2px 8px;
         font-size: 0.8rem;
-        color: lightgray;
-        border: 1px solid lightgray;
+        color: $color-date-later;
+        border: 1px solid $color-date-later;
         border-radius: 4px;
       }
     }
