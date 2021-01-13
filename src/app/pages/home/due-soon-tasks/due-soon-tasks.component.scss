@@ -1,4 +1,5 @@
 @import 'src/variables';
+@import 'src/scss/status-indicator';
 
 .container {
   h1 {
@@ -69,33 +70,5 @@
 @media (max-width: 599px) {
   .task-title {
     margin-bottom: 8px;
-  }
-}
-
-.status-indicator {
-  margin-right: 5px;
-
-  &.status-indicator--red {
-    color: red;
-  }
-
-  &.status-indicator--green {
-    color: green;
-  }
-
-  &.status-indicator--blue {
-    color: blue;
-  }
-
-  &.status-indicator--grey {
-    color: grey;
-  }
-
-  &.status-indicator--yellow {
-    color: yellow;
-  }
-
-  &.status-indicator--orange {
-    color: orange;
   }
 }
