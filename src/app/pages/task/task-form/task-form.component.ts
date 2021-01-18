@@ -93,24 +93,14 @@ export class TaskFormComponent implements OnInit {
   ngOnInit() {
     let id: string = this.activatedRoute.snapshot.params['id'];
     this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
+
     this.initializeForm();
-    if (id != undefined) {
-      this.taskForm.disable();
-    }
     this.getPossibleOptions();
     this.configureTitleLookAlikeSearch();
 
-    this.taskForm.controls['team'].valueChanges.subscribe((team) => {
-      if (team && !this.taskForm.disabled) {
-        this.taskForm.get('project').enable();
-        this.taskForm.get('targetUser').enable();
-        this.loadProjects(team._id);
-        this.loadUsers(team._id);
-      } else {
-        this.taskForm.get('project').disable();
-        this.taskForm.get('targetUser').disable();
-      }
-    });
+    if (id != undefined) {
+      this.taskForm.disable();
+    }
 
     this.task = this.activatedRoute.snapshot.data['task'];
     if (this.task === undefined) {
@@ -147,6 +137,18 @@ export class TaskFormComponent implements OnInit {
       },
       { validator: ValidateTitleEqualDesc }
     );
+
+    this.taskForm.controls['team'].valueChanges.subscribe((team) => {
+      if (team && !this.taskForm.disabled) {
+        this.taskForm.get('project').enable();
+        this.taskForm.get('targetUser').enable();
+        this.loadProjects(team._id);
+        this.loadUsers(team._id);
+      } else {
+        this.taskForm.get('project').disable();
+        this.taskForm.get('targetUser').disable();
+      }
+    });
   }
 
   private getPossibleOptions() {
