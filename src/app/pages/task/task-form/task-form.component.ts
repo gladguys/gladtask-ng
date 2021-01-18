@@ -91,18 +91,17 @@ export class TaskFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let id: string = this.activatedRoute.snapshot.params['id'];
+    this.task = this.activatedRoute.snapshot.data['task'];
     this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
 
     this.initializeForm();
     this.getPossibleOptions();
     this.configureTitleLookAlikeSearch();
 
-    if (id != undefined) {
+    if (this.task != undefined) {
       this.taskForm.disable();
     }
 
-    this.task = this.activatedRoute.snapshot.data['task'];
     if (this.task === undefined) {
       this.task = new Task();
     } else {
@@ -114,6 +113,10 @@ export class TaskFormComponent implements OnInit {
       );
     }
 
+    this.buildTaskValues();
+  }
+
+  private buildTaskValues() {
     this.taskChanges = this.task.taskChanges;
     this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
     this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
