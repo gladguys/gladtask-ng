@@ -117,17 +117,18 @@ export class TaskFormComponent implements OnInit {
       this.task = new Task();
     } else {
       this.taskForm.disable();
-      this.taskChanges = this.task.taskChanges;
-      this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
-      this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
-      this.taskComments = this.task.taskComments;
-      this.taskCommentsService.setUpdatedComments(this.task.taskComments);
       this.populateForm(this.task);
       this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(
         this.task,
         this.sharedService.getUserLogged()._id
       );
     }
+
+    this.taskChanges = this.task.taskChanges;
+    this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
+    this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+    this.taskCommentsService.setUpdatedComments(this.task.taskComments);
+    this.taskComments = this.task.taskComments;
   }
 
   private initializeForm() {
