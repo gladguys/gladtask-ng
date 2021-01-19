@@ -46,14 +46,6 @@
         <mat-label>Gladname</mat-label>
         <input matInput formControlName="username" type="text" required />
 
-        <fa-icon
-          icon="check"
-          matSuffix
-          class="icon-success"
-          *ngIf="userForm.controls['username'].valid"
-        >
-        </fa-icon>
-
         <gt-form-error
           *ngIf="
             userForm.controls['username'].errors?.required &&
@@ -125,6 +117,13 @@
           [type]="hidePassword ? 'password' : 'text'"
           autocomplete="off"
         />
+
+        <fa-icon
+          icon="{{ hidePassword ? 'eye-slash' : 'eye' }}"
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+        >
+        </fa-icon>
 
         <gt-form-error
           *ngIf="userForm.controls['password'].errors?.minLength"
