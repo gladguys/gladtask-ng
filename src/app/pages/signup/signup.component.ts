@@ -14,6 +14,7 @@ import { UploadFileService } from '../../core/services/upload-file.service';
 import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../core/services/user.service';
 import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
+import { forkJoin } from 'rxjs';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -60,25 +61,29 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    this.validateEmailNotTaken();
-    this.validateUsernameNotTaken();
+    this.validateEmailAndUsernameNotTaken().subscribe(([email, user]) => {
+      if (email || user) {
+        email && this.userForm.get('email').setErrors({emailTaken: true});
+        user && this.userForm.get('username').setErrors({usernameTaken: true});
 
-    if (this.userForm.invalid || this.userForm.dirty) return;
+        return;
+      }
 
-    const submittedUser = this.userForm.getRawValue() as User;
-    if (this.previewImage) {
-      submittedUser.profilePhoto = this.previewImage;
-    }
-    this.userService
-      .createOrUpdateWithTeam(submittedUser, this.teamId)
-      .subscribe(
-        (user) => {
-          this.notificationService.notificateSuccess('Usuário criado');
-          this.router.navigate(['/login']);
-        },
-        (e) =>
-          this.notificationService.notificateFailure('Erro ao salvar usuário')
-      );
+      const submittedUser = this.userForm.getRawValue() as User;
+      if (this.previewImage) {
+        submittedUser.profilePhoto = this.previewImage;
+      }
+      this.userService
+        .createOrUpdateWithTeam(submittedUser, this.teamId)
+        .subscribe(
+          (user) => {
+            this.notificationService.notificateSuccess('Usuário criado');
+            this.router.navigate(['/login']);
+          },
+          (e) =>
+            this.notificationService.notificateFailure('Erro ao salvar usuário')
+        );
+    });
   }
 
   showPreviewImage(files) {
@@ -110,31 +115,10 @@ export class SignupComponent {
     return this.userForm.get('confirm_password');
   }
 
-  validateEmailNotTaken() {
-    const emailControl = this.userForm.get('email');
-
-    this.userService
-      .findByEmail(emailControl.value)
-      .pipe(map((isTaken) => !!isTaken))
-      .subscribe((et) => {
-        if (et) {
-          emailControl.setErrors({ emailTaken: true });
-          this.userForm.markAsDirty();
-        }
-      });
-  }
-
-  validateUsernameNotTaken() {
-    const usernameControl = this.userForm.get('username');
-
-    this.userService
-      .findByUsername(usernameControl.value)
-      .pipe(map((isTaken) => !!isTaken))
-      .subscribe((ut) => {
-        if (ut) {
-          usernameControl.setErrors({ usernameTaken: true });
-          this.userForm.markAsDirty();
-        }
-      });
+  validateEmailAndUsernameNotTaken() {
+    return forkJoin([
+      this.userService.findByEmail(this.userForm.get('email').value),
+      this.userService.findByUsername(this.userForm.get('username').value)
+    ])
   }
 }
