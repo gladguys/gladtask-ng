@@ -91,43 +91,37 @@ export class TaskFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let id: string = this.activatedRoute.snapshot.params['id'];
+    this.task = this.activatedRoute.snapshot.data['task'];
     this.timeSpent$ = this.timeSpentService.getTimeSpentSubject();
+
     this.initializeForm();
-    if (id != undefined) {
-      this.taskForm.disable();
-    }
     this.getPossibleOptions();
     this.configureTitleLookAlikeSearch();
 
-    this.taskForm.controls['team'].valueChanges.subscribe((team) => {
-      if (team && !this.taskForm.disabled) {
-        this.taskForm.get('project').enable();
-        this.taskForm.get('targetUser').enable();
-        this.loadProjects(team._id);
-        this.loadUsers(team._id);
-      } else {
-        this.taskForm.get('project').disable();
-        this.taskForm.get('targetUser').disable();
-      }
-    });
+    if (this.task != undefined) {
+      this.taskForm.disable();
+    }
 
-    this.task = this.activatedRoute.snapshot.data['task'];
     if (this.task === undefined) {
       this.task = new Task();
     } else {
       this.taskForm.disable();
-      this.taskChanges = this.task.taskChanges;
-      this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
-      this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
-      this.taskComments = this.task.taskComments;
-      this.taskCommentsService.setUpdatedComments(this.task.taskComments);
       this.populateForm(this.task);
       this.canEdit = this.taskService.isTaskOwnerOrTargetOrTeamManager(
         this.task,
         this.sharedService.getUserLogged()._id
       );
     }
+
+    this.buildTaskValues();
+  }
+
+  private buildTaskValues() {
+    this.taskChanges = this.task.taskChanges;
+    this.taskChangesComponent.setTaskChanges(this.task.taskChanges);
+    this.taskTimesComponent.setTaskTimes(this.task.timeSpentValues);
+    this.taskCommentsService.setUpdatedComments(this.task.taskComments);
+    this.taskComments = this.task.taskComments;
   }
 
   private initializeForm() {
@@ -146,6 +140,18 @@ export class TaskFormComponent implements OnInit {
       },
       { validator: ValidateTitleEqualDesc }
     );
+
+    this.taskForm.controls['team'].valueChanges.subscribe((team) => {
+      if (team && !this.taskForm.disabled) {
+        this.taskForm.get('project').enable();
+        this.taskForm.get('targetUser').enable();
+        this.loadProjects(team._id);
+        this.loadUsers(team._id);
+      } else {
+        this.taskForm.get('project').disable();
+        this.taskForm.get('targetUser').disable();
+      }
+    });
   }
 
   private getPossibleOptions() {
