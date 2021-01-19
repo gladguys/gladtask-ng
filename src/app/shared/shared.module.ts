@@ -17,6 +17,7 @@ import { GTPipesModule } from './pipes/gt-pipes.module';
 import { GTConfirmationDialogModule } from './components/gt-confirmation-dialog/gt-confirmation-dialog.module';
 import { IfCreatorOrTargetOrManagerDirective } from './directives/if-creator-or-target-or-manager.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GTCircleIconModule } from './components/gt-circle-icon/gt-circle-icon.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     GTConfirmationDialogModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    GTCircleIconModule
   ],
   exports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AdminOnlyDirective,
     LoggedOnlyDirective,
     IfCreatorOrTargetOrManagerDirective,
-    FontAwesomeModule
+    FontAwesomeModule,
+    GTCircleIconModule
   ],
 })
 export class SharedModule {}

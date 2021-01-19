@@ -20,14 +20,7 @@
           (click)="showTaskDetail(task)"
         >
           <span class="task-title">{{ task.title }}</span>
-          <fa-icon
-            icon="circle"
-            size="sm"
-            matPrefix
-            class="status-indicator status-indicator--{{
-              task.status | statusColor
-            }}"
-          ></fa-icon>
+          <gt-circle-icon [color]="task.status | statusColor"></gt-circle-icon>
           <span fxShow.gt-xs="true" class="fill-remaining-space"></span>
           <span fxShow.gt-xs="false" class="line-break"></span>
           <span *ngIf="task.project" class="task-project">{{
