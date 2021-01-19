@@ -63,7 +63,6 @@ export class SignupComponent {
     this.validateEmailNotTaken();
     this.validateUsernameNotTaken();
 
-    debugger;
     if (this.userForm.invalid || this.userForm.dirty) return;
 
     const submittedUser = this.userForm.getRawValue() as User;
