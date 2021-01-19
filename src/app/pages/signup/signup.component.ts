@@ -42,13 +42,8 @@ export class SignupComponent {
       username: [
         '',
         Validators.compose([Validators.required, Validators.minLength(4)]),
-        this.validateUsernameNotTaken.bind(this),
       ],
-      email: [
-        '',
-        Validators.compose([Validators.required, Validators.email]),
-        this.validateEmailNotTaken.bind(this),
-      ],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)]),
@@ -65,6 +60,12 @@ export class SignupComponent {
   }
 
   onSubmit() {
+    this.validateEmailNotTaken();
+    this.validateUsernameNotTaken();
+
+    debugger;
+    if (this.userForm.invalid || this.userForm.dirty) return;
+
     const submittedUser = this.userForm.getRawValue() as User;
     if (this.previewImage) {
       submittedUser.profilePhoto = this.previewImage;
@@ -110,19 +111,31 @@ export class SignupComponent {
     return this.userForm.get('confirm_password');
   }
 
-  validateEmailNotTaken(control: FormControl) {
-    return control.valueChanges
-      .pipe(debounceTime(400))
-      .pipe(switchMap((email) => this.userService.findByEmail(email)))
-      .pipe(map((isTaken) => (isTaken ? { emailTaken: true } : null)))
-      .pipe(first());
+  validateEmailNotTaken() {
+    const emailControl = this.userForm.get('email');
+
+    this.userService
+      .findByEmail(emailControl.value)
+      .pipe(map((isTaken) => !!isTaken))
+      .subscribe((et) => {
+        if (et) {
+          emailControl.setErrors({ emailTaken: true });
+          this.userForm.markAsDirty();
+        }
+      });
   }
 
-  validateUsernameNotTaken(control: FormControl) {
-    return control.valueChanges
-      .pipe(debounceTime(400))
-      .pipe(switchMap((username) => this.userService.findByUsername(username)))
-      .pipe(map((isTaken) => (isTaken ? { usernameTaken: true } : null)))
-      .pipe(first());
+  validateUsernameNotTaken() {
+    const usernameControl = this.userForm.get('username');
+
+    this.userService
+      .findByUsername(usernameControl.value)
+      .pipe(map((isTaken) => !!isTaken))
+      .subscribe((ut) => {
+        if (ut) {
+          usernameControl.setErrors({ usernameTaken: true });
+          this.userForm.markAsDirty();
+        }
+      });
   }
 }
