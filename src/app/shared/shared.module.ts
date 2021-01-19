@@ -38,7 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     GTConfirmationDialogModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   exports: [
     CommonModule,
@@ -56,7 +56,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AdminOnlyDirective,
     LoggedOnlyDirective,
     IfCreatorOrTargetOrManagerDirective,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
 })
 export class SharedModule {}
