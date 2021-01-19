@@ -5,13 +5,10 @@ import { User } from '../../shared/models/user.model';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { GTNotificationService } from '../../core/services/gt-notification.service';
-import { UploadFileService } from '../../core/services/upload-file.service';
-import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../core/services/user.service';
 import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
 import { forkJoin } from 'rxjs';
@@ -31,7 +28,6 @@ export class SignupComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private notificationService: GTNotificationService,
-    private uploadFileService: UploadFileService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
