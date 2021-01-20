@@ -5,15 +5,13 @@ import { User } from '../../shared/models/user.model';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { GTNotificationService } from '../../core/services/gt-notification.service';
-import { UploadFileService } from '../../core/services/upload-file.service';
-import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../core/services/user.service';
 import { ProfileEnum } from 'src/app/shared/enums/profile-enum';
+import { forkJoin } from 'rxjs';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -30,7 +28,6 @@ export class SignupComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private notificationService: GTNotificationService,
-    private uploadFileService: UploadFileService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -42,13 +39,8 @@ export class SignupComponent {
       username: [
         '',
         Validators.compose([Validators.required, Validators.minLength(4)]),
-        this.validateUsernameNotTaken.bind(this),
       ],
-      email: [
-        '',
-        Validators.compose([Validators.required, Validators.email]),
-        this.validateEmailNotTaken.bind(this),
-      ],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)]),
@@ -65,20 +57,29 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    const submittedUser = this.userForm.getRawValue() as User;
-    if (this.previewImage) {
-      submittedUser.profilePhoto = this.previewImage;
-    }
-    this.userService
-      .createOrUpdateWithTeam(submittedUser, this.teamId)
-      .subscribe(
-        (user) => {
-          this.notificationService.notificateSuccess('Usuário criado');
-          this.router.navigate(['/login']);
-        },
-        (e) =>
-          this.notificationService.notificateFailure('Erro ao salvar usuário')
-      );
+    this.validateEmailAndUsernameNotTaken().subscribe(([email, user]) => {
+      if (email || user) {
+        email && this.userForm.get('email').setErrors({emailTaken: true});
+        user && this.userForm.get('username').setErrors({usernameTaken: true});
+
+        return;
+      }
+
+      const submittedUser = this.userForm.getRawValue() as User;
+      if (this.previewImage) {
+        submittedUser.profilePhoto = this.previewImage;
+      }
+      this.userService
+        .createOrUpdateWithTeam(submittedUser, this.teamId)
+        .subscribe(
+          (user) => {
+            this.notificationService.notificateSuccess('Usuário criado');
+            this.router.navigate(['/login']);
+          },
+          (e) =>
+            this.notificationService.notificateFailure('Erro ao salvar usuário')
+        );
+    });
   }
 
   showPreviewImage(files) {
@@ -110,19 +111,10 @@ export class SignupComponent {
     return this.userForm.get('confirm_password');
   }
 
-  validateEmailNotTaken(control: FormControl) {
-    return control.valueChanges
-      .pipe(debounceTime(400))
-      .pipe(switchMap((email) => this.userService.findByEmail(email)))
-      .pipe(map((isTaken) => (isTaken ? { emailTaken: true } : null)))
-      .pipe(first());
-  }
-
-  validateUsernameNotTaken(control: FormControl) {
-    return control.valueChanges
-      .pipe(debounceTime(400))
-      .pipe(switchMap((username) => this.userService.findByUsername(username)))
-      .pipe(map((isTaken) => (isTaken ? { usernameTaken: true } : null)))
-      .pipe(first());
+  validateEmailAndUsernameNotTaken() {
+    return forkJoin([
+      this.userService.findByEmail(this.userForm.get('email').value),
+      this.userService.findByUsername(this.userForm.get('username').value)
+    ])
   }
 }

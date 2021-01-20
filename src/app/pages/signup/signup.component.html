@@ -46,14 +46,6 @@
         <mat-label>Gladname</mat-label>
         <input matInput formControlName="username" type="text" required />
 
-        <fa-icon
-          icon="check"
-          matSuffix
-          class="icon-success"
-          *ngIf="userForm.controls['username'].valid"
-        >
-        </fa-icon>
-
         <gt-form-error
           *ngIf="
             userForm.controls['username'].errors?.required &&
@@ -97,13 +89,6 @@
         required
         autocomplete="off"
       />
-      <fa-icon
-        icon="check"
-        matSuffix
-        class="icon-success"
-        *ngIf="userForm.controls['email'].valid"
-      >
-      </fa-icon>
 
       <gt-form-error
         *ngIf="
