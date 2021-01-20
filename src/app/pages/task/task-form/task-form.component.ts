@@ -49,7 +49,7 @@ export class TaskFormComponent implements OnInit {
   @ViewChild('taskComments') taskCommentsComponent: TaskCommentsComponent;
   @ViewChild('textComment') textCommentEl: ElementRef;
 
-  hourMinuteMask = [/[1-9]/, /\d/,':',/\d/, /\d/];
+  hourMinuteMask = [/[0-9]/, /[0-9]/,'h', ':', /[0-5]/, /[0-9]/];
 
   task: Task;
   canEdit: boolean = true;
